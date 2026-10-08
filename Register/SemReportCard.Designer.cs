@@ -67,6 +67,7 @@
             dataGridViewSemReport.RowHeadersWidth = 51;
             dataGridViewSemReport.Size = new Size(766, 400);
             dataGridViewSemReport.TabIndex = 2;
+            dataGridViewSemReport.CellValueChanged += dataGridViewSemReport_CellValueChanged;
             // 
             // menuStrip1
             // 
@@ -84,6 +85,7 @@
             ExitToolStrip.Name = "ExitToolStrip";
             ExitToolStrip.Size = new Size(60, 24);
             ExitToolStrip.Text = "Вихід";
+            ExitToolStrip.Click += ExitToolStrip_Click;
             // 
             // label2
             // 
@@ -110,6 +112,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "SemReportCard";
             Text = "SemReportCard";
+            FormClosed += SemReportCard_FormClosed;
             Load += SemReportCard_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewSemReport).EndInit();
             menuStrip1.ResumeLayout(false);

@@ -10,6 +10,7 @@ namespace Register
     public partial class SemReportCard : Form
     {
         private int groupID;
+        private bool hasChanged = false;
         private string role;
         public RegisterDB DataBase;
 
@@ -33,7 +34,6 @@ namespace Register
             // 1. Заповнюємо групи
             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
 
-            // 2. Виставляємо поточну або першу групу
             if (groupID > 0)
             {
                 comboBoxGroup.SelectedValue = groupID;
@@ -89,14 +89,26 @@ namespace Register
             }
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
+        private void comboBoxGroup_SelectedIndexChanged()
         {
-            base.OnFormClosing(e);
-            dataGridViewSemReport.EndEdit();
-            DataBase?.SaveToFile();
-        }
-       private void comboBoxGroup_SelectedIndexChanged () {
 
+        }
+
+        private void dataGridViewSemReport_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            hasChanged = true;
+        }
+
+        private void ExitToolStrip_Click(object sender, EventArgs e)
+        {
+            FormBuilder.ValidateChanges(hasChanged, DataBase);
+            this.Close();
+        }
+
+        private void SemReportCard_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormBuilder.ValidateChanges(hasChanged, DataBase);
+            this.Close();
         }
     }
 }

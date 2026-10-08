@@ -592,5 +592,23 @@ namespace Register
             dgv.AllowUserToAddRows = false;
             dgv.RowHeadersVisible = false;
         }
+
+   public static void ValidateChanges(bool change, RegisterDB DB)
+        {
+            if (change)
+            {
+                DialogResult result = MessageBox.Show(
+                    "Зберегти внесені зміни?",
+                    "Попередження",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Warning
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    DB.SaveToFile();
+                }
+            }
+        }
     }
 }
