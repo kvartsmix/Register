@@ -12,9 +12,17 @@ namespace Register
 {
     public partial class Main : Form
     {
+        public string email;
+        public string role;
         public Main()
         {
             InitializeComponent();
+        }
+
+        public Main(string email, string role) : this()
+        { 
+            this.email = email;
+            this.role = role;
         }
     }
 }

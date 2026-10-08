@@ -2,15 +2,14 @@ namespace Register
 {
 
 
-    public partial class Form1 : Form
+    public partial class Form1
     {
-        public string email = string.Empty;
-        public string role = string.Empty;
-        public Form1()
+        public Form1();
+        private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            InitializeComponent();
         }
-        public Form1(string email, string role) : this()
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }
