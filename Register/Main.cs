@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Register
@@ -13,24 +6,23 @@ namespace Register
     public partial class Main : Form
     {
         public string filepath = "db.json";
-        RegisterDB DataBase;
-        public string email;
+        private RegisterDB? DataBase;
+
+        public string email = string.Empty;
         public int groupID;
-        public string role;
+        public string role = string.Empty;
 
         public Main()
         {
             InitializeComponent();
         }
 
-        // Конструктор для Студента
         public Main(string role, int groupID) : this()
         {
-            this.groupID = groupID;
             this.role = role;
+            this.groupID = groupID;
         }
 
-        // Конструктор для Викладача (обов'язково з : this())
         public Main(string role) : this()
         {
             this.role = role;
@@ -45,13 +37,43 @@ namespace Register
         private void Main_Load(object sender, EventArgs e)
         {
             DataBase = new RegisterDB(filepath);
-            AdapterDB.SetupDataGridView(dataGridView);
-            dataGridView.DataSource = DataBase.Grades;
-            FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
-            FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
-            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
-            FormBuilder.FormatDataGridView(dataGridView);
 
+            AdapterDB.SetupDataGridView(dataGridView);
+
+            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
+
+            comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
+            comboBoxGroup.SelectionChangeCommitted += (s, ev) => RefreshGrid();
+
+            dataGridView.CellEndEdit += (s, ev) =>
+            {
+                if (DataBase != null && ev.RowIndex >= 0)
+                {
+                    FormBuilder.SaveEditedGrade(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, ev.RowIndex, filepath);
+                }
+            };
+
+            RefreshGrid();
+
+            if (role == "Студент")
+            {
+                dataGridView.ReadOnly = true;
+                dataGridView.AllowUserToAddRows = false;
+                dataGridView.AllowUserToDeleteRows = false;
+            }
+            else if (role == "Викладач")
+            {
+                dataGridView.AllowUserToAddRows = false;
+                dataGridView.AllowUserToDeleteRows = false;
+            }
+        }
+
+        private void RefreshGrid()
+        {
+            if (DataBase != null)
+            {
+                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role);
+            }
         }
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
