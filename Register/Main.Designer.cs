@@ -30,8 +30,8 @@
         {
             comboBoxSubject = new ComboBox();
             comboBoxGroup = new ComboBox();
-            dataGridViewMain = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewMain).BeginInit();
+            dataGridView = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
             // comboBoxSubject
@@ -54,11 +54,11 @@
             // 
             // dataGridViewMain
             // 
-            dataGridViewMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewMain.Location = new Point(24, 70);
-            dataGridViewMain.Name = "dataGridViewMain";
-            dataGridViewMain.Size = new Size(566, 301);
-            dataGridViewMain.TabIndex = 4;
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Location = new Point(24, 70);
+            dataGridView.Name = "dataGridView";
+            dataGridView.Size = new Size(566, 301);
+            dataGridView.TabIndex = 4;
             // 
             // Main
             // 
@@ -67,17 +67,17 @@
             ClientSize = new Size(800, 450);
             Controls.Add(comboBoxSubject);
             Controls.Add(comboBoxGroup);
-            Controls.Add(dataGridViewMain);
+            Controls.Add(dataGridView);
             Name = "Main";
             Text = "Main";
-            ((System.ComponentModel.ISupportInitialize)dataGridViewMain).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
         }
 
         #endregion
 
         private ComboBox comboBoxSubject;
         private ComboBox comboBoxGroup;
-        private DataGridView dataGridViewMain;
+        private DataGridView dataGridView;
 
     }
 }
