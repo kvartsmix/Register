@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Register
 {
      public class AdapterDB
-    {
+     {
 
-    }
+     }
 }

@@ -80,7 +80,7 @@ namespace Register
 
             if (foundUser != null)
             {
-                Form1 form = new Form1();
+                Main form = new Main();
                 this.Hide();
                 form.ShowDialog();
                 this.Show();
