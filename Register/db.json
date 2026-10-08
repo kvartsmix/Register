@@ -1,10 +1,10 @@
 {
   "teachers": [
     {
-      "email": "shevchenko.o@college.edu",
+      "email": "1",
       "first_name": "Олександр",
       "last_name": "Шевченко",
-      "password": "teachPass101"
+      "password": "1"
     }
   ],
   "subjects": [
@@ -21,11 +21,11 @@
   ],
   "students": [
     {
-      "email": "tkachuk.d@student.edu",
+      "email": "2",
       "last_name": "Ткачук",
       "first_name": "Дмитро",
       "group_id": 101,
-      "password": "pass101"
+      "password": "2"
     },
     {
       "email": "moroz.a@student.edu",

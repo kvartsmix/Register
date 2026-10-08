@@ -43,6 +43,7 @@ namespace Register
         {
              DataBase = new RegisterDB(filepath);
              dataGridView.DataSource = DataBase.Students;
+             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
         }
     }
 }
