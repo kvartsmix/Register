@@ -28,6 +28,7 @@ namespace Register
             this.role = role;
         }
 
+        // Конструктор для викладача (передає роль та email)
         public Main(string role, string email) : this()
         {
             this.role = role;
@@ -36,14 +37,14 @@ namespace Register
 
         private void Main_Load(object sender, EventArgs e)
         {
-
+            // Якщо дизайнер прив'язаний до Main_Load_1, цей метод можна залишити порожнім
         }
 
         private void RefreshGrid()
         {
             if (DataBase != null)
             {
-                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role);
+                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email);
             }
         }
 
@@ -51,6 +52,7 @@ namespace Register
         {
 
         }
+
 
         private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -67,11 +69,13 @@ namespace Register
 
         private void Main_Load_1(object sender, EventArgs e)
         {
-             DataBase = new RegisterDB(filepath);
+            DataBase = new RegisterDB(filepath);
 
             AdapterDB.SetupDataGridView(dataGridView);
+            FormBuilder.StyleDataGridView(dataGridView);
 
-            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
+            // ПЕРЕДАЄМО email викладача шостим параметром!
+            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID, email);
 
             comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
             comboBoxGroup.SelectionChangeCommitted += (s, ev) => RefreshGrid();
@@ -80,7 +84,7 @@ namespace Register
             {
                 if (DataBase != null && ev.RowIndex >= 0)
                 {
-                    FormBuilder.SaveEditedGrade(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, ev.RowIndex, filepath);
+                    FormBuilder.SaveEditedGrade(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email, ev.RowIndex, filepath);
                 }
             };
 
@@ -97,6 +101,11 @@ namespace Register
                 dataGridView.AllowUserToAddRows = false;
                 dataGridView.AllowUserToDeleteRows = false;
             }
+        }
+
+        private void dataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            FormBuilder.DataGridView_Cell(sender, e, dataGridView, role);
         }
     }
 }
