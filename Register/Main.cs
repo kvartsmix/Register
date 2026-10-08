@@ -42,7 +42,7 @@ namespace Register
         private void Main_Load(object sender, EventArgs e)
         {
              DataBase = new RegisterDB(filepath);
-             
+             dataGridView.DataSource = DataBase.Students;
         }
     }
 }

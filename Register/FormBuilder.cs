@@ -33,16 +33,6 @@ namespace Register
 
         void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt)
         {
-            var studentIds = grades.Select(g => g.StudentId).Distinct();
-            foreach (int studentId in studentIds)
-            {
-                var validGrades = grades.Where(g => g.StudentId == studentId && g.Value > 0).ToList();
-                if (validGrades.Count > 0)
-                {
-                    double average = validGrades.Average(g => g.Value);
-                    dt.Rows[studentId.ToString()][dt.Columns.Count - 1] = average.ToString("F2");
-                }
-            }
         }
         void FormatDataGridView(DataGridView dgv)
         {
