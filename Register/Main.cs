@@ -36,7 +36,16 @@ namespace Register
 
         private void Main_Load(object sender, EventArgs e)
         {
-
+            DataBase = new RegisterDB(filepath);
+            AdapterDB.SetupDataGridView(dataGridView);
+            dataGridView.DataSource = DataBase.Grades;
+            FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
+            FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
+            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
+            FormBuilder.FormatDataGridView(dataGridView);
+            FormStyles.StyleDataGridView(dataGridView);
+            FormStyles.StyleComboBox(comboBoxGroup);
+            FormStyles.StyleComboBox(comboBoxSubject);
         }
 
         private void RefreshGrid()

@@ -20,7 +20,7 @@ namespace Register
 
         public void Autorization_Load(object sender, EventArgs e)
         {
-            // Any initialization code can go here if needed
+            FormStyles.StyleButton(Enter);
         }
         public void Autor()
         {
