@@ -17,34 +17,44 @@ namespace Register
         public string email;
         public int groupID;
         public string role;
+
         public Main()
         {
             InitializeComponent();
         }
 
-        public Main(string role, int groudID) : this()
+        // Конструктор для Студента
+        public Main(string role, int groupID) : this()
         {
             this.groupID = groupID;
             this.role = role;
-    
         }
 
-        public Main(string role)
+        // Конструктор для Викладача (обов'язково з : this())
+        public Main(string role) : this()
         {
             this.role = role;
         }
 
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        public Main(string role, string email) : this()
         {
-
+            this.role = role;
+            this.email = email;
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
-             DataBase = new RegisterDB(filepath);
-             dataGridView.DataSource = DataBase.Students;
-             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
-            FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
+            DataBase = new RegisterDB(filepath);
+
+            // Виводимо студентів у таблицю
+            dataGridView.DataSource = DataBase.Students;
+
+            // Запускаємо двосторонню синхронізацію між комбобоксами
+            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
         }
     }
 }
