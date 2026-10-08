@@ -43,7 +43,7 @@
             comboBoxGroup.FormattingEnabled = true;
             comboBoxGroup.Location = new Point(95, 65);
             comboBoxGroup.Name = "comboBoxGroup";
-            comboBoxGroup.Size = new Size(121, 23);
+            comboBoxGroup.Size = new Size(138, 28);
             comboBoxGroup.TabIndex = 0;
             // 
             // label1
@@ -94,7 +94,7 @@
             // 
             // SemReportCard
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             ClientSize = new Size(673, 396);
@@ -106,6 +106,7 @@
             MainMenuStrip = menuStrip1;
             Name = "SemReportCard";
             Text = "SemReportCard";
+            Load += SemReportCard_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewSemReport).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

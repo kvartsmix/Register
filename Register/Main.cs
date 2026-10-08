@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,7 @@ namespace Register
 {
     public partial class Main : Form
     {
-        public string filepath = "db.json";
-        RegisterDB DataBase;
+        public static RegisterDB DataBase { get; set; } = new RegisterDB("db.json");
         public string email;
         public int groupID;
         public string role;
@@ -23,6 +23,15 @@ namespace Register
             InitializeComponent();
         }
 
+        private void Main_Load_1(object sender, EventArgs e)
+        {
+            AdapterDB.SetupDataGridView(dataGridView);
+            dataGridView.DataSource = DataBase.Grades;
+            FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
+            FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
+            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
+            FormBuilder.FormatDataGridView(dataGridView);
+        }
         // Конструктор для Студента
         public Main(string role, int groupID) : this()
         {
@@ -42,17 +51,6 @@ namespace Register
             this.email = email;
         }
 
-        private void Main_Load(object sender, EventArgs e)
-        {
-            DataBase = new RegisterDB(filepath);
-            AdapterDB.SetupDataGridView(dataGridView);
-            dataGridView.DataSource = DataBase.Grades;
-            FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
-            FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
-            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
-            FormBuilder.FormatDataGridView(dataGridView);
-
-        }
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -61,13 +59,12 @@ namespace Register
 
         private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SemReportCard form = new SemReportCard();
+            SemReportCard form = new SemReportCard(DataBase, role, groupID);
+            this.Hide();
             form.ShowDialog();
+            this.Show();
         }
 
-        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+
     }
 }
