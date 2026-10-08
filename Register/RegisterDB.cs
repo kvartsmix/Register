@@ -136,7 +136,12 @@ using System.Text.Json.Serialization;
 
             [JsonIgnore]
             public Subject? Subject { get; set; }
-        }
+    [JsonIgnore]
+    public string LastName => Student?.LastName ?? string.Empty;
+
+    [JsonIgnore]
+    public string FirstName => Student?.FirstName ?? string.Empty;
+}
 
 public class RegisterDB
 {

@@ -101,7 +101,7 @@ namespace Register
             cb.DataSource = subjects;
         }
 
-        public static void CalculateAverageGradeForSubjects(BindingList<Grade> grades, DataTable dt)
+        public static void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt)
         {
             if (dt.Rows.Count == 0) return;
 
@@ -155,33 +155,34 @@ namespace Register
 
         public static void FormatDataGridView(DataGridView dgv)
         {
-            for (int i = 0; i < dgv.Columns.Count; i++)
+            for (int j = 0; j < dgv.Rows.Count; j++)
             {
-                for (int j = 0; j < dgv.Rows.Count; j++)
-                {
-                    var cellValue = dgv.Rows[j].Cells[i].Value;
-                    if (cellValue == null) continue;
+                if (dgv.Rows[j].IsNewRow) continue;
 
-                    // Парсимо безпечно, щоб не падати на тексті (ПІБ, назви тощо)
-                    if (double.TryParse(cellValue.ToString(), out double val))
+                for (int i = 0; i < dgv.Columns.Count; i++)
+                {
+                    var cell = dgv.Rows[j].Cells[i];
+                    var val = cell.Value?.ToString()?.Trim();
+                    if (string.IsNullOrEmpty(val)) continue;
+
+                    if (int.TryParse(val, out int num))
                     {
-                        int grade = (int)Math.Round(val);
-                        switch (grade)
+                        switch (num)
                         {
                             case 2:
-                                dgv.Rows[j].Cells[i].Style.ForeColor = Color.Red;
+                                cell.Style.ForeColor = Color.White;
+                                cell.Style.BackColor = Color.Black;
                                 break;
                             case 3:
-                                dgv.Rows[j].Cells[i].Style.ForeColor = Color.DarkGoldenrod;
+                                cell.Style.ForeColor = Color.Blue;
                                 break;
                             case 4:
-                                dgv.Rows[j].Cells[i].Style.ForeColor = Color.ForestGreen;
+                                cell.Style.ForeColor = Color.LimeGreen;
                                 break;
                             case 5:
-                                dgv.Rows[j].Cells[i].Style.ForeColor = Color.Green;
+                                cell.Style.ForeColor = Color.Red;
                                 break;
                             default:
-                                dgv.Rows[j].Cells[i].Style.BackColor = Color.LightGray;
                                 break;
                         }
                     }

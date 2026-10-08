@@ -45,16 +45,18 @@ namespace Register
         private void Main_Load(object sender, EventArgs e)
         {
             DataBase = new RegisterDB(filepath);
-
-            // Виводимо студентів у таблицю
-            dataGridView.DataSource = DataBase.Students;
-
-            // Запускаємо двосторонню синхронізацію між комбобоксами
-            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
+     AdapterDB.SetupDataGridView(dataGridView);
+            dataGridView.DataSource = DataBase.Grades;
+                        FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
+            FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
+  FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
+            FormBuilder.FormatDataGridView(dataGridView);
+          
         }
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+       
         }
     }
 }
