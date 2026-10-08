@@ -36,7 +36,38 @@ namespace Register
 
         private void Main_Load(object sender, EventArgs e)
         {
-            DataBase = new RegisterDB(filepath);
+
+        }
+
+        private void RefreshGrid()
+        {
+            if (DataBase != null)
+            {
+                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role);
+            }
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SemReportCard form = new SemReportCard();
+            this.Hide();
+            form.ShowDialog();
+            this.Show();
+        }
+
+        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Main_Load_1(object sender, EventArgs e)
+        {
+             DataBase = new RegisterDB(filepath);
 
             AdapterDB.SetupDataGridView(dataGridView);
 
@@ -66,30 +97,6 @@ namespace Register
                 dataGridView.AllowUserToAddRows = false;
                 dataGridView.AllowUserToDeleteRows = false;
             }
-        }
-
-        private void RefreshGrid()
-        {
-            if (DataBase != null)
-            {
-                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role);
-            }
-        }
-
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SemReportCard form = new SemReportCard();
-            form.ShowDialog();
-        }
-
-        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }
