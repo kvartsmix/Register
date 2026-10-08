@@ -28,12 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Main";
+            comboBoxGroup = new ComboBox();
+            comboBoxSubject = new ComboBox();
+            dataGridView = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
+            SuspendLayout();
+            // 
+            // comboBoxGroup
+            // 
+            comboBoxGroup.FormattingEnabled = true;
+            comboBoxGroup.Location = new Point(12, 39);
+            comboBoxGroup.Name = "comboBoxGroup";
+            comboBoxGroup.Size = new Size(121, 23);
+            comboBoxGroup.TabIndex = 0;
+            // 
+            // comboBoxSubject
+            // 
+            comboBoxSubject.FormattingEnabled = true;
+            comboBoxSubject.Location = new Point(183, 39);
+            comboBoxSubject.Name = "comboBoxSubject";
+            comboBoxSubject.Size = new Size(121, 23);
+            comboBoxSubject.TabIndex = 1;
+            // 
+            // dataGridView
+            // 
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Location = new Point(12, 87);
+            dataGridView.Name = "dataGridView";
+            dataGridView.Size = new Size(598, 310);
+            dataGridView.TabIndex = 2;
+            // 
+            // Main
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(dataGridView);
+            Controls.Add(comboBoxSubject);
+            Controls.Add(comboBoxGroup);
+            Name = "Main";
+            Text = "Main";
+            ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private ComboBox comboBoxGroup;
+        private ComboBox comboBoxSubject;
+        private DataGridView dataGridView;
     }
 }

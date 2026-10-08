@@ -1,22 +1,22 @@
 {
   "students": [
     {
-      "firstName": "Олександр",
-      "lastName": "Коваленко",
+      "firstName": "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ",
+      "lastName": "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ",
       "email": "student1@gmail.com",
       "password": "pass123student"
     },
     {
-      "firstName": "Марія",
-      "lastName": "Шевченко",
+      "firstName": "пїЅпїЅпїЅпїЅ",
+      "lastName": "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ",
       "email": "mariya.sh@gmail.com",
       "password": "securePass2026"
     }
   ],
   "teachers": [
     {
-      "firstName": "Іван",
-      "lastName": "Петренко",
+      "firstName": "пїЅпїЅпїЅпїЅ",
+      "lastName": "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ",
       "email": "teacher.petrenko@school.edu",
       "password": "teacherSecret99"
     }
