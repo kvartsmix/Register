@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            //comboBoxSubject = new ComboBox();
+            comboBoxSubject = new ComboBox();
             comboBoxGroup = new ComboBox();
             dataGridViewMain = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dataGridViewMain).BeginInit();
