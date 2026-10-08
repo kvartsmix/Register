@@ -108,9 +108,5 @@ namespace Register
         {
             FormBuilder.ValidateChanges(hasChanged, DataBase);
         }
-        private void comboBoxGroup_SelectedIndexChanged()
-        {
-
-        }
     }
 }
