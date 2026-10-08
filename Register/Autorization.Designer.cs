@@ -31,41 +31,73 @@
             Login = new TextBox();
             Pass = new TextBox();
             Enter = new Button();
+            label1 = new Label();
+            label2 = new Label();
             SuspendLayout();
             // 
             // Login
             // 
-            Login.Location = new Point(181, 102);
+            Login.Location = new Point(69, 36);
+            Login.Margin = new Padding(2);
             Login.Name = "Login";
-            Login.Size = new Size(150, 31);
+            Login.Size = new Size(106, 25);
             Login.TabIndex = 0;
             // 
             // Pass
             // 
-            Pass.Location = new Point(437, 102);
+            Pass.Location = new Point(69, 90);
+            Pass.Margin = new Padding(2);
             Pass.Name = "Pass";
-            Pass.Size = new Size(150, 31);
+            Pass.Size = new Size(106, 25);
             Pass.TabIndex = 1;
             // 
             // Enter
             // 
-            Enter.Location = new Point(323, 262);
+            Enter.BackColor = SystemColors.Control;
+            Enter.Location = new Point(49, 138);
+            Enter.Margin = new Padding(2);
             Enter.Name = "Enter";
-            Enter.Size = new Size(112, 34);
+            Enter.Size = new Size(78, 27);
             Enter.TabIndex = 2;
-            Enter.Text = "Enter";
-            Enter.UseVisualStyleBackColor = true;
+            Enter.Text = "Log in";
+            Enter.UseVisualStyleBackColor = false;
             Enter.Click += Enter_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(28, 40);
+            label1.Name = "label1";
+            label1.Size = new Size(41, 19);
+            label1.TabIndex = 3;
+            label1.Text = "Email";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(7, 93);
+            label2.Name = "label2";
+            label2.Size = new Size(67, 19);
+            label2.TabIndex = 4;
+            label2.Text = "Password";
             // 
             // Autorization
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.FromArgb(246, 248, 250);
+            ClientSize = new Size(199, 214);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(Enter);
             Controls.Add(Pass);
             Controls.Add(Login);
+            Font = new Font("Segoe UI", 10F);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(2);
+            MinimizeBox = false;
             Name = "Autorization";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Autorization";
             Load += Autorization_Load;
             ResumeLayout(false);
@@ -77,5 +109,7 @@
         private TextBox Login;
         private TextBox Pass;
         private Button Enter;
+        private Label label1;
+        private Label label2;
     }
 }
