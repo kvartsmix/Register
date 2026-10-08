@@ -62,11 +62,13 @@
             dataGridViewSemReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewSemReport.Location = new Point(3, 94);
             dataGridViewSemReport.Name = "dataGridViewSemReport";
+            dataGridViewSemReport.RowHeadersWidth = 51;
             dataGridViewSemReport.Size = new Size(670, 300);
             dataGridViewSemReport.TabIndex = 2;
             // 
             // menuStrip1
             // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new ToolStripItem[] { ExitToolStrip });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
@@ -90,7 +92,6 @@
             label2.Size = new Size(53, 21);
             label2.TabIndex = 5;
             label2.Text = "Групи";
-            label2.Click += label2_Click;
             // 
             // SemReportCard
             // 

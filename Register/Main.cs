@@ -6,7 +6,7 @@ namespace Register
     public partial class Main : Form
     {
         public string filepath = "db.json";
-        private RegisterDB? DataBase;
+        public static RegisterDB? DataBase;
 
         public string email = string.Empty;
         public int groupID;
@@ -36,9 +36,20 @@ namespace Register
 
         private void Main_Load(object sender, EventArgs e)
         {
+            InitMainForm();
+        }
+
+        private void Main_Load_1(object sender, EventArgs e)
+        {
+            InitMainForm();
+        }
+
+        private void InitMainForm()
+        {
             DataBase = new RegisterDB(filepath);
+
             AdapterDB.SetupDataGridView(dataGridView);
-            dataGridView.DataSource = DataBase.Grades;
+            FormBuilder.StyleDataGridView(dataGridView);
             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
             FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
@@ -48,50 +59,17 @@ namespace Register
             FormStyles.StyleDataGridView(dataGridView);
             FormStyles.StyleComboBox(comboBoxGroup);
             FormStyles.StyleComboBox(comboBoxSubject);
-        }
-
-        private void RefreshGrid()
-        {
-            if (DataBase != null)
-            {
-                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role);
-            }
-        }
-
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SemReportCard form = new SemReportCard();
-            this.Hide();
-            form.ShowDialog();
-            this.Show();
-        }
-
-        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void Main_Load_1(object sender, EventArgs e)
-        {
-             DataBase = new RegisterDB(filepath);
-
-            AdapterDB.SetupDataGridView(dataGridView);
-
-            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
 
             comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
             comboBoxGroup.SelectionChangeCommitted += (s, ev) => RefreshGrid();
+
+            dataGridView.CellValidating += dataGridView_CellValidating;
 
             dataGridView.CellEndEdit += (s, ev) =>
             {
                 if (DataBase != null && ev.RowIndex >= 0)
                 {
-                    FormBuilder.SaveEditedGrade(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, ev.RowIndex, filepath);
+                    FormBuilder.SaveEditedGrade(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email, ev.RowIndex, filepath);
                 }
             };
 
@@ -108,6 +86,46 @@ namespace Register
                 dataGridView.AllowUserToAddRows = false;
                 dataGridView.AllowUserToDeleteRows = false;
             }
+        }
+
+        private void RefreshGrid()
+        {
+            if (DataBase != null)
+            {
+                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email);
+            }
+        }
+
+        private void dataGridView_CellValidating(object? sender, DataGridViewCellValidatingEventArgs e)
+        {
+            FormBuilder.DataGridView_Cell(sender, e, dataGridView, role);
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SemReportCard form = new SemReportCard(DataBase, role, comboBoxGroup.SelectedItem as Group);
+            this.Hide();
+            form.ShowDialog();
+            this.Show();
+        }
+
+        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxSubject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

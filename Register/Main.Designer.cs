@@ -45,17 +45,19 @@
             comboBoxSubject.Location = new Point(169, 25);
             comboBoxSubject.Name = "comboBoxSubject";
             comboBoxSubject.Size = new Size(121, 23);
-            comboBoxSubject.TabIndex = 6;
+
             comboBoxSubject.Text = "Предмет";
+            comboBoxSubject.SelectedIndexChanged += comboBoxSubject_SelectedIndexChanged;
             // 
             // comboBoxGroup
             // 
             comboBoxGroup.FormattingEnabled = true;
             comboBoxGroup.Location = new Point(24, 25);
             comboBoxGroup.Name = "comboBoxGroup";
-            comboBoxGroup.Size = new Size(121, 23);
+
             comboBoxGroup.TabIndex = 5;
             comboBoxGroup.Text = "Група";
+            comboBoxGroup.SelectedIndexChanged += comboBoxGroup_SelectedIndexChanged;
             // 
             // dataGridView
             // 
@@ -65,7 +67,9 @@
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
             dataGridView.Size = new Size(800, 396);
+
             dataGridView.TabIndex = 4;
+            dataGridView.CellValidating += dataGridView_CellValidating;
             // 
             // menuStrip1
             // 
@@ -74,6 +78,8 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 24);
+            menuStrip1.Padding = new Padding(9, 4, 0, 4);
+
             menuStrip1.TabIndex = 7;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -82,12 +88,14 @@
             додатковоToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { семестроваВідомістьToolStripMenuItem, вихідToolStripMenuItem });
             додатковоToolStripMenuItem.Name = "додатковоToolStripMenuItem";
             додатковоToolStripMenuItem.Size = new Size(77, 20);
+
             додатковоToolStripMenuItem.Text = "Додатково";
             // 
             // семестроваВідомістьToolStripMenuItem
             // 
             семестроваВідомістьToolStripMenuItem.Name = "семестроваВідомістьToolStripMenuItem";
             семестроваВідомістьToolStripMenuItem.Size = new Size(194, 22);
+
             семестроваВідомістьToolStripMenuItem.Text = "Семестрова відомість";
             семестроваВідомістьToolStripMenuItem.Click += семестроваВідомістьToolStripMenuItem_Click;
             // 
@@ -103,11 +111,13 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+
             Controls.Add(comboBoxSubject);
             Controls.Add(comboBoxGroup);
             Controls.Add(dataGridView);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+
             Name = "Main";
             Text = "Main";
             Load += Main_Load;
