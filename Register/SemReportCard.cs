@@ -15,7 +15,6 @@ namespace Register
         public SemReportCard()
         {
             InitializeComponent();
-            FormBuilder.StyleDataGridView(dataGridViewSemReport);
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -26,6 +25,12 @@ namespace Register
         private void ExitToolStrip_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void SemReportCard_Load(object sender, EventArgs e)
+        {
+            FormStyles.StyleComboBox(comboBoxGroup);
+            FormStyles.StyleDataGridView(dataGridViewSemReport);
         }
     }
 }

@@ -59,10 +59,11 @@
             // 
             // dataGridView
             // 
+            dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(24, 70);
+            dataGridView.Location = new Point(0, 70);
             dataGridView.Name = "dataGridView";
-            dataGridView.Size = new Size(566, 301);
+            dataGridView.Size = new Size(800, 381);
             dataGridView.TabIndex = 4;
             // 
             // menuStrip1
@@ -107,6 +108,7 @@
             MainMenuStrip = menuStrip1;
             Name = "Main";
             Text = "Main";
+            Load += Main_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

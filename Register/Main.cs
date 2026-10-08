@@ -51,7 +51,9 @@ namespace Register
             FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
             FormBuilder.FormatDataGridView(dataGridView);
-
+            FormStyles.StyleDataGridView(dataGridView);
+            FormStyles.StyleComboBox(comboBoxGroup);
+            FormStyles.StyleComboBox(comboBoxSubject);
         }
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
