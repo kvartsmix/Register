@@ -29,6 +29,8 @@ namespace Register
 
         private void SemReportCard_Load(object sender, EventArgs e)
         {
+            dataGridViewSemReport.Width = this.Width;
+            dataGridViewSemReport.Height = this.Height - 50;
             FormStyles.StyleComboBox(comboBoxGroup);
             FormStyles.StyleDataGridView(dataGridViewSemReport);
         }

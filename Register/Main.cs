@@ -43,6 +43,8 @@ namespace Register
             FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
             FormBuilder.FormatDataGridView(dataGridView);
+            dataGridView.Width = this.ClientSize.Width;
+            dataGridView.Height = this.ClientSize.Height - comboBoxGroup.Height - 50;
             FormStyles.StyleDataGridView(dataGridView);
             FormStyles.StyleComboBox(comboBoxGroup);
             FormStyles.StyleComboBox(comboBoxSubject);
