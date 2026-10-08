@@ -48,6 +48,7 @@
             comboBoxSubject.Size = new Size(172, 33);
             comboBoxSubject.TabIndex = 6;
             comboBoxSubject.Text = "Предмет";
+            comboBoxSubject.SelectedIndexChanged += comboBoxSubject_SelectedIndexChanged;
             // 
             // comboBoxGroup
             // 
@@ -58,6 +59,7 @@
             comboBoxGroup.Size = new Size(172, 33);
             comboBoxGroup.TabIndex = 5;
             comboBoxGroup.Text = "Група";
+            comboBoxGroup.SelectedIndexChanged += comboBoxGroup_SelectedIndexChanged;
             // 
             // dataGridView
             // 
@@ -117,7 +119,6 @@
             Name = "Main";
             Text = "Main";
             Load += Main_Load;
-
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

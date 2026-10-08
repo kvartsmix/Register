@@ -111,5 +111,15 @@ namespace Register
         {
             this.Close();
         }
+
+        private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxSubject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
