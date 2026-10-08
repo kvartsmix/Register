@@ -80,8 +80,10 @@ namespace Register
 
             if (foundUser != null)
             {
-                MessageBox.Show($"Успішний вхід!\nЛаскаво просимо, {foundUser.FirstName} {foundUser.LastName} ({role}).",
-                                "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Form1 form = new Form1();
+                this.Hide();
+                form.ShowDialog();
+                this.Show();
             }
             else
             {
