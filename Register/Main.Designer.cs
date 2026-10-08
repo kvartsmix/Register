@@ -58,12 +58,12 @@
             comboBoxGroup.Size = new Size(138, 28);
             comboBoxGroup.TabIndex = 5;
             comboBoxGroup.Text = "Група";
+            comboBoxGroup.SelectedIndexChanged += comboBoxGroup_SelectedIndexChanged;
             // 
             // dataGridView
             // 
             dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-
             dataGridView.Location = new Point(27, 93);
             dataGridView.Margin = new Padding(3, 4, 3, 4);
             dataGridView.Name = "dataGridView";
@@ -117,7 +117,6 @@
             Name = "Main";
             Text = "Main";
             Load += Main_Load;
-
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

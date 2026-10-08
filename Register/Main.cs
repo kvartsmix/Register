@@ -51,7 +51,6 @@ namespace Register
             FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
 
-            // 4. Підписка на події вибору та редагування
             comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
             comboBoxGroup.SelectionChangeCommitted += (s, ev) => RefreshGrid();
 
@@ -96,7 +95,7 @@ namespace Register
 
         private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SemReportCard form = new SemReportCard();
+            SemReportCard form = new SemReportCard(DataBase, role, comboBoxGroup.SelectedItem as Group);
             this.Hide();
             form.ShowDialog();
             this.Show();
@@ -105,6 +104,11 @@ namespace Register
         private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
