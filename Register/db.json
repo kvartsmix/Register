@@ -1,0 +1,24 @@
+{
+  "students": [
+    {
+      "firstName": "Олександр",
+      "lastName": "Коваленко",
+      "email": "student1@gmail.com",
+      "password": "pass123student"
+    },
+    {
+      "firstName": "Марія",
+      "lastName": "Шевченко",
+      "email": "mariya.sh@gmail.com",
+      "password": "securePass2026"
+    }
+  ],
+  "teachers": [
+    {
+      "firstName": "Іван",
+      "lastName": "Петренко",
+      "email": "teacher.petrenko@school.edu",
+      "password": "teacherSecret99"
+    }
+  ]
+}
