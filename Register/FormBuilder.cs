@@ -8,14 +8,14 @@ using System.Data;
 
 namespace Register
 {
-    public class FormBuilder
+    public static class FormBuilder
     {
-        void SyncComboBoxes(ComboBox cb1, ComboBox cb2)
+        public static void SyncComboBoxes(ComboBox cb1, ComboBox cb2)
         {
 
         }
 
-        void CalculateAverageGradeForSubjects(BindingList<Grade> grades, DataTable dt)
+        public static void CalculateAverageGradeForSubjects(BindingList<Grade> grades, DataTable dt)
         {
             var subjectIds = grades.Select(g => g.SubjectId).Distinct();
 
@@ -31,10 +31,17 @@ namespace Register
             }
         }
 
-        void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt)
+        public static void SetGroupComboBox(ComboBox cb, BindingList<Group> groups)
+        {
+            cb.DataSource = null;
+            cb.DisplayMember = "Id";
+            cb.ValueMember = "Id"; 
+            cb.DataSource = groups;
+        }
+        public static  void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt)
         {
         }
-        void FormatDataGridView(DataGridView dgv)
+        public static void FormatDataGridView(DataGridView dgv)
         {
             for (int i = 0; i < dgv.Columns.Count; i++)
             {
