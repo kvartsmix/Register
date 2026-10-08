@@ -51,12 +51,18 @@ namespace Register
             FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
             FormBuilder.FormatDataGridView(dataGridView);
-          
+
         }
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-       
+
+        }
+
+        private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SemReportCard form = new SemReportCard();
+
         }
     }
 }

@@ -31,7 +31,12 @@
             comboBoxSubject = new ComboBox();
             comboBoxGroup = new ComboBox();
             dataGridView = new DataGridView();
+            menuStrip1 = new MenuStrip();
+            додатковоToolStripMenuItem = new ToolStripMenuItem();
+            семестроваВідомістьToolStripMenuItem = new ToolStripMenuItem();
+            вихідToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // comboBoxSubject
@@ -52,13 +57,42 @@
             comboBoxGroup.TabIndex = 5;
             comboBoxGroup.Text = "Група";
             // 
-            // dataGridViewMain
+            // dataGridView
             // 
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Location = new Point(24, 70);
             dataGridView.Name = "dataGridView";
             dataGridView.Size = new Size(566, 301);
             dataGridView.TabIndex = 4;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { додатковоToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(202, 24);
+            menuStrip1.TabIndex = 7;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // додатковоToolStripMenuItem
+            // 
+            додатковоToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { семестроваВідомістьToolStripMenuItem, вихідToolStripMenuItem });
+            додатковоToolStripMenuItem.Name = "додатковоToolStripMenuItem";
+            додатковоToolStripMenuItem.Size = new Size(77, 20);
+            додатковоToolStripMenuItem.Text = "Додатково";
+            // 
+            // семестроваВідомістьToolStripMenuItem
+            // 
+            семестроваВідомістьToolStripMenuItem.Name = "семестроваВідомістьToolStripMenuItem";
+            семестроваВідомістьToolStripMenuItem.Size = new Size(194, 22);
+            семестроваВідомістьToolStripMenuItem.Text = "Семестрова відомість";
+            семестроваВідомістьToolStripMenuItem.Click += семестроваВідомістьToolStripMenuItem_Click;
+            // 
+            // вихідToolStripMenuItem
+            // 
+            вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
+            вихідToolStripMenuItem.Size = new Size(194, 22);
+            вихідToolStripMenuItem.Text = "Вихід";
             // 
             // Main
             // 
@@ -68,9 +102,15 @@
             Controls.Add(comboBoxSubject);
             Controls.Add(comboBoxGroup);
             Controls.Add(dataGridView);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "Main";
             Text = "Main";
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -78,6 +118,9 @@
         private ComboBox comboBoxSubject;
         private ComboBox comboBoxGroup;
         private DataGridView dataGridView;
-
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem додатковоToolStripMenuItem;
+        private ToolStripMenuItem семестроваВідомістьToolStripMenuItem;
+        private ToolStripMenuItem вихідToolStripMenuItem;
     }
 }
