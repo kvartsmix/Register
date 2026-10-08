@@ -31,6 +31,10 @@ namespace Register
 
         private void SemReportCard_Load(object sender, EventArgs e)
         {
+            dataGridViewSemReport.Width = this.Width;
+            dataGridViewSemReport.Height = this.Height - 50;
+            FormStyles.StyleComboBox(comboBoxGroup);
+            FormStyles.StyleDataGridView(dataGridViewSemReport);
             // 1. Заповнюємо групи
             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
 
@@ -89,11 +93,6 @@ namespace Register
             }
         }
 
-        private void comboBoxGroup_SelectedIndexChanged()
-        {
-
-        }
-
         private void dataGridViewSemReport_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             hasChanged = true;
@@ -108,7 +107,10 @@ namespace Register
         private void SemReportCard_FormClosed(object sender, FormClosedEventArgs e)
         {
             FormBuilder.ValidateChanges(hasChanged, DataBase);
-            this.Close();
+        }
+        private void comboBoxGroup_SelectedIndexChanged()
+        {
+
         }
     }
 }
