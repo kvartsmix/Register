@@ -6,7 +6,7 @@ namespace Register
     public partial class Main : Form
     {
         public string filepath = "db.json";
-        private RegisterDB? DataBase;
+        public static RegisterDB? DataBase;
 
         public string email = string.Empty;
         public int groupID;
