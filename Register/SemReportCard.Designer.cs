@@ -106,6 +106,7 @@
             MainMenuStrip = menuStrip1;
             Name = "SemReportCard";
             Text = "SemReportCard";
+            Load += SemReportCard_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewSemReport).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
