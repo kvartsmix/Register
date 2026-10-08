@@ -15,6 +15,17 @@ namespace Register
         public SemReportCard()
         {
             InitializeComponent();
+            FormBuilder.StyleDataGridView(dataGridViewSemReport);
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ExitToolStrip_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
