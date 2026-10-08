@@ -35,6 +35,30 @@
       "first_name": "Олена",
       "last_name": "Савіцька",
       "password": "teachPass106"
+    },
+    {
+      "email": "hrytsenko.d@college.edu",
+      "first_name": "Дмитро",
+      "last_name": "Гриценко",
+      "password": "teachPass107"
+    },
+    {
+      "email": "lytvynenko.m@college.edu",
+      "first_name": "Михайло",
+      "last_name": "Литвиненко",
+      "password": "teachPass108"
+    },
+    {
+      "email": "romanenko.y@college.edu",
+      "first_name": "Юлія",
+      "last_name": "Романенко",
+      "password": "teachPass109"
+    },
+    {
+      "email": "pavlenko.a@college.edu",
+      "first_name": "Андрій",
+      "last_name": "Павленко",
+      "password": "teachPass110"
     }
   ],
   "subjects": [
@@ -77,6 +101,26 @@
     {
       "id": 10,
       "name": "Кібербезпека"
+    },
+    {
+      "id": 11,
+      "name": "Архітектура комп'ютерів"
+    },
+    {
+      "id": 12,
+      "name": "Об'єктно-орієнтоване проектування"
+    },
+    {
+      "id": 13,
+      "name": "Штучний інтелект"
+    },
+    {
+      "id": 14,
+      "name": "Хмарні технології"
+    },
+    {
+      "id": 15,
+      "name": "Тестування ПЗ (QA)"
     }
   ],
   "groups": [
@@ -87,6 +131,18 @@
     {
       "id": 102,
       "curator_email": "kovalchuk.n@college.edu"
+    },
+    {
+      "id": 201,
+      "curator_email": "bondarenko.v@college.edu"
+    },
+    {
+      "id": 202,
+      "curator_email": "melnyk.i@college.edu"
+    },
+    {
+      "id": 301,
+      "curator_email": "pavlenko.a@college.edu"
     }
   ],
   "students": [
@@ -160,41 +216,7 @@
       "group_id": 101,
       "password": "pass110"
     },
-    {
-      "email": "marchenko.i@student.edu",
-      "last_name": "Марченко",
-      "first_name": "Ігор",
-      "group_id": 101,
-      "password": "pass111"
-    },
-    {
-      "email": "shvets.d@student.edu",
-      "last_name": "Швець",
-      "first_name": "Дарина",
-      "group_id": 101,
-      "password": "pass112"
-    },
-    {
-      "email": "kuzmenko.v@student.edu",
-      "last_name": "Кузьменко",
-      "first_name": "Владислав",
-      "group_id": 101,
-      "password": "pass113"
-    },
-    {
-      "email": "ponomarenko.s@student.edu",
-      "last_name": "Пономаренко",
-      "first_name": "Софія",
-      "group_id": 101,
-      "password": "pass114"
-    },
-    {
-      "email": "boyko.t@student.edu",
-      "last_name": "Бойко",
-      "first_name": "Тарас",
-      "group_id": 101,
-      "password": "pass115"
-    },
+
     {
       "email": "khomenko.n@student.edu",
       "last_name": "Хоменко",
@@ -265,40 +287,218 @@
       "group_id": 102,
       "password": "pass125"
     },
+
+    {
+      "email": "marchenko.i@student.edu",
+      "last_name": "Марченко",
+      "first_name": "Ігор",
+      "group_id": 201,
+      "password": "pass201"
+    },
+    {
+      "email": "shvets.d@student.edu",
+      "last_name": "Швець",
+      "first_name": "Дарина",
+      "group_id": 201,
+      "password": "pass202"
+    },
+    {
+      "email": "kuzmenko.v@student.edu",
+      "last_name": "Кузьменко",
+      "first_name": "Владислав",
+      "group_id": 201,
+      "password": "pass203"
+    },
+    {
+      "email": "ponomarenko.s@student.edu",
+      "last_name": "Пономаренко",
+      "first_name": "Софія",
+      "group_id": 201,
+      "password": "pass204"
+    },
+    {
+      "email": "boyko.t@student.edu",
+      "last_name": "Бойко",
+      "first_name": "Тарас",
+      "group_id": 201,
+      "password": "pass205"
+    },
+    {
+      "email": "ivanov.m@student.edu",
+      "last_name": "Іванов",
+      "first_name": "Микола",
+      "group_id": 201,
+      "password": "pass206"
+    },
+    {
+      "email": "semenyuk.a@student.edu",
+      "last_name": "Семенюк",
+      "first_name": "Анастасія",
+      "group_id": 201,
+      "password": "pass207"
+    },
+    {
+      "email": "kostenko.v@student.edu",
+      "last_name": "Костенко",
+      "first_name": "Віталій",
+      "group_id": 201,
+      "password": "pass208"
+    },
+    {
+      "email": "tymoshenko.o@student.edu",
+      "last_name": "Тимошенко",
+      "first_name": "Олександр",
+      "group_id": 201,
+      "password": "pass209"
+    },
+    {
+      "email": "prokopenko.k@student.edu",
+      "last_name": "Прокопенко",
+      "first_name": "Карина",
+      "group_id": 201,
+      "password": "pass210"
+    },
+
     {
       "email": "yurchenko.k@student.edu",
       "last_name": "Юрченко",
       "first_name": "Христина",
-      "group_id": 102,
-      "password": "pass126"
+      "group_id": 202,
+      "password": "pass211"
     },
     {
       "email": "denysenko.p@student.edu",
       "last_name": "Денисенко",
       "first_name": "Павло",
-      "group_id": 102,
-      "password": "pass127"
+      "group_id": 202,
+      "password": "pass212"
     },
     {
       "email": "korol.m@student.edu",
       "last_name": "Король",
       "first_name": "Марина",
-      "group_id": 102,
-      "password": "pass128"
+      "group_id": 202,
+      "password": "pass213"
     },
     {
       "email": "chumak.n@student.edu",
       "last_name": "Чумак",
       "first_name": "Назар",
-      "group_id": 102,
-      "password": "pass129"
+      "group_id": 202,
+      "password": "pass214"
     },
     {
       "email": "solovey.y@student.edu",
       "last_name": "Соловей",
       "first_name": "Єлизавета",
-      "group_id": 102,
-      "password": "pass130"
+      "group_id": 202,
+      "password": "pass215"
+    },
+    {
+      "email": "melnychenko.v@student.edu",
+      "last_name": "Мельниченко",
+      "first_name": "Владислав",
+      "group_id": 202,
+      "password": "pass216"
+    },
+    {
+      "email": "onyshchenko.i@student.edu",
+      "last_name": "Онищенко",
+      "first_name": "Ілона",
+      "group_id": 202,
+      "password": "pass217"
+    },
+    {
+      "email": "danyliuk.t@student.edu",
+      "last_name": "Данилюк",
+      "first_name": "Тарас",
+      "group_id": 202,
+      "password": "pass218"
+    },
+    {
+      "email": "zhuk.o@student.edu",
+      "last_name": "Жук",
+      "first_name": "Оксана",
+      "group_id": 202,
+      "password": "pass219"
+    },
+    {
+      "email": "klymenko.y@student.edu",
+      "last_name": "Клименко",
+      "first_name": "Ярослав",
+      "group_id": 202,
+      "password": "pass220"
+    },
+
+    {
+      "email": "doroshenko.r@student.edu",
+      "last_name": "Дорошенко",
+      "first_name": "Руслан",
+      "group_id": 301,
+      "password": "pass301"
+    },
+    {
+      "email": "nesterenko.v@student.edu",
+      "last_name": "Нестеренко",
+      "first_name": "Вікторія",
+      "group_id": 301,
+      "password": "pass302"
+    },
+    {
+      "email": "vasylenko.i@student.edu",
+      "last_name": "Василенко",
+      "first_name": "Ілля",
+      "group_id": 301,
+      "password": "pass303"
+    },
+    {
+      "email": "horbunov.m@student.edu",
+      "last_name": "Горбунов",
+      "first_name": "Максим",
+      "group_id": 301,
+      "password": "pass304"
+    },
+    {
+      "email": "lyashenko.y@student.edu",
+      "last_name": "Ляшенко",
+      "first_name": "Юлія",
+      "group_id": 301,
+      "password": "pass305"
+    },
+    {
+      "email": "serhienko.a@student.edu",
+      "last_name": "Сергієнко",
+      "first_name": "Андрій",
+      "group_id": 301,
+      "password": "pass306"
+    },
+    {
+      "email": "fomenko.d@student.edu",
+      "last_name": "Фоменко",
+      "first_name": "Дмитро",
+      "group_id": 301,
+      "password": "pass307"
+    },
+    {
+      "email": "yatsenko.t@student.edu",
+      "last_name": "Яценко",
+      "first_name": "Тетяна",
+      "group_id": 301,
+      "password": "pass308"
+    },
+    {
+      "email": "karpov.o@student.edu",
+      "last_name": "Карпов",
+      "first_name": "Олег",
+      "group_id": 301,
+      "password": "pass309"
+    },
+    {
+      "email": "soroka.n@student.edu",
+      "last_name": "Сорока",
+      "first_name": "Надія",
+      "group_id": 301,
+      "password": "pass310"
     }
   ],
   "group_subjects": [
@@ -380,6 +580,99 @@
       "group_id": 102,
       "subject_id": 10,
       "teacher_email": "boyko.s@college.edu"
+    },
+
+    {
+      "id": 14,
+      "group_id": 201,
+      "subject_id": 1,
+      "teacher_email": "1"
+    },
+    {
+      "id": 15,
+      "group_id": 201,
+      "subject_id": 6,
+      "teacher_email": "1"
+    },
+    {
+      "id": 16,
+      "group_id": 201,
+      "subject_id": 11,
+      "teacher_email": "hrytsenko.d@college.edu"
+    },
+    {
+      "id": 17,
+      "group_id": 201,
+      "subject_id": 12,
+      "teacher_email": "lytvynenko.m@college.edu"
+    },
+    {
+      "id": 18,
+      "group_id": 201,
+      "subject_id": 14,
+      "teacher_email": "pavlenko.a@college.edu"
+    },
+
+    {
+      "id": 19,
+      "group_id": 202,
+      "subject_id": 4,
+      "teacher_email": "melnyk.i@college.edu"
+    },
+    {
+      "id": 20,
+      "group_id": 202,
+      "subject_id": 5,
+      "teacher_email": "boyko.s@college.edu"
+    },
+    {
+      "id": 21,
+      "group_id": 202,
+      "subject_id": 7,
+      "teacher_email": "romanenko.y@college.edu"
+    },
+    {
+      "id": 22,
+      "group_id": 202,
+      "subject_id": 10,
+      "teacher_email": "boyko.s@college.edu"
+    },
+    {
+      "id": 23,
+      "group_id": 202,
+      "subject_id": 15,
+      "teacher_email": "romanenko.y@college.edu"
+    },
+
+    {
+      "id": 24,
+      "group_id": 301,
+      "subject_id": 1,
+      "teacher_email": "1"
+    },
+    {
+      "id": 25,
+      "group_id": 301,
+      "subject_id": 12,
+      "teacher_email": "lytvynenko.m@college.edu"
+    },
+    {
+      "id": 26,
+      "group_id": 301,
+      "subject_id": 13,
+      "teacher_email": "hrytsenko.d@college.edu"
+    },
+    {
+      "id": 27,
+      "group_id": 301,
+      "subject_id": 14,
+      "teacher_email": "pavlenko.a@college.edu"
+    },
+    {
+      "id": 28,
+      "group_id": 301,
+      "subject_id": 15,
+      "teacher_email": "romanenko.y@college.edu"
     }
   ],
   "grades": [
@@ -477,149 +770,355 @@
     {
       "id": 14,
       "group_id": 101,
-      "student_email": "marchenko.i@student.edu",
+      "student_email": "savchenko.b@student.edu",
       "subject_id": 1,
       "value": 4.0
     },
     {
       "id": 15,
       "group_id": 101,
-      "student_email": "shvets.d@student.edu",
-      "subject_id": 2,
-      "value": 4.0
+      "student_email": "zinchenko.k@student.edu",
+      "subject_id": 1,
+      "value": 3.0
     },
     {
       "id": 16,
       "group_id": 101,
-      "student_email": "kuzmenko.v@student.edu",
-      "subject_id": 6,
-      "value": 3.0
-    },
-    {
-      "id": 17,
-      "group_id": 101,
-      "student_email": "ponomarenko.s@student.edu",
-      "subject_id": 4,
+      "student_email": "bilous.a@student.edu",
+      "subject_id": 1,
       "value": 5.0
-    },
-    {
-      "id": 18,
-      "group_id": 101,
-      "student_email": "boyko.t@student.edu",
-      "subject_id": 3,
-      "value": 3.0
     },
 
     {
-      "id": 19,
+      "id": 17,
       "group_id": 102,
       "student_email": "khomenko.n@student.edu",
       "subject_id": 1,
       "value": 4.0
     },
     {
-      "id": 20,
+      "id": 18,
       "group_id": 102,
       "student_email": "khomenko.n@student.edu",
       "subject_id": 7,
       "value": 5.0
     },
     {
-      "id": 21,
+      "id": 19,
       "group_id": 102,
       "student_email": "panasyuk.r@student.edu",
       "subject_id": 5,
       "value": 3.0
     },
     {
-      "id": 22,
+      "id": 20,
       "group_id": 102,
       "student_email": "havryliuk.a@student.edu",
       "subject_id": 10,
       "value": 5.0
     },
     {
-      "id": 23,
+      "id": 21,
       "group_id": 102,
       "student_email": "hrytsenko.o@student.edu",
       "subject_id": 9,
       "value": 2.0
     },
     {
-      "id": 24,
+      "id": 22,
       "group_id": 102,
       "student_email": "matviychuk.t@student.edu",
       "subject_id": 2,
       "value": 4.0
     },
     {
-      "id": 25,
+      "id": 23,
       "group_id": 102,
       "student_email": "fedorov.a@student.edu",
       "subject_id": 7,
       "value": 4.0
     },
     {
-      "id": 26,
+      "id": 24,
       "group_id": 102,
       "student_email": "sydorenko.v@student.edu",
       "subject_id": 1,
       "value": 5.0
     },
     {
-      "id": 27,
+      "id": 25,
       "group_id": 102,
       "student_email": "vlasenko.m@student.edu",
       "subject_id": 5,
       "value": 3.0
     },
     {
-      "id": 28,
+      "id": 26,
       "group_id": 102,
       "student_email": "ostapenko.d@student.edu",
       "subject_id": 10,
       "value": 5.0
     },
     {
-      "id": 29,
+      "id": 27,
       "group_id": 102,
       "student_email": "lytvyn.s@student.edu",
       "subject_id": 9,
       "value": 3.0
     },
     {
-      "id": 30,
+      "id": 28,
       "group_id": 102,
-      "student_email": "yurchenko.k@student.edu",
-      "subject_id": 3,
+      "student_email": "matviychuk.t@student.edu",
+      "subject_id": 1,
       "value": 4.0
     },
     {
-      "id": 31,
+      "id": 29,
       "group_id": 102,
-      "student_email": "denysenko.p@student.edu",
-      "subject_id": 2,
-      "value": 2.0
+      "student_email": "panasyuk.r@student.edu",
+      "subject_id": 1,
+      "value": 3.0
+    },
+
+    {
+      "id": 30,
+      "group_id": 201,
+      "student_email": "marchenko.i@student.edu",
+      "subject_id": 1,
+      "value": 5.0
+    },
+    {
+      "id": 31,
+      "group_id": 201,
+      "student_email": "marchenko.i@student.edu",
+      "subject_id": 6,
+      "value": 4.0
     },
     {
       "id": 32,
-      "group_id": 102,
+      "group_id": 201,
+      "student_email": "shvets.d@student.edu",
+      "subject_id": 1,
+      "value": 4.0
+    },
+    {
+      "id": 33,
+      "group_id": 201,
+      "student_email": "shvets.d@student.edu",
+      "subject_id": 11,
+      "value": 5.0
+    },
+    {
+      "id": 34,
+      "group_id": 201,
+      "student_email": "kuzmenko.v@student.edu",
+      "subject_id": 6,
+      "value": 3.0
+    },
+    {
+      "id": 35,
+      "group_id": 201,
+      "student_email": "kuzmenko.v@student.edu",
+      "subject_id": 12,
+      "value": 4.0
+    },
+    {
+      "id": 36,
+      "group_id": 201,
+      "student_email": "ponomarenko.s@student.edu",
+      "subject_id": 1,
+      "value": 5.0
+    },
+    {
+      "id": 37,
+      "group_id": 201,
+      "student_email": "boyko.t@student.edu",
+      "subject_id": 14,
+      "value": 4.0
+    },
+    {
+      "id": 38,
+      "group_id": 201,
+      "student_email": "ivanov.m@student.edu",
+      "subject_id": 1,
+      "value": 3.0
+    },
+    {
+      "id": 39,
+      "group_id": 201,
+      "student_email": "semenyuk.a@student.edu",
+      "subject_id": 12,
+      "value": 5.0
+    },
+    {
+      "id": 40,
+      "group_id": 201,
+      "student_email": "kostenko.v@student.edu",
+      "subject_id": 11,
+      "value": 4.0
+    },
+
+    {
+      "id": 41,
+      "group_id": 202,
+      "student_email": "yurchenko.k@student.edu",
+      "subject_id": 4,
+      "value": 4.0
+    },
+    {
+      "id": 42,
+      "group_id": 202,
+      "student_email": "yurchenko.k@student.edu",
+      "subject_id": 7,
+      "value": 5.0
+    },
+    {
+      "id": 43,
+      "group_id": 202,
+      "student_email": "denysenko.p@student.edu",
+      "subject_id": 5,
+      "value": 2.0
+    },
+    {
+      "id": 44,
+      "group_id": 202,
+      "student_email": "denysenko.p@student.edu",
+      "subject_id": 15,
+      "value": 3.0
+    },
+    {
+      "id": 45,
+      "group_id": 202,
       "student_email": "korol.m@student.edu",
       "subject_id": 7,
       "value": 5.0
     },
     {
-      "id": 33,
-      "group_id": 102,
+      "id": 46,
+      "group_id": 202,
+      "student_email": "korol.m@student.edu",
+      "subject_id": 10,
+      "value": 5.0
+    },
+    {
+      "id": 47,
+      "group_id": 202,
       "student_email": "chumak.n@student.edu",
       "subject_id": 5,
       "value": 4.0
     },
     {
-      "id": 34,
-      "group_id": 102,
+      "id": 48,
+      "group_id": 202,
       "student_email": "solovey.y@student.edu",
       "subject_id": 10,
+      "value": 5.0
+    },
+    {
+      "id": 49,
+      "group_id": 202,
+      "student_email": "melnychenko.v@student.edu",
+      "subject_id": 4,
+      "value": 3.0
+    },
+    {
+      "id": 50,
+      "group_id": 202,
+      "student_email": "onyshchenko.i@student.edu",
+      "subject_id": 15,
+      "value": 5.0
+    },
+    {
+      "id": 51,
+      "group_id": 202,
+      "student_email": "danyliuk.t@student.edu",
+      "subject_id": 7,
+      "value": 4.0
+    },
+
+    {
+      "id": 52,
+      "group_id": 301,
+      "student_email": "doroshenko.r@student.edu",
+      "subject_id": 1,
+      "value": 5.0
+    },
+    {
+      "id": 53,
+      "group_id": 301,
+      "student_email": "doroshenko.r@student.edu",
+      "subject_id": 13,
+      "value": 5.0
+    },
+    {
+      "id": 54,
+      "group_id": 301,
+      "student_email": "nesterenko.v@student.edu",
+      "subject_id": 12,
+      "value": 4.0
+    },
+    {
+      "id": 55,
+      "group_id": 301,
+      "student_email": "vasylenko.i@student.edu",
+      "subject_id": 14,
+      "value": 3.0
+    },
+    {
+      "id": 56,
+      "group_id": 301,
+      "student_email": "horbunov.m@student.edu",
+      "subject_id": 1,
+      "value": 4.0
+    },
+    {
+      "id": 57,
+      "group_id": 301,
+      "student_email": "horbunov.m@student.edu",
+      "subject_id": 15,
+      "value": 4.0
+    },
+    {
+      "id": 58,
+      "group_id": 301,
+      "student_email": "lyashenko.y@student.edu",
+      "subject_id": 13,
+      "value": 5.0
+    },
+    {
+      "id": 59,
+      "group_id": 301,
+      "student_email": "serhienko.a@student.edu",
+      "subject_id": 1,
+      "value": 2.0
+    },
+    {
+      "id": 60,
+      "group_id": 301,
+      "student_email": "fomenko.d@student.edu",
+      "subject_id": 12,
+      "value": 5.0
+    },
+    {
+      "id": 61,
+      "group_id": 301,
+      "student_email": "yatsenko.t@student.edu",
+      "subject_id": 14,
+      "value": 4.0
+    },
+    {
+      "id": 62,
+      "group_id": 301,
+      "student_email": "karpov.o@student.edu",
+      "subject_id": 15,
+      "value": 4.0
+    },
+    {
+      "id": 63,
+      "group_id": 301,
+      "student_email": "soroka.n@student.edu",
+      "subject_id": 1,
       "value": 5.0
     }
   ]
