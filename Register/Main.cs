@@ -36,18 +36,8 @@ namespace Register
 
         private void Main_Load(object sender, EventArgs e)
         {
-            InitMainForm();
-        }
-
-        private void Main_Load_1(object sender, EventArgs e)
-        {
-            InitMainForm();
-        }
-
-        private void InitMainForm()
-        {
+            // 1. Ініціалізація бази
             DataBase = new RegisterDB(filepath);
-
             AdapterDB.SetupDataGridView(dataGridView);
             FormBuilder.StyleDataGridView(dataGridView);
             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
@@ -60,21 +50,35 @@ namespace Register
             FormStyles.StyleComboBox(comboBoxGroup);
             FormStyles.StyleComboBox(comboBoxSubject);
 
+            // 2. Стилізація
+            FormStyles.StyleDataGridView(dataGridView);
+            FormStyles.StyleComboBox(comboBoxGroup);
+            FormStyles.StyleComboBox(comboBoxSubject);
+
+            // 3. Синхронізація з передачею email викладача
+            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID, email);
+
+            // 4. Підписка на події
             comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
             comboBoxGroup.SelectionChangeCommitted += (s, ev) => RefreshGrid();
 
-            dataGridView.CellValidating += dataGridView_CellValidating;
+            dataGridView.CellValidating += DataGridView_CellValidating;
 
             dataGridView.CellEndEdit += (s, ev) =>
             {
                 if (DataBase != null && ev.RowIndex >= 0)
                 {
                     FormBuilder.SaveEditedGrade(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email, ev.RowIndex, filepath);
+
+                    // Оновлюємо відображення сітки одразу після редагування
+                    dataGridView.InvalidateRow(dataGridView.Rows.Count - 1);
                 }
             };
 
+            // 5. Оновлення таблиці
             RefreshGrid();
 
+            // 6. Права доступу
             if (role == "Студент")
             {
                 dataGridView.ReadOnly = true;
@@ -96,11 +100,27 @@ namespace Register
             }
         }
 
-        private void dataGridView_CellValidating(object? sender, DataGridViewCellValidatingEventArgs e)
+        private void DataGridView_CellValidating(object? sender, DataGridViewCellValidatingEventArgs e)
         {
-            FormBuilder.DataGridView_Cell(sender, e, dataGridView, role);
-        }
+            // Ігноруємо валідацію для останнього рядка (підсумку)
+            if (e.RowIndex == dataGridView.Rows.Count - 1)
+                return;
 
+            var gradeCol = dataGridView.Columns["GradeValue"] ?? dataGridView.Columns["Grade"] ?? dataGridView.Columns["Value"];
+            if (gradeCol != null && e.ColumnIndex == gradeCol.Index && role == "Викладач")
+            {
+                string input = e.FormattedValue?.ToString()?.Trim() ?? "";
+
+                if (string.IsNullOrEmpty(input))
+                    return;
+
+                if (!double.TryParse(input, out double grade) || grade < 2.0 || grade > 5.0)
+                {
+                    MessageBox.Show("Оцінка повинна бути числом від 2 до 5!", "Некоректна оцінка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    e.Cancel = true;
+                }
+            }
+        }
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
@@ -120,10 +140,9 @@ namespace Register
 
         private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
-        private void comboBoxSubject_SelectedIndexChanged(object sender, EventArgs e)
+        private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
 
         }

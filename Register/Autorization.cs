@@ -93,7 +93,6 @@ namespace Register
                 }
                 else
                 {
-                    // ТУТ МАЄ БУТИ ПЕРЕДАЧА ПОШТИ:
                     form = new Main(role, foundUser.Email ?? inputLogin);
                 }
 
