@@ -89,6 +89,7 @@ namespace Register
                 else
                 {
                     form = new Main(role);
+
                 }
 
                 this.Hide();

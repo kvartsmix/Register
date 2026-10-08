@@ -67,7 +67,6 @@
             Controls.Add(Login);
             Name = "Autorization";
             Text = "Autorization";
-            Load += Autorization_Load;
             ResumeLayout(false);
             PerformLayout();
         }
