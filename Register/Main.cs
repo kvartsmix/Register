@@ -41,10 +41,14 @@ namespace Register
 
         private void Main_Load(object sender, EventArgs e)
         {
-             DataBase = new RegisterDB(filepath);
-             dataGridView.DataSource = DataBase.Students;
-             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
+            DataBase = new RegisterDB(filepath);
+            AdapterDB.SetupDataGridView(dataGridView);
+            dataGridView.DataSource = DataBase.Grades;
+            FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
             FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
+
+            // 4. Форматування кольорів
+            FormBuilder.FormatDataGridView(dataGridView);
         }
     }
 }

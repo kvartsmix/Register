@@ -35,7 +35,7 @@ namespace Register
         {
             cb.DataSource = null;
             cb.DisplayMember = "Id";
-            cb.ValueMember = "Id"; 
+            cb.ValueMember = "Id";
             cb.DataSource = groups;
         }
         public static void SetSubjectComboBox(ComboBox cb, BindingList<Subject> subjects)
@@ -45,43 +45,41 @@ namespace Register
             cb.ValueMember = "Id";
             cb.DataSource = subjects;
         }
-        public static  void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt)
+        public static void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt)
         {
         }
         public static void FormatDataGridView(DataGridView dgv)
         {
-            for (int i = 0; i < dgv.Columns.Count; i++)
+            for (int j = 0; j < dgv.Rows.Count; j++)
             {
-                for (int j = 0; j < dgv.Rows.Count; j++)
+                if (dgv.Rows[j].IsNewRow) continue;
+
+                for (int i = 0; i < dgv.Columns.Count; i++)
                 {
-                    int num;
-                    try
+                    var cell = dgv.Rows[j].Cells[i];
+                    var val = cell.Value?.ToString()?.Trim();
+                    if (string.IsNullOrEmpty(val)) continue;
+
+                    if (int.TryParse(val, out int num))
                     {
-                        num = int.Parse(dgv.Rows[j].Cells[i].Value.ToString());
-                    }
-                    catch (FormatException)
-                    {
-                        throw new FormatException("Не вірні дані у комірці: " + dgv.Rows[j].Cells[i].Value.ToString());
-                    }
-                    if(num == 2)
-                    {
-                        dgv.Rows[j].Cells[i].Style.ForeColor = Color.Red;
-                    }
-                    else if(num == 3)
-                    {
-                        dgv.Rows[j].Cells[i].Style.ForeColor = Color.Yellow;
-                    }
-                    else if (num == 4)
-                    {
-                        dgv.Rows[j].Cells[i].Style.ForeColor = Color.LightGreen;
-                    }
-                    else if (num == 5)
-                    {
-                        dgv.Rows[j].Cells[i].Style.ForeColor = Color.Green;
-                    }
-                    else
-                    {
-                        dgv.Rows[j].Cells[i].Style.BackColor = Color.LightGray;
+                        switch (num)
+                        {
+                            case 2:
+                                cell.Style.ForeColor = Color.White;
+                                cell.Style.BackColor = Color.Black;
+                                break;
+                            case 3:
+                                cell.Style.ForeColor = Color.Blue;
+                                break;
+                            case 4:
+                                cell.Style.ForeColor = Color.LimeGreen;
+                                break;
+                            case 5:
+                                cell.Style.ForeColor = Color.Red;
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
