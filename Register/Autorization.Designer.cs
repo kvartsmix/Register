@@ -37,7 +37,7 @@
             // 
             // Login
             // 
-            Login.Location = new Point(69, 36);
+            Login.Location = new Point(91, 34);
             Login.Margin = new Padding(2);
             Login.Name = "Login";
             Login.Size = new Size(106, 25);
@@ -45,7 +45,7 @@
             // 
             // Pass
             // 
-            Pass.Location = new Point(69, 90);
+            Pass.Location = new Point(91, 87);
             Pass.Margin = new Padding(2);
             Pass.Name = "Pass";
             Pass.Size = new Size(106, 25);
@@ -54,7 +54,7 @@
             // Enter
             // 
             Enter.BackColor = SystemColors.Control;
-            Enter.Location = new Point(49, 138);
+            Enter.Location = new Point(57, 137);
             Enter.Margin = new Padding(2);
             Enter.Name = "Enter";
             Enter.Size = new Size(78, 27);
@@ -75,7 +75,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(7, 93);
+            label2.Location = new Point(2, 93);
             label2.Name = "label2";
             label2.Size = new Size(67, 19);
             label2.TabIndex = 4;
@@ -86,7 +86,7 @@
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 248, 250);
-            ClientSize = new Size(199, 214);
+            ClientSize = new Size(208, 214);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(Enter);
