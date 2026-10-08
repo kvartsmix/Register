@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Register
 {
-    public class FormBuilder
+     public class AdapterDB
     {
+
     }
 }

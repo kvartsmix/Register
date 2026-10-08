@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.ComponentModel;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -14,21 +15,20 @@ namespace Register
         {
             [JsonPropertyName("email")]
             public string Email { get; set; } = string.Empty;
+            [JsonPropertyName("first_name")]
+            public string FirstName { get; set; } = string.Empty;
 
             [JsonPropertyName("last_name")]
             public string LastName { get; set; } = string.Empty;
-
-            [JsonPropertyName("first_name")]
-            public string FirstName { get; set; } = string.Empty;
 
             [JsonPropertyName("password")]
             public string Password { get; set; } = string.Empty;
 
             [JsonIgnore]
-            public List<Group> CuratedGroups { get; set; } = new();
+            public BindingList<Group> CuratedGroups { get; set; } = new();
 
             [JsonIgnore]
-            public List<GroupSubject> GroupSubjects { get; set; } = new();
+            public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
         }
 
         public class Subject
@@ -40,10 +40,10 @@ namespace Register
             public string Name { get; set; } = string.Empty;
 
             [JsonIgnore]
-            public List<GroupSubject> GroupSubjects { get; set; } = new();
+            public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
 
             [JsonIgnore]
-            public List<Grade> Grades { get; set; } = new();
+            public BindingList<Grade> Grades { get; set; } = new();
         }
 
         public class Group
@@ -58,13 +58,13 @@ namespace Register
             public Teacher? Curator { get; set; }
 
             [JsonIgnore]
-            public List<Student> Students { get; set; } = new();
+            public BindingList<Student> Students { get; set; } = new();
 
             [JsonIgnore]
-            public List<GroupSubject> GroupSubjects { get; set; } = new();
+            public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
 
             [JsonIgnore]
-            public List<Grade> Grades { get; set; } = new();
+            public BindingList<Grade> Grades { get; set; } = new();
         }
 
         public class Student
@@ -88,7 +88,7 @@ namespace Register
             public Group? Group { get; set; }
 
             [JsonIgnore]
-            public List<Grade> Grades { get; set; } = new();
+            public BindingList<Grade> Grades { get; set; } = new();
         }
 
         public class GroupSubject
@@ -145,22 +145,22 @@ namespace Register
         public class RegisterDB
         {
             [JsonPropertyName("teachers")]
-            public List<Teacher> Teachers { get; set; } = new();
+            public BindingList<Teacher> Teachers { get; set; } = new();
 
             [JsonPropertyName("subjects")]
-            public List<Subject> Subjects { get; set; } = new();
+            public BindingList<Subject> Subjects { get; set; } = new();
 
             [JsonPropertyName("groups")]
-            public List<Group> Groups { get; set; } = new();
+            public BindingList<Group> Groups { get; set; } = new();
 
             [JsonPropertyName("students")]
-            public List<Student> Students { get; set; } = new();
+            public BindingList<Student> Students { get; set; } = new();
 
             [JsonPropertyName("group_subjects")]
-            public List<GroupSubject> GroupSubjects { get; set; } = new();
+            public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
 
             [JsonPropertyName("grades")]
-            public List<Grade> Grades { get; set; } = new();
+            public BindingList<Grade> Grades { get; set; } = new();
 
             public void BuildRelationships()
             {
