@@ -47,7 +47,6 @@
             comboBoxSubject.Size = new Size(121, 23);
 
             comboBoxSubject.Text = "Предмет";
-            comboBoxSubject.SelectedIndexChanged += comboBoxSubject_SelectedIndexChanged;
             // 
             // comboBoxGroup
             // 
@@ -69,7 +68,7 @@
             dataGridView.Size = new Size(800, 396);
 
             dataGridView.TabIndex = 4;
-            dataGridView.CellValidating += dataGridView_CellValidating;
+            dataGridView.CellValueChanged += dataGridView_CellValueChanged;
             // 
             // menuStrip1
             // 

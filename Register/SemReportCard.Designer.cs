@@ -45,6 +45,7 @@
             comboBoxGroup.Name = "comboBoxGroup";
             comboBoxGroup.Size = new Size(121, 23);
             comboBoxGroup.TabIndex = 0;
+          
             // 
             // label1
             // 
