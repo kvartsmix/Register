@@ -7,10 +7,6 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Register
-{
-    namespace UniversityDatabaseApp
-    {
         public class Teacher
         {
             [JsonPropertyName("email")]
@@ -303,5 +299,3 @@ namespace Register
                 return Deserialize(File.ReadAllText(filePath));
             }
         }
-    }
-}
