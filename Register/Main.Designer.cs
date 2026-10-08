@@ -42,21 +42,19 @@
             // comboBoxSubject
             // 
             comboBoxSubject.FormattingEnabled = true;
-            comboBoxSubject.Location = new Point(241, 41);
-            comboBoxSubject.Margin = new Padding(4, 5, 4, 5);
+            comboBoxSubject.Location = new Point(169, 25);
             comboBoxSubject.Name = "comboBoxSubject";
-            comboBoxSubject.Size = new Size(172, 33);
-            comboBoxSubject.TabIndex = 6;
+            comboBoxSubject.Size = new Size(121, 23);
+
             comboBoxSubject.Text = "Предмет";
             comboBoxSubject.SelectedIndexChanged += comboBoxSubject_SelectedIndexChanged;
             // 
             // comboBoxGroup
             // 
             comboBoxGroup.FormattingEnabled = true;
-            comboBoxGroup.Location = new Point(34, 41);
-            comboBoxGroup.Margin = new Padding(4, 5, 4, 5);
+            comboBoxGroup.Location = new Point(24, 25);
             comboBoxGroup.Name = "comboBoxGroup";
-            comboBoxGroup.Size = new Size(172, 33);
+
             comboBoxGroup.TabIndex = 5;
             comboBoxGroup.Text = "Група";
             comboBoxGroup.SelectedIndexChanged += comboBoxGroup_SelectedIndexChanged;
@@ -65,11 +63,11 @@
             // 
             dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(34, 116);
-            dataGridView.Margin = new Padding(4, 5, 4, 5);
+            dataGridView.Location = new Point(0, 54);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(809, 501);
+            dataGridView.Size = new Size(800, 396);
+
             dataGridView.TabIndex = 4;
             dataGridView.CellValidating += dataGridView_CellValidating;
             // 
@@ -79,8 +77,9 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { додатковоToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(800, 24);
             menuStrip1.Padding = new Padding(9, 4, 0, 4);
-            menuStrip1.Size = new Size(1142, 37);
+
             menuStrip1.TabIndex = 7;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -88,34 +87,37 @@
             // 
             додатковоToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { семестроваВідомістьToolStripMenuItem, вихідToolStripMenuItem });
             додатковоToolStripMenuItem.Name = "додатковоToolStripMenuItem";
-            додатковоToolStripMenuItem.Size = new Size(118, 29);
+            додатковоToolStripMenuItem.Size = new Size(77, 20);
+
             додатковоToolStripMenuItem.Text = "Додатково";
             // 
             // семестроваВідомістьToolStripMenuItem
             // 
             семестроваВідомістьToolStripMenuItem.Name = "семестроваВідомістьToolStripMenuItem";
-            семестроваВідомістьToolStripMenuItem.Size = new Size(293, 34);
+            семестроваВідомістьToolStripMenuItem.Size = new Size(194, 22);
+
             семестроваВідомістьToolStripMenuItem.Text = "Семестрова відомість";
             семестроваВідомістьToolStripMenuItem.Click += семестроваВідомістьToolStripMenuItem_Click;
             // 
             // вихідToolStripMenuItem
             // 
             вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
-            вихідToolStripMenuItem.Size = new Size(293, 34);
+            вихідToolStripMenuItem.Size = new Size(194, 22);
             вихідToolStripMenuItem.Text = "Вихід";
             вихідToolStripMenuItem.Click += вихідToolStripMenuItem_Click;
             // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1142, 750);
+            ClientSize = new Size(800, 450);
+
             Controls.Add(comboBoxSubject);
             Controls.Add(comboBoxGroup);
             Controls.Add(dataGridView);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
-            Margin = new Padding(4, 5, 4, 5);
+
             Name = "Main";
             Text = "Main";
             Load += Main_Load;

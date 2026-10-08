@@ -30,6 +30,10 @@ namespace Register
 
         private void SemReportCard_Load(object sender, EventArgs e)
         {
+            dataGridViewSemReport.Width = this.Width;
+            dataGridViewSemReport.Height = this.Height - 50;
+            FormStyles.StyleComboBox(comboBoxGroup);
+            FormStyles.StyleDataGridView(dataGridViewSemReport);
             // 1. Заповнюємо групи
             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
 
@@ -95,8 +99,14 @@ namespace Register
             dataGridViewSemReport.EndEdit();
             DataBase?.SaveToFile();
         }
-       private void comboBoxGroup_SelectedIndexChanged () {
+        private void comboBoxGroup_SelectedIndexChanged()
+        {
 
+        }
+
+        private void ExitToolStrip_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

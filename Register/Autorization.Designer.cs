@@ -93,7 +93,7 @@
             Controls.Add(Pass);
             Controls.Add(Login);
             Font = new Font("Segoe UI", 10F);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(2);
             MinimizeBox = false;
             Name = "Autorization";
