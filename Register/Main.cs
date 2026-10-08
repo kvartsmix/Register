@@ -44,6 +44,7 @@ namespace Register
              DataBase = new RegisterDB(filepath);
              dataGridViewMain.DataSource = DataBase.Students;
              FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
+            FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
         }
     }
 }

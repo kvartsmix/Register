@@ -38,6 +38,13 @@ namespace Register
             cb.ValueMember = "Id"; 
             cb.DataSource = groups;
         }
+        public static void SetSubjectComboBox(ComboBox cb, BindingList<Subject> subjects)
+        {
+            cb.DataSource = null;
+            cb.DisplayMember = "Name";
+            cb.ValueMember = "Id";
+            cb.DataSource = subjects;
+        }
         public static  void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt)
         {
         }
