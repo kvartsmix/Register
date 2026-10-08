@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< HEAD
-            comboBoxSubject = new ComboBox();
+            //comboBoxSubject = new ComboBox();
             comboBoxGroup = new ComboBox();
             dataGridViewMain = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dataGridViewMain).BeginInit();
@@ -72,69 +71,13 @@
             Name = "Main";
             Text = "Main";
             ((System.ComponentModel.ISupportInitialize)dataGridViewMain).EndInit();
-=======
-            comboBoxGroup = new ComboBox();
-            comboBoxSubject = new ComboBox();
-            dataGridView = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
-            SuspendLayout();
-            // 
-            // comboBoxGroup
-            // 
-            comboBoxGroup.FormattingEnabled = true;
-            comboBoxGroup.Location = new Point(14, 52);
-            comboBoxGroup.Margin = new Padding(3, 4, 3, 4);
-            comboBoxGroup.Name = "comboBoxGroup";
-            comboBoxGroup.Size = new Size(138, 28);
-            comboBoxGroup.TabIndex = 0;
-            // 
-            // comboBoxSubject
-            // 
-            comboBoxSubject.FormattingEnabled = true;
-            comboBoxSubject.Location = new Point(209, 52);
-            comboBoxSubject.Margin = new Padding(3, 4, 3, 4);
-            comboBoxSubject.Name = "comboBoxSubject";
-            comboBoxSubject.Size = new Size(138, 28);
-            comboBoxSubject.TabIndex = 1;
-            // 
-            // dataGridView
-            // 
-            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(14, 116);
-            dataGridView.Margin = new Padding(3, 4, 3, 4);
-            dataGridView.Name = "dataGridView";
-            dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(683, 413);
-            dataGridView.TabIndex = 2;
-            dataGridView.CellContentClick += dataGridView_CellContentClick;
-            // 
-            // Main
-            // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
-            Controls.Add(dataGridView);
-            Controls.Add(comboBoxSubject);
-            Controls.Add(comboBoxGroup);
-            Margin = new Padding(3, 4, 3, 4);
-            Name = "Main";
-            Text = "Main";
-            Load += Main_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
->>>>>>> e8ab6687d7a514020b2f4678e77b7c1873f2f08a
-            ResumeLayout(false);
         }
 
         #endregion
 
-<<<<<<< HEAD
         private ComboBox comboBoxSubject;
         private ComboBox comboBoxGroup;
         private DataGridView dataGridViewMain;
-=======
-        private ComboBox comboBoxGroup;
-        private ComboBox comboBoxSubject;
-        private DataGridView dataGridView;
->>>>>>> e8ab6687d7a514020b2f4678e77b7c1873f2f08a
+
     }
 }
