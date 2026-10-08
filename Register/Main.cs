@@ -6,7 +6,7 @@ namespace Register
     public partial class Main : Form
     {
         public string filepath = "db.json";
-        private RegisterDB? DataBase;
+        public static RegisterDB? DataBase;
 
         public string email = string.Empty;
         public int groupID;
@@ -28,7 +28,6 @@ namespace Register
             this.role = role;
         }
 
-        // Конструктор для викладача (передає роль та email)
         public Main(string role, string email) : this()
         {
             this.role = role;
@@ -37,48 +36,28 @@ namespace Register
 
         private void Main_Load(object sender, EventArgs e)
         {
-            // Якщо дизайнер прив'язаний до Main_Load_1, цей метод можна залишити порожнім
-        }
-
-        private void RefreshGrid()
-        {
-            if (DataBase != null)
-            {
-                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email);
-            }
-        }
-
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-
-        private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SemReportCard form = new SemReportCard();
-            this.Hide();
-            form.ShowDialog();
-            this.Show();
-        }
-
-        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
+            InitMainForm();
         }
 
         private void Main_Load_1(object sender, EventArgs e)
+        {
+            InitMainForm();
+        }
+
+        private void InitMainForm()
         {
             DataBase = new RegisterDB(filepath);
 
             AdapterDB.SetupDataGridView(dataGridView);
             FormBuilder.StyleDataGridView(dataGridView);
 
-            // ПЕРЕДАЄМО email викладача шостим параметром!
+            // Синхронізація ComboBox'ів з передачею email викладача
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID, email);
 
             comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
             comboBoxGroup.SelectionChangeCommitted += (s, ev) => RefreshGrid();
+
+            dataGridView.CellValidating += dataGridView_CellValidating;
 
             dataGridView.CellEndEdit += (s, ev) =>
             {
@@ -103,9 +82,34 @@ namespace Register
             }
         }
 
-        private void dataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private void RefreshGrid()
+        {
+            if (DataBase != null)
+            {
+                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email);
+            }
+        }
+
+        private void dataGridView_CellValidating(object? sender, DataGridViewCellValidatingEventArgs e)
         {
             FormBuilder.DataGridView_Cell(sender, e, dataGridView, role);
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SemReportCard form = new SemReportCard();
+            this.Hide();
+            form.ShowDialog();
+            this.Show();
+        }
+
+        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

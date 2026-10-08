@@ -61,6 +61,7 @@
             // 
             // dataGridView
             // 
+            dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Location = new Point(34, 116);
             dataGridView.Margin = new Padding(4, 5, 4, 5);
@@ -115,7 +116,8 @@
             Margin = new Padding(4, 5, 4, 5);
             Name = "Main";
             Text = "Main";
-            Load += Main_Load_1;
+            Load += Main_Load;
+
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

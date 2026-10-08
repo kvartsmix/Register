@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -63,7 +64,6 @@ namespace Register
                 if (cbGroup.Items.Count > 0) cbGroup.SelectedIndex = 0;
                 if (cbSubject.Items.Count > 0) cbSubject.SelectedIndex = 0;
 
-                // Зміна предмета -> групи, де цей викладач веде цей предмет
                 cbSubject.SelectionChangeCommitted += (s, e) =>
                 {
                     if (isSyncing || cbSubject.SelectedItem is not Subject selectedSubject) return;
@@ -89,7 +89,6 @@ namespace Register
                     isSyncing = false;
                 };
 
-                // Зміна групи -> предмети, які цей викладач веде в обраній групі
                 cbGroup.SelectionChangeCommitted += (s, e) =>
                 {
                     if (isSyncing || cbGroup.SelectedItem is not Group selectedGroup) return;
@@ -118,7 +117,7 @@ namespace Register
                 return;
             }
 
-            // 3. Загальний випадок (якщо роль без обмежень / адмін)
+            // 3. Загальний випадок
             SetSubjectComboBox(cbSubject, db.Subjects);
             SetGroupComboBox(cbGroup, db.Groups);
 
@@ -170,6 +169,168 @@ namespace Register
             };
         }
 
+        public static void SetReportDB(DataGridView dataGrid, RegisterDB db, int? groupId = null)
+        {
+            var dt = new DataTable();
+
+            dt.Columns.Add("Прізвище, ім'я студента", typeof(string));
+
+            var subjects = (groupId.HasValue
+                ? db.GroupSubjects.Where(gs => gs.GroupId == groupId.Value).Select(gs => gs.Subject).Where(s => s != null)
+                : db.Subjects)
+                .DistinctBy(s => s!.Id)
+                .OrderBy(s => s!.Name)
+                .ToList();
+
+            foreach (var subject in subjects)
+            {
+                if (subject != null && !dt.Columns.Contains(subject.Name))
+                {
+                    dt.Columns.Add(subject.Name, typeof(string));
+                }
+            }
+
+            dt.Columns.Add("Середній бал", typeof(string));
+
+            var students = (groupId.HasValue
+                ? db.Students.Where(s => s.GroupId == groupId.Value)
+                : db.Students)
+                .OrderBy(s => s.LastName)
+                .ThenBy(s => s.FirstName)
+                .ToList();
+
+            foreach (var student in students)
+            {
+                var row = dt.NewRow();
+                row["Прізвище, ім'я студента"] = $"{student.LastName} {student.FirstName}".Trim();
+
+                var studentValues = new List<double>();
+
+                foreach (var subject in subjects)
+                {
+                    if (subject == null) continue;
+
+                    var grade = student.Grades.FirstOrDefault(g => g.SubjectId == subject.Id);
+                    if (grade != null && grade.Value > 0)
+                    {
+                        row[subject.Name] = grade.Value.ToString(CultureInfo.CurrentCulture);
+                        studentValues.Add(grade.Value);
+                    }
+                    else
+                    {
+                        row[subject.Name] = string.Empty;
+                    }
+                }
+
+                row["Середній бал"] = studentValues.Count > 0
+                    ? studentValues.Average().ToString("F2")
+                    : string.Empty;
+
+                dt.Rows.Add(row);
+            }
+
+            var bottomSummaryRow = dt.NewRow();
+            bottomSummaryRow["Прізвище, ім'я студента"] = "Середній бал";
+            dt.Rows.Add(bottomSummaryRow);
+
+            RecalculateBottomAverages(dt, subjects);
+
+            dataGrid.DataSource = null;
+            dataGrid.AutoGenerateColumns = true;
+            dataGrid.DataSource = dt;
+
+            if (dataGrid.Columns["Прізвище, ім'я студента"] != null)
+                dataGrid.Columns["Прізвище, ім'я студента"].ReadOnly = true;
+
+            if (dataGrid.Columns["Середній бал"] != null)
+                dataGrid.Columns["Середній бал"].ReadOnly = true;
+
+            int lastRowIdx = dataGrid.Rows.Count - 1;
+            if (lastRowIdx >= 0)
+                dataGrid.Rows[lastRowIdx].ReadOnly = true;
+
+            dataGrid.CellEndEdit -= DataGrid_CellEndEdit;
+            dataGrid.CellEndEdit += DataGrid_CellEndEdit;
+
+            void DataGrid_CellEndEdit(object? sender, DataGridViewCellEventArgs e)
+            {
+                if (e.RowIndex < 0 || e.RowIndex >= students.Count || e.ColumnIndex <= 0 || e.ColumnIndex >= dt.Columns.Count - 1)
+                    return;
+
+                var student = students[e.RowIndex];
+                string subjectName = dataGrid.Columns[e.ColumnIndex].HeaderText;
+                var subject = subjects.FirstOrDefault(s => s?.Name == subjectName);
+                if (subject == null) return;
+
+                var cellRawValue = dataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
+                double.TryParse(cellRawValue, out double newValue);
+
+                var grade = student.Grades.FirstOrDefault(g => g.SubjectId == subject.Id);
+                if (grade != null)
+                {
+                    grade.Value = newValue;
+                }
+                else if (newValue > 0)
+                {
+                    int newId = db.Grades.Count > 0 ? db.Grades.Max(g => g.Id) + 1 : 1;
+                    var newGrade = new Grade
+                    {
+                        Id = newId,
+                        GroupId = student.GroupId,
+                        SubjectId = subject.Id,
+                        Value = newValue,
+                        Student = student,
+                        Subject = subject,
+                        StudentEmail = student.Email
+                    };
+
+                    student.Grades.Add(newGrade);
+                    db.Grades.Add(newGrade);
+                }
+
+                var studentValidGrades = new List<double>();
+                for (int col = 1; col < dt.Columns.Count - 1; col++)
+                {
+                    if (double.TryParse(dt.Rows[e.RowIndex][col]?.ToString(), out double v) && v > 0)
+                    {
+                        studentValidGrades.Add(v);
+                    }
+                }
+
+                dt.Rows[e.RowIndex]["Середній бал"] = studentValidGrades.Count > 0
+                    ? studentValidGrades.Average().ToString("F2")
+                    : string.Empty;
+
+                RecalculateBottomAverages(dt, subjects);
+            }
+        }
+
+        private static void RecalculateBottomAverages(DataTable dt, List<Subject?> subjects)
+        {
+            if (dt.Rows.Count <= 1) return;
+
+            int bottomRowIndex = dt.Rows.Count - 1;
+            var summaryRow = dt.Rows[bottomRowIndex];
+
+            foreach (var subject in subjects)
+            {
+                if (subject == null || !dt.Columns.Contains(subject.Name)) continue;
+
+                var subjectVals = new List<double>();
+                for (int i = 0; i < bottomRowIndex; i++)
+                {
+                    if (double.TryParse(dt.Rows[i][subject.Name]?.ToString(), out double v) && v > 0)
+                    {
+                        subjectVals.Add(v);
+                    }
+                }
+
+                summaryRow[subject.Name] = subjectVals.Count > 0
+                    ? subjectVals.Average().ToString("F2")
+                    : string.Empty;
+            }
+        }
+
         public static void SetGroupComboBox(ComboBox cb, BindingList<Group> groups)
         {
             cb.DataSource = null;
@@ -213,7 +374,6 @@ namespace Register
                 return;
             }
 
-            // Перевіряємо, чи має викладач право на цей предмет у цій групі
             bool isTeacherAssigned = true;
             if (role == "Викладач" && !string.IsNullOrEmpty(teacherEmail))
             {
@@ -267,7 +427,6 @@ namespace Register
                 if (dgv.Columns["FirstName"] != null) dgv.Columns["FirstName"].ReadOnly = true;
                 if (dgv.Columns["Email"] != null) dgv.Columns["Email"].ReadOnly = true;
 
-                // Дозволяємо редагувати оцінку лише якщо цей викладач дійсно веде цей предмет
                 if (gradeCol != null) gradeCol.ReadOnly = !isTeacherAssigned;
             }
 
@@ -281,7 +440,6 @@ namespace Register
             var (isValid, subj, grp) = AreComboBoxesSelected(cbSubject, cbGroup, db);
             if (!isValid || subj == null || grp == null) return;
 
-            // Перевірка прав викладача
             bool canEdit = db.GroupSubjects.Any(gs =>
                 gs.GroupId == grp.Id &&
                 gs.SubjectId == subj.Id &&
@@ -295,11 +453,10 @@ namespace Register
 
             if (dgv.Rows[rowIndex].DataBoundItem is StudentGradeRow editedRow)
             {
-                // ВАЛІДАЦІЯ: оцінка має бути або пустою (null), або в межах [2; 5]
                 if (editedRow.GradeValue.HasValue && (editedRow.GradeValue.Value < 2.0 || editedRow.GradeValue.Value > 5.0))
                 {
                     MessageBox.Show("Оцінка повинна бути від 2 до 5!", "Помилка введення", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    PopulateGrid(dgv, db, cbSubject, cbGroup, role, teacherEmail); // Повертаємо попереднє значення
+                    PopulateGrid(dgv, db, cbSubject, cbGroup, role, teacherEmail);
                     return;
                 }
 
@@ -329,7 +486,6 @@ namespace Register
                 }
                 else if (existingGrade != null)
                 {
-                    // Якщо поле очистили — видаляємо оцінку
                     db.Grades.Remove(existingGrade);
                 }
 
@@ -337,21 +493,19 @@ namespace Register
                 FormatDataGridView(dgv);
             }
         }
+
         public static void DataGridView_Cell(object? sender, DataGridViewCellValidatingEventArgs e, DataGridView dgv, string role)
         {
-            // Валідуємо тільки стовпчик оцінки для викладача
             var gradeCol = dgv.Columns["GradeValue"] ?? dgv.Columns["Grade"] ?? dgv.Columns["Value"];
             if (gradeCol != null && e.ColumnIndex == gradeCol.Index && role == "Викладач")
             {
                 string input = e.FormattedValue?.ToString()?.Trim() ?? "";
 
-                // Якщо клітинку очистили (стерли оцінку) — це валідна дія
                 if (string.IsNullOrEmpty(input))
                 {
                     return;
                 }
 
-                // Перевіряємо, чи це число і чи воно в діапазоні від 2 до 5
                 if (!double.TryParse(input, out double grade) || grade < 2.0 || grade > 5.0)
                 {
                     MessageBox.Show(
@@ -360,8 +514,6 @@ namespace Register
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning
                     );
-
-                    // e.Cancel = true повертає користувача назад у режим редагування цієї клітинки
                     e.Cancel = true;
                 }
             }
