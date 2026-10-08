@@ -138,164 +138,191 @@ using System.Text.Json.Serialization;
             public Subject? Subject { get; set; }
         }
 
-        public class RegisterDB
+public class RegisterDB
+{
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+    };
+
+    [JsonIgnore]
+    public string? FilePath { get; set; }
+
+    [JsonPropertyName("teachers")]
+    public BindingList<Teacher> Teachers { get; set; } = new();
+
+    [JsonPropertyName("subjects")]
+    public BindingList<Subject> Subjects { get; set; } = new();
+
+    [JsonPropertyName("groups")]
+    public BindingList<Group> Groups { get; set; } = new();
+
+    [JsonPropertyName("students")]
+    public BindingList<Student> Students { get; set; } = new();
+
+    [JsonPropertyName("group_subjects")]
+    public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
+
+    [JsonPropertyName("grades")]
+    public BindingList<Grade> Grades { get; set; } = new();
+
+    public RegisterDB()
+    {
+    }
+
+    public RegisterDB(string filePath)
+    {
+        FilePath = filePath;
+        LoadFromFile(filePath);
+    }
+
+    public void SaveToFile(string? filePath = null)
+    {
+        string path = filePath ?? FilePath ?? throw new InvalidOperationException("Шлях до файлу не вказано.");
+        FilePath = path;
+        File.WriteAllText(path, Serialize());
+    }
+
+    public void LoadFromFile(string filePath)
+    {
+        FilePath = filePath;
+
+        if (!File.Exists(filePath))
+            return;
+
+        string json = File.ReadAllText(filePath);
+        var loaded = JsonSerializer.Deserialize<RegisterDB>(json, JsonOptions);
+
+        if (loaded != null)
         {
-            [JsonPropertyName("teachers")]
-            public BindingList<Teacher> Teachers { get; set; } = new();
+            Teachers = loaded.Teachers;
+            Subjects = loaded.Subjects;
+            Groups = loaded.Groups;
+            Students = loaded.Students;
+            GroupSubjects = loaded.GroupSubjects;
+            Grades = loaded.Grades;
+        }
 
-            [JsonPropertyName("subjects")]
-            public BindingList<Subject> Subjects { get; set; } = new();
+        BuildRelationships();
+    }
 
-            [JsonPropertyName("groups")]
-            public BindingList<Group> Groups { get; set; } = new();
+    public string Serialize()
+    {
+        return JsonSerializer.Serialize(this, JsonOptions);
+    }
 
-            [JsonPropertyName("students")]
-            public BindingList<Student> Students { get; set; } = new();
+    public static RegisterDB FromJson(string json)
+    {
+        var db = JsonSerializer.Deserialize<RegisterDB>(json, JsonOptions) ?? new RegisterDB();
+        db.BuildRelationships();
+        return db;
+    }
 
-            [JsonPropertyName("group_subjects")]
-            public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
+    public void BuildRelationships()
+    {
+        foreach (var t in Teachers)
+        {
+            t.CuratedGroups.Clear();
+            t.GroupSubjects.Clear();
+        }
 
-            [JsonPropertyName("grades")]
-            public BindingList<Grade> Grades { get; set; } = new();
+        foreach (var s in Subjects)
+        {
+            s.GroupSubjects.Clear();
+            s.Grades.Clear();
+        }
 
-            public void BuildRelationships()
+        foreach (var g in Groups)
+        {
+            g.Curator = null;
+            g.Students.Clear();
+            g.GroupSubjects.Clear();
+            g.Grades.Clear();
+        }
+
+        foreach (var st in Students)
+        {
+            st.Group = null;
+            st.Grades.Clear();
+        }
+
+        var teacherMap = Teachers
+            .Where(t => !string.IsNullOrEmpty(t.Email))
+            .DistinctBy(t => t.Email, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(t => t.Email, StringComparer.OrdinalIgnoreCase);
+
+        var subjectMap = Subjects
+            .DistinctBy(s => s.Id)
+            .ToDictionary(s => s.Id);
+
+        var groupMap = Groups
+            .DistinctBy(g => g.Id)
+            .ToDictionary(g => g.Id);
+
+        var studentMap = Students
+            .Where(s => !string.IsNullOrEmpty(s.Email))
+            .DistinctBy(s => s.Email, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(s => s.Email, StringComparer.OrdinalIgnoreCase);
+
+        foreach (var group in Groups)
+        {
+            if (teacherMap.TryGetValue(group.CuratorEmail, out var teacher))
             {
-                foreach (var t in Teachers)
-                {
-                    t.CuratedGroups.Clear();
-                    t.GroupSubjects.Clear();
-                }
-
-                foreach (var s in Subjects)
-                {
-                    s.GroupSubjects.Clear();
-                    s.Grades.Clear();
-                }
-
-                foreach (var g in Groups)
-                {
-                    g.Curator = null;
-                    g.Students.Clear();
-                    g.GroupSubjects.Clear();
-                    g.Grades.Clear();
-                }
-
-                foreach (var st in Students)
-                {
-                    st.Group = null;
-                    st.Grades.Clear();
-                }
-
-                var teacherMap = Teachers
-                    .Where(t => !string.IsNullOrEmpty(t.Email))
-                    .DistinctBy(t => t.Email, StringComparer.OrdinalIgnoreCase)
-                    .ToDictionary(t => t.Email, StringComparer.OrdinalIgnoreCase);
-
-                var subjectMap = Subjects
-                    .DistinctBy(s => s.Id)
-                    .ToDictionary(s => s.Id);
-
-                var groupMap = Groups
-                    .DistinctBy(g => g.Id)
-                    .ToDictionary(g => g.Id);
-
-                var studentMap = Students
-                    .Where(s => !string.IsNullOrEmpty(s.Email))
-                    .DistinctBy(s => s.Email, StringComparer.OrdinalIgnoreCase)
-                    .ToDictionary(s => s.Email, StringComparer.OrdinalIgnoreCase);
-
-                foreach (var group in Groups)
-                {
-                    if (teacherMap.TryGetValue(group.CuratorEmail, out var teacher))
-                    {
-                        group.Curator = teacher;
-                        teacher.CuratedGroups.Add(group);
-                    }
-                }
-
-                foreach (var student in Students)
-                {
-                    if (groupMap.TryGetValue(student.GroupId, out var group))
-                    {
-                        student.Group = group;
-                        group.Students.Add(student);
-                    }
-                }
-
-                foreach (var gs in GroupSubjects)
-                {
-                    if (groupMap.TryGetValue(gs.GroupId, out var group))
-                    {
-                        gs.Group = group;
-                        group.GroupSubjects.Add(gs);
-                    }
-
-                    if (subjectMap.TryGetValue(gs.SubjectId, out var subject))
-                    {
-                        gs.Subject = subject;
-                        subject.GroupSubjects.Add(gs);
-                    }
-
-                    if (teacherMap.TryGetValue(gs.TeacherEmail, out var teacher))
-                    {
-                        gs.Teacher = teacher;
-                        teacher.GroupSubjects.Add(gs);
-                    }
-                }
-
-                foreach (var grade in Grades)
-                {
-                    if (groupMap.TryGetValue(grade.GroupId, out var group))
-                    {
-                        grade.Group = group;
-                        group.Grades.Add(grade);
-                    }
-
-                    if (studentMap.TryGetValue(grade.StudentEmail, out var student))
-                    {
-                        grade.Student = student;
-                        student.Grades.Add(grade);
-                    }
-
-                    if (subjectMap.TryGetValue(grade.SubjectId, out var subject))
-                    {
-                        grade.Subject = subject;
-                        subject.Grades.Add(grade);
-                    }
-                }
+                group.Curator = teacher;
+                teacher.CuratedGroups.Add(group);
             }
         }
 
-        public static class DbJsonContext
+        foreach (var student in Students)
         {
-            private static readonly JsonSerializerOptions Options = new()
+            if (groupMap.TryGetValue(student.GroupId, out var group))
             {
-                WriteIndented = true,
-                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-            };
-
-            public static string Serialize(RegisterDB db)
-            {
-                return JsonSerializer.Serialize(db, Options);
-            }
-
-            public static RegisterDB Deserialize(string json)
-            {
-                var db = JsonSerializer.Deserialize<RegisterDB>(json, Options) ?? new RegisterDB();
-                db.BuildRelationships();
-                return db;
-            }
-
-            public static void SaveToFile(RegisterDB db, string filePath)
-            {
-                File.WriteAllText(filePath, Serialize(db));
-            }
-
-            public static RegisterDB LoadFromFile(string filePath)
-            {
-                if (!File.Exists(filePath))
-                    return new RegisterDB();
-
-                return Deserialize(File.ReadAllText(filePath));
+                student.Group = group;
+                group.Students.Add(student);
             }
         }
+
+        foreach (var gs in GroupSubjects)
+        {
+            if (groupMap.TryGetValue(gs.GroupId, out var group))
+            {
+                gs.Group = group;
+                group.GroupSubjects.Add(gs);
+            }
+
+            if (subjectMap.TryGetValue(gs.SubjectId, out var subject))
+            {
+                gs.Subject = subject;
+                subject.GroupSubjects.Add(gs);
+            }
+
+            if (teacherMap.TryGetValue(gs.TeacherEmail, out var teacher))
+            {
+                gs.Teacher = teacher;
+                teacher.GroupSubjects.Add(gs);
+            }
+        }
+
+        foreach (var grade in Grades)
+        {
+            if (groupMap.TryGetValue(grade.GroupId, out var group))
+            {
+                grade.Group = group;
+                group.Grades.Add(grade);
+            }
+
+            if (studentMap.TryGetValue(grade.StudentEmail, out var student))
+            {
+                grade.Student = student;
+                student.Grades.Add(grade);
+            }
+
+            if (subjectMap.TryGetValue(grade.SubjectId, out var subject))
+            {
+                grade.Subject = subject;
+                subject.Grades.Add(grade);
+            }
+        }
+    }
+}

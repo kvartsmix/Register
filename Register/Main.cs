@@ -12,17 +12,37 @@ namespace Register
 {
     public partial class Main : Form
     {
+        public string filepath = "db.json";
+        RegisterDB DataBase;
         public string email;
+        public int groupID;
         public string role;
         public Main()
         {
             InitializeComponent();
         }
 
-        public Main(string email, string role) : this()
-        { 
-            this.email = email;
+        public Main(string role, int groudID) : this()
+        {
+            this.groupID = groupID;
             this.role = role;
+    
+        }
+
+        public Main(string role)
+        {
+            this.role = role;
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+             DataBase = new RegisterDB(filepath);
+             
         }
     }
 }
