@@ -114,7 +114,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "Main";
             Text = "Main";
-            Load += Main_Load_1;
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
