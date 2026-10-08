@@ -14,7 +14,7 @@ namespace Register
 
         public static void SyncComboBoxes(ComboBox cbSubject, ComboBox cbGroup, RegisterDB db, string role = "", int studentGroupId = 0)
         {
-            // Якщо увійшов студент — жорстко обмежуємо його групою
+            // Если вошёл студент — фиксируем его группу
             if (role == "Студент" && studentGroupId != 0)
             {
                 SetGroupComboBox(cbGroup, new BindingList<Group>(db.Groups.Where(g => g.Id == studentGroupId).ToList()));
@@ -27,14 +27,23 @@ namespace Register
                     .ToList();
 
                 SetSubjectComboBox(cbSubject, new BindingList<Subject>(studentSubjects));
+
+                if (cbSubject.Items.Count > 0)
+                    cbSubject.SelectedIndex = 0;
+
                 return;
             }
 
-            // Початкове заповнення повними списками
+            // Инициализация полными списками
             SetSubjectComboBox(cbSubject, db.Subjects);
             SetGroupComboBox(cbGroup, db.Groups);
 
-            // 1. Зміна ПРЕДМЕТА -> фільтруємо доступні групи
+            if (cbGroup.Items.Count > 0)
+                cbGroup.SelectedIndex = 0;
+            if (cbSubject.Items.Count > 0)
+                cbSubject.SelectedIndex = 0;
+
+            // 1. Выбор ПРЕДМЕТА -> фильтрация групп
             cbSubject.SelectionChangeCommitted += (s, e) =>
             {
                 if (isSyncing || cbSubject.SelectedItem is not Subject selectedSubject) return;
@@ -50,16 +59,19 @@ namespace Register
 
                 SetGroupComboBox(cbGroup, new BindingList<Group>(filteredGroups));
 
-                // Зберігаємо вибір групи, якщо вона є у новому списку
                 if (previouslySelectedGroupId.HasValue && filteredGroups.Any(g => g.Id == previouslySelectedGroupId.Value))
                 {
                     cbGroup.SelectedValue = previouslySelectedGroupId.Value;
+                }
+                else if (cbGroup.Items.Count > 0)
+                {
+                    cbGroup.SelectedIndex = 0;
                 }
 
                 isSyncing = false;
             };
 
-            // 2. Зміна ГРУПИ -> фільтруємо доступні предмети
+            // 2. Выбор ГРУППЫ -> фильтрация предметов
             cbGroup.SelectionChangeCommitted += (s, e) =>
             {
                 if (isSyncing || cbGroup.SelectedItem is not Group selectedGroup) return;
@@ -75,10 +87,13 @@ namespace Register
 
                 SetSubjectComboBox(cbSubject, new BindingList<Subject>(filteredSubjects));
 
-                // Зберігаємо вибір предмета, якщо він є у новому списку
                 if (previouslySelectedSubjectId.HasValue && filteredSubjects.Any(subj => subj.Id == previouslySelectedSubjectId.Value))
                 {
                     cbSubject.SelectedValue = previouslySelectedSubjectId.Value;
+                }
+                else if (cbSubject.Items.Count > 0)
+                {
+                    cbSubject.SelectedIndex = 0;
                 }
 
                 isSyncing = false;
@@ -101,56 +116,24 @@ namespace Register
             cb.DataSource = subjects;
         }
 
-        public static void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt)
+        /// <summary>
+        /// Проверяет, выбраны ли оба ComboBox и есть ли такая пара в GroupSubjects.
+        /// </summary>
+        public static (bool IsValid, Subject? Subject, Group? Group) AreComboBoxesSelected(ComboBox cbSubject, ComboBox cbGroup, RegisterDB db)
         {
-            if (dt.Rows.Count == 0) return;
+            var subject = cbSubject.SelectedItem as Subject;
+            var group = cbGroup.SelectedItem as Group;
 
-            var subjectIds = grades.Select(g => g.SubjectId).Distinct();
-            int lastRowIndex = dt.Rows.Count - 1;
-
-            foreach (int subjectId in subjectIds)
+            if (subject == null || group == null)
             {
-                string colName = subjectId.ToString();
-                if (!dt.Columns.Contains(colName)) continue;
-
-                var validGrades = grades.Where(g => g.SubjectId == subjectId && g.Value > 0).ToList();
-
-                if (validGrades.Count > 0)
-                {
-                    double average = validGrades.Average(g => g.Value);
-                    dt.Rows[lastRowIndex][colName] = average.ToString("F2");
-                }
+                return (false, null, null);
             }
-        }
 
-        public static void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt, string emailColumnName = "Email")
-        {
-            if (!dt.Columns.Contains(emailColumnName) || dt.Columns.Count == 0) return;
+            bool isValid = db.GroupSubjects.Any(gs =>
+                gs.SubjectId == subject.Id &&
+                gs.GroupId == group.Id);
 
-            int lastColIndex = dt.Columns.Count - 1;
-            var studentEmails = grades
-                .Where(g => !string.IsNullOrEmpty(g.StudentEmail))
-                .Select(g => g.StudentEmail)
-                .Distinct(StringComparer.OrdinalIgnoreCase);
-
-            foreach (string email in studentEmails)
-            {
-                // Шукаємо рядок студента за Email у DataTable
-                DataRow? targetRow = dt.AsEnumerable()
-                    .FirstOrDefault(row => string.Equals(row.Field<string>(emailColumnName), email, StringComparison.OrdinalIgnoreCase));
-
-                if (targetRow == null) continue;
-
-                var validGrades = grades
-                    .Where(g => string.Equals(g.StudentEmail, email, StringComparison.OrdinalIgnoreCase) && g.Value > 0)
-                    .ToList();
-
-                if (validGrades.Count > 0)
-                {
-                    double average = validGrades.Average(g => g.Value);
-                    targetRow[lastColIndex] = average.ToString("F2");
-                }
-            }
+            return (isValid, subject, group);
         }
 
         public static void FormatDataGridView(DataGridView dgv)
@@ -163,10 +146,18 @@ namespace Register
                 {
                     var cell = dgv.Rows[j].Cells[i];
                     var val = cell.Value?.ToString()?.Trim();
-                    if (string.IsNullOrEmpty(val)) continue;
 
-                    if (int.TryParse(val, out int num))
+                    // Сброс оформления для пустых значений
+                    if (string.IsNullOrEmpty(val) || val == "0")
                     {
+                        cell.Style.ForeColor = Color.Black;
+                        cell.Style.BackColor = Color.White;
+                        continue;
+                    }
+
+                    if (double.TryParse(val, out double gradeValue))
+                    {
+                        int num = (int)Math.Round(gradeValue);
                         switch (num)
                         {
                             case 2:
@@ -175,14 +166,19 @@ namespace Register
                                 break;
                             case 3:
                                 cell.Style.ForeColor = Color.Blue;
+                                cell.Style.BackColor = Color.White;
                                 break;
                             case 4:
                                 cell.Style.ForeColor = Color.LimeGreen;
+                                cell.Style.BackColor = Color.White;
                                 break;
                             case 5:
                                 cell.Style.ForeColor = Color.Red;
+                                cell.Style.BackColor = Color.White;
                                 break;
                             default:
+                                cell.Style.ForeColor = Color.Black;
+                                cell.Style.BackColor = Color.White;
                                 break;
                         }
                     }
