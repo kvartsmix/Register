@@ -36,38 +36,39 @@ namespace Register
 
         private void Main_Load(object sender, EventArgs e)
         {
-            // 1. Ініціалізація бази та структури сітки
+            InitMainForm();
+        }
+
+        private void Main_Load_1(object sender, EventArgs e)
+        {
+            InitMainForm();
+        }
+
+        private void InitMainForm()
+        {
             DataBase = new RegisterDB(filepath);
+
             AdapterDB.SetupDataGridView(dataGridView);
-            dataGridView.DataSource = DataBase.Grades;
+            FormBuilder.StyleDataGridView(dataGridView);
 
-            // 2. Стилізація елементів керування
-            FormStyles.StyleDataGridView(dataGridView);
-            FormStyles.StyleComboBox(comboBoxGroup);
-            FormStyles.StyleComboBox(comboBoxSubject);
+            // Синхронізація ComboBox'ів з передачею email викладача
+            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID, email);
 
-            // 3. Заповнення та синхронізація списків
-            FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
-            FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
-            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
-
-            // 4. Підписка на події вибору та редагування
             comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
             comboBoxGroup.SelectionChangeCommitted += (s, ev) => RefreshGrid();
+
+            dataGridView.CellValidating += dataGridView_CellValidating;
 
             dataGridView.CellEndEdit += (s, ev) =>
             {
                 if (DataBase != null && ev.RowIndex >= 0)
                 {
-                    FormBuilder.SaveEditedGrade(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, ev.RowIndex, filepath);
+                    FormBuilder.SaveEditedGrade(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email, ev.RowIndex, filepath);
                 }
             };
 
-            // 5. Оновлення відображення та форматування
             RefreshGrid();
-            FormBuilder.FormatDataGridView(dataGridView);
 
-            // 6. Налаштування прав доступу за роллю
             if (role == "Студент")
             {
                 dataGridView.ReadOnly = true;
@@ -85,13 +86,17 @@ namespace Register
         {
             if (DataBase != null)
             {
-                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role);
+                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email);
             }
+        }
+
+        private void dataGridView_CellValidating(object? sender, DataGridViewCellValidatingEventArgs e)
+        {
+            FormBuilder.DataGridView_Cell(sender, e, dataGridView, role);
         }
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -105,6 +110,16 @@ namespace Register
         private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxSubject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
