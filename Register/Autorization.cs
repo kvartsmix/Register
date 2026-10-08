@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Net;
 using System.Text.Json;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 using System.Windows.Forms;
 
 namespace Register
 {
     public partial class Autorization : Form
     {
-        string FilePath = "db.json";
+        private const string FilePath = "db.json";
+
         public Autorization()
         {
             InitializeComponent();
         }
 
-        private void Autorization_Load(object sender, EventArgs e)
+        public void Autorization_Load(object sender, EventArgs e)
         {
-
+            // Any initialization code can go here if needed
         }
         public void Autor()
         {
@@ -33,56 +32,73 @@ namespace Register
                 MessageBox.Show("Будь ласка, введіть логін та пароль.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             if (!File.Exists(FilePath))
             {
                 MessageBox.Show("Файл бази даних не знайдено!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            string jsonString = File.ReadAllText(FilePath);
 
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-
-            DiaryData data;
+            DiaryData? data;
             try
             {
+                string jsonString = File.ReadAllText(FilePath);
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 data = JsonSerializer.Deserialize<DiaryData>(jsonString, options);
             }
             catch (Exception ex)
             {
+                MessageBox.Show($"Помилка читання JSON: {ex.Message}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            User foundUser = null;
+
+            if (data == null)
+            {
+                MessageBox.Show("База даних порожня.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            User? foundUser = null;
             string role = "";
-            if (data.students != null)
-            {
-                foundUser = data.students.FirstOrDefault(u =>
-                    string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
-                if (foundUser != null) role = "Студент";
-            }
 
-            if (foundUser == null && data.teachers != null)
-            {
-                foundUser = data.teachers.FirstOrDefault(u =>
-                    string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
-                if (foundUser != null) role = "Викладач";
-            }
-
-            //if (foundUser == null && data.admins != null)
-            //{
-            //    foundUser = data.admins.FirstOrDefault(u =>
-            //        string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
-            //    if (foundUser != null) role = "Адміністратор";
-            //}
-
+            // Пошук серед студентів
+            foundUser = data.students?.FirstOrDefault(u =>
+                string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
 
             if (foundUser != null)
             {
-                Form1 form = new Form1();
+                role = "Студент";
+            }
+            else
+            {
+                // Пошук серед викладачів
+                foundUser = data.teachers?.FirstOrDefault(u =>
+                    string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
+
+                if (foundUser != null)
+                {
+                    role = "Викладач";
+                }
+            }
+
+            if (foundUser != null)
+            {
+                Main form;
+
+                // Якщо студент — передаємо роль та GroupId, якщо викладач — лише роль
+                if (role == "Студент")
+                {
+                    int studentGroupId = foundUser.GroupId ?? 0;
+                    form = new Main(role, studentGroupId);
+                }
+                else
+                {
+                    form = new Main(role);
+                }
+
                 this.Hide();
                 form.ShowDialog();
+                Pass.Clear();
                 this.Show();
             }
             else
@@ -99,17 +115,25 @@ namespace Register
 
     public class User
     {
-        public string? FirstName { get; set; } = null;
-        public string? LastName { get; set; } = null;
-        public string? Email { get; set; } = null ;
-        public string? Password { get; set; } = null;
+        [JsonPropertyName("first_name")]
+        public string? FirstName { get; set; }
+
+        [JsonPropertyName("last_name")]
+        public string? LastName { get; set; }
+
+        [JsonPropertyName("email")]
+        public string? Email { get; set; }
+
+        [JsonPropertyName("password")]
+        public string? Password { get; set; }
+
+        [JsonPropertyName("group_id")]
+        public int? GroupId { get; set; }
     }
 
     public class DiaryData
     {
-        public List<User> students { get; set; } = new List<User>();
-        public List<User> teachers { get; set; } = new List<User>();
-        //public List<User> admins { get; set; } = new List<User>();
+        public List<User> students { get; set; } = new();
+        public List<User> teachers { get; set; } = new();
     }
 }
-
