@@ -93,9 +93,9 @@
             Controls.Add(Pass);
             Controls.Add(Login);
             Font = new Font("Segoe UI", 10F);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(2);
-            MinimizeBox = false;
+            MaximizeBox = false;
             Name = "Autorization";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Autorization";
