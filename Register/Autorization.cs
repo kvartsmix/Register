@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
@@ -17,6 +18,10 @@ namespace Register
             InitializeComponent();
         }
 
+        public void Autorization_Load(object sender, EventArgs e)
+        {
+            // Any initialization code can go here if needed
+        }
         public void Autor()
         {
             string inputLogin = Login.Text.Trim();

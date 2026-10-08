@@ -1,58 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace Register
 {
-    public class FormBuilder
+    public static class FormBuilder
     {
-        /// <summary>
-        /// Синхронізація: при зміні cbSubject оновлюються доступні групи в cbGroup
-        /// </summary>
-        public void SyncComboBoxes(ComboBox cbSubject, ComboBox cbGroup, RegisterDB db, string role = "", int studentGroupId = 0)
+        public static void SetGroupComboBox(ComboBox cb, BindingList<Group> groups)
         {
-            cbSubject.DisplayMember = "Name";
-            cbSubject.ValueMember = "Id";
-
-            cbGroup.DisplayMember = "Id";
-            cbGroup.ValueMember = "Id";
-
-            cbSubject.SelectedIndexChanged += (s, e) =>
-            {
-                if (cbSubject.SelectedItem is not Subject selectedSubject)
-                {
-                    cbGroup.DataSource = null;
-                    return;
-                }
-
-                // Знаходимо групи, в яких викладається обраний предмет
-                var availableGroups = db.GroupSubjects
-                    .Where(gs => gs.SubjectId == selectedSubject.Id && gs.Group != null)
-                    .Select(gs => gs.Group!)
-                    .DistinctBy(g => g.Id)
-                    .ToList();
-
-                if (role == "Студент" && studentGroupId != 0)
-                {
-                    availableGroups = availableGroups.Where(g => g.Id == studentGroupId).ToList();
-                    cbGroup.Enabled = false;
-                }
-                else
-                {
-                    cbGroup.Enabled = true;
-                }
-
-                cbGroup.DataSource = availableGroups;
-            };
+            cb.DataSource = null;
+            cb.DisplayMember = "Id";
+            cb.ValueMember = "Id";
+            cb.DataSource = groups;
         }
 
-        /// <summary>
-        /// Обчислення середнього балу для кожного предмету (заповнює останній рядок таблиці)
-        /// </summary>
-        public void CalculateAverageGradeForSubjects(BindingList<Grade> grades, DataTable dt)
+        public static void CalculateAverageGradeForSubjects(BindingList<Grade> grades, DataTable dt)
         {
             if (dt.Rows.Count == 0) return;
 
@@ -76,10 +41,7 @@ namespace Register
             }
         }
 
-        /// <summary>
-        /// Обчислення середнього балу для кожного студента за його StudentEmail
-        /// </summary>
-        public void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt, string emailColumnName = "Email")
+        public static void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt, string emailColumnName = "Email")
         {
             if (!dt.Columns.Contains(emailColumnName)) return;
 
@@ -91,7 +53,6 @@ namespace Register
 
             foreach (string email in studentEmails)
             {
-                // Знаходимо рядок поточного студента за значенням у колонці email
                 DataRow? targetRow = dt.AsEnumerable()
                     .FirstOrDefault(row => string.Equals(row.Field<string>(emailColumnName), email, StringComparison.OrdinalIgnoreCase));
 
@@ -104,8 +65,49 @@ namespace Register
                 if (validGrades.Count > 0)
                 {
                     double average = validGrades.Average(g => g.Value);
-                    // Записуємо середнє значення в останній стовпчик
                     targetRow[lastColIndex] = average.ToString("F2");
+                }
+            }
+        }
+
+        public static void FormatDataGridView(DataGridView dgv)
+        {
+            for (int i = 0; i < dgv.Columns.Count; i++)
+            {
+                for (int j = 0; j < dgv.Rows.Count; j++)
+                {
+                    if (dgv.Rows[j].Cells[i].Value == null || string.IsNullOrWhiteSpace(dgv.Rows[j].Cells[i].Value.ToString()))
+                    {
+                        continue;
+                    }
+
+                    if (int.TryParse(dgv.Rows[j].Cells[i].Value.ToString(), out int num))
+                    {
+                        if (num == 2)
+                        {
+                            dgv.Rows[j].Cells[i].Style.ForeColor = Color.Red;
+                        }
+                        else if (num == 3)
+                        {
+                            dgv.Rows[j].Cells[i].Style.ForeColor = Color.Yellow;
+                        }
+                        else if (num == 4)
+                        {
+                            dgv.Rows[j].Cells[i].Style.ForeColor = Color.LightGreen;
+                        }
+                        else if (num == 5)
+                        {
+                            dgv.Rows[j].Cells[i].Style.ForeColor = Color.Green;
+                        }
+                        else
+                        {
+                            dgv.Rows[j].Cells[i].Style.BackColor = Color.LightGray;
+                        }
+                    }
+                    else
+                    {
+                        dgv.Rows[j].Cells[i].Style.BackColor = Color.LightGray;
+                    }
                 }
             }
         }
