@@ -38,48 +38,53 @@
             // comboBoxGroup
             // 
             comboBoxGroup.FormattingEnabled = true;
-            comboBoxGroup.Location = new Point(190, 37);
+            comboBoxGroup.Location = new Point(217, 49);
+            comboBoxGroup.Margin = new Padding(3, 4, 3, 4);
             comboBoxGroup.Name = "comboBoxGroup";
-            comboBoxGroup.Size = new Size(121, 23);
+            comboBoxGroup.Size = new Size(138, 28);
             comboBoxGroup.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(22, 40);
+            label1.Location = new Point(25, 53);
             label1.Name = "label1";
-            label1.Size = new Size(162, 15);
+            label1.Size = new Size(205, 20);
             label1.TabIndex = 1;
             label1.Text = "Семестрова відомість групи";
             // 
             // dataGridViewSemReport
             // 
             dataGridViewSemReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewSemReport.Location = new Point(12, 94);
+            dataGridViewSemReport.Location = new Point(14, 125);
+            dataGridViewSemReport.Margin = new Padding(3, 4, 3, 4);
             dataGridViewSemReport.Name = "dataGridViewSemReport";
-            dataGridViewSemReport.Size = new Size(561, 287);
+            dataGridViewSemReport.RowHeadersWidth = 51;
+            dataGridViewSemReport.Size = new Size(641, 383);
             dataGridViewSemReport.TabIndex = 2;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(317, 40);
+            label2.Location = new Point(362, 53);
             label2.Name = "label2";
-            label2.Size = new Size(76, 15);
+            label2.Size = new Size(97, 20);
             label2.TabIndex = 3;
             label2.Text = "за V семестр";
             // 
             // SemReportCard
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 600);
             Controls.Add(label2);
             Controls.Add(dataGridViewSemReport);
             Controls.Add(label1);
             Controls.Add(comboBoxGroup);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "SemReportCard";
             Text = "SemReportCard";
+            Load += SemReportCard_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewSemReport).EndInit();
             ResumeLayout(false);
             PerformLayout();

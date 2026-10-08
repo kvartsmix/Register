@@ -12,8 +12,8 @@ namespace Register
 {
     public partial class Main : Form
     {
-        public string filepath = "db.json";
-        RegisterDB DataBase;
+
+        public static RegisterDB DataBase{get;set;} = new RegisterDB("db.json");
         public string email;
         public int groupID;
         public string role;
@@ -44,7 +44,6 @@ namespace Register
 
         private void Main_Load(object sender, EventArgs e)
         {
-            DataBase = new RegisterDB(filepath);
             AdapterDB.SetupDataGridView(dataGridView);
             dataGridView.DataSource = DataBase.Grades;
             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
@@ -61,8 +60,10 @@ namespace Register
 
         private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SemReportCard form = new SemReportCard();
-
+            SemReportCard form = new SemReportCard(DataBase, role, groupID);
+            this.Hide();
+            form.ShowDialog();
+            this.Show();
         }
     }
 }

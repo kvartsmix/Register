@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Register
@@ -14,7 +17,6 @@ namespace Register
 
         public static void SyncComboBoxes(ComboBox cbSubject, ComboBox cbGroup, RegisterDB db, string role = "", int studentGroupId = 0)
         {
-            // Якщо увійшов студент — жорстко обмежуємо його групою
             if (role == "Студент" && studentGroupId != 0)
             {
                 SetGroupComboBox(cbGroup, new BindingList<Group>(db.Groups.Where(g => g.Id == studentGroupId).ToList()));
@@ -30,11 +32,9 @@ namespace Register
                 return;
             }
 
-            // Початкове заповнення повними списками
             SetSubjectComboBox(cbSubject, db.Subjects);
             SetGroupComboBox(cbGroup, db.Groups);
 
-            // 1. Зміна ПРЕДМЕТА -> фільтруємо доступні групи
             cbSubject.SelectionChangeCommitted += (s, e) =>
             {
                 if (isSyncing || cbSubject.SelectedItem is not Subject selectedSubject) return;
@@ -50,7 +50,6 @@ namespace Register
 
                 SetGroupComboBox(cbGroup, new BindingList<Group>(filteredGroups));
 
-                // Зберігаємо вибір групи, якщо вона є у новому списку
                 if (previouslySelectedGroupId.HasValue && filteredGroups.Any(g => g.Id == previouslySelectedGroupId.Value))
                 {
                     cbGroup.SelectedValue = previouslySelectedGroupId.Value;
@@ -101,6 +100,187 @@ namespace Register
             cb.DataSource = subjects;
         }
 
+        public static void SetAllTablesComboBox(ComboBox cb, RegisterDB db)
+        {
+            cb.Items.Clear();
+
+            var properties = typeof(RegisterDB).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var prop in properties)
+            {
+                if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) && prop.PropertyType != typeof(string))
+                {
+                    cb.Items.Add(prop.Name);
+                }
+            }
+
+            if (cb.Items.Count > 0)
+                cb.SelectedIndex = 0;
+        }
+
+        public static void SetReportDB(DataGridView dataGrid, RegisterDB db, int? groupId = null)
+        {
+            var dt = new DataTable();
+
+            // 1. Перший стовпець — студент
+            dt.Columns.Add("Прізвище, ім'я студента", typeof(string));
+
+            // 2. Стовпці всіх предметів
+            var subjects = (groupId.HasValue
+                ? db.GroupSubjects.Where(gs => gs.GroupId == groupId.Value).Select(gs => gs.Subject).Where(s => s != null)
+                : db.Subjects)
+                .DistinctBy(s => s!.Id)
+                .OrderBy(s => s!.Name)
+                .ToList();
+
+            foreach (var subject in subjects)
+            {
+                if (subject != null && !dt.Columns.Contains(subject.Name))
+                {
+                    dt.Columns.Add(subject.Name, typeof(string));
+                }
+            }
+
+            // 3. Останній стовпець — середній бал по студенту
+            dt.Columns.Add("Середній бал", typeof(string));
+
+            // 4. Студенти
+            var students = (groupId.HasValue
+                ? db.Students.Where(s => s.GroupId == groupId.Value)
+                : db.Students)
+                .OrderBy(s => s.LastName)
+                .ThenBy(s => s.FirstName)
+                .ToList();
+
+            // 5. Заповнення рядків студентів
+            foreach (var student in students)
+            {
+                var row = dt.NewRow();
+                row["Прізвище, ім'я студента"] = $"{student.LastName} {student.FirstName}".Trim();
+
+                var studentValues = new List<double>();
+
+                foreach (var subject in subjects)
+                {
+                    if (subject == null) continue;
+
+                    var grade = student.Grades.FirstOrDefault(g => g.SubjectId == subject.Id);
+                    if (grade != null && grade.Value > 0)
+                    {
+                        row[subject.Name] = grade.Value.ToString(CultureInfo.CurrentCulture);
+                        studentValues.Add(grade.Value);
+                    }
+                    else
+                    {
+                        row[subject.Name] = string.Empty;
+                    }
+                }
+
+                row["Середній бал"] = studentValues.Count > 0
+                    ? studentValues.Average().ToString("F2")
+                    : string.Empty;
+
+                dt.Rows.Add(row);
+            }
+
+            var bottomSummaryRow = dt.NewRow();
+            bottomSummaryRow["Прізвище, ім'я студента"] = "Середній бал";
+            dt.Rows.Add(bottomSummaryRow);
+
+            RecalculateBottomAverages(dt, subjects);
+
+            dataGrid.DataSource = null;
+            dataGrid.AutoGenerateColumns = true;
+            dataGrid.DataSource = dt;
+
+            if (dataGrid.Columns["Прізвище, ім'я студента"] != null)
+                dataGrid.Columns["Прізвище, ім'я студента"].ReadOnly = true;
+
+            if (dataGrid.Columns["Середній бал"] != null)
+                dataGrid.Columns["Середній бал"].ReadOnly = true;
+
+            int lastRowIdx = dataGrid.Rows.Count - 1;
+            if (lastRowIdx >= 0)
+                dataGrid.Rows[lastRowIdx].ReadOnly = true;
+
+            dataGrid.CellEndEdit -= DataGrid_CellEndEdit;
+            dataGrid.CellEndEdit += DataGrid_CellEndEdit;
+
+            void DataGrid_CellEndEdit(object? sender, DataGridViewCellEventArgs e)
+            {
+                if (e.RowIndex < 0 || e.RowIndex >= students.Count || e.ColumnIndex <= 0 || e.ColumnIndex >= dt.Columns.Count - 1)
+                    return;
+
+                var student = students[e.RowIndex];
+                string subjectName = dataGrid.Columns[e.ColumnIndex].HeaderText;
+                var subject = subjects.FirstOrDefault(s => s?.Name == subjectName);
+                if (subject == null) return;
+
+                var cellRawValue = dataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
+                double.TryParse(cellRawValue, out double newValue);
+
+                var grade = student.Grades.FirstOrDefault(g => g.SubjectId == subject.Id);
+                if (grade != null)
+                {
+                    grade.Value = newValue;
+                }
+                else if (newValue > 0)
+                {
+                    int newId = db.Grades.Count > 0 ? db.Grades.Max(g => g.Id) + 1 : 1;
+                    var newGrade = new Grade
+                    {
+                        Id = newId,
+                        GroupId = student.GroupId,
+                        SubjectId = subject.Id,
+                        Value = newValue,
+                        Student = student,
+                        Subject = subject,
+                        StudentEmail = student.Email
+                    };
+
+                    student.Grades.Add(newGrade);
+                    db.Grades.Add(newGrade);
+                }
+
+                var studentValidGrades = new List<double>();
+                for (int col = 1; col < dt.Columns.Count - 1; col++)
+                {
+                    if (double.TryParse(dt.Rows[e.RowIndex][col]?.ToString(), out double v) && v > 0)
+                    {
+                        studentValidGrades.Add(v);
+                    }
+                }
+
+                dt.Rows[e.RowIndex]["Середній бал"] = studentValidGrades.Count > 0
+                    ? studentValidGrades.Average().ToString("F2")
+                    : string.Empty;
+                RecalculateBottomAverages(dt, subjects);
+            }
+        }
+
+        private static void RecalculateBottomAverages(DataTable dt, List<Subject?> subjects)
+        {
+            if (dt.Rows.Count <= 1) return;
+
+            int bottomRowIndex = dt.Rows.Count - 1;
+            var summaryRow = dt.Rows[bottomRowIndex];
+
+            foreach (var subject in subjects)
+            {
+                if (subject == null || !dt.Columns.Contains(subject.Name)) continue;
+
+                var subjectVals = new List<double>();
+                for (int i = 0; i < bottomRowIndex; i++)
+                {
+                    if (double.TryParse(dt.Rows[i][subject.Name]?.ToString(), out double v) && v > 0)
+                        subjectVals.Add(v);
+                }
+
+                summaryRow[subject.Name] = subjectVals.Count > 0
+                    ? subjectVals.Average().ToString("F2")
+                    : string.Empty;
+            }
+        }
         public static void CalculateAverageGradeForStudents(BindingList<Grade> grades, DataTable dt)
         {
             if (dt.Rows.Count == 0) return;
@@ -135,7 +315,6 @@ namespace Register
 
             foreach (string email in studentEmails)
             {
-                // Шукаємо рядок студента за Email у DataTable
                 DataRow? targetRow = dt.AsEnumerable()
                     .FirstOrDefault(row => string.Equals(row.Field<string>(emailColumnName), email, StringComparison.OrdinalIgnoreCase));
 

@@ -12,9 +12,39 @@ namespace Register
 {
     public partial class SemReportCard : Form
     {
+        private int groupID;
+        private string role;
+        public RegisterDB DataBase;
         public SemReportCard()
         {
             InitializeComponent();
+            this.DataBase = Main.DataBase;
+        }
+        public SemReportCard(RegisterDB dataBase, string role, int groupID) : this()
+        {
+            if (groupID > 0)
+                this.groupID = groupID;
+            this.role = role;
+            this.DataBase = dataBase;
+        }
+
+        private void SemReportCard_Load(object sender, EventArgs e)
+        {
+            FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
+
+            if (groupID > 0)
+            {
+                comboBoxGroup.SelectedValue = groupID;
+            }
+
+            if (role == "Студент")
+            {
+                comboBoxGroup.Enabled = false;
+                dataGridViewSemReport.ReadOnly = true;
+            }
+
+            FormBuilder.SetReportDB(dataGridViewSemReport, DataBase, groupID > 0 ? groupID : null);
+            FormBuilder.FormatDataGridView(dataGridViewSemReport);
         }
     }
 }

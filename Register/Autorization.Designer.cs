@@ -40,7 +40,7 @@
             Login.Location = new Point(69, 36);
             Login.Margin = new Padding(2);
             Login.Name = "Login";
-            Login.Size = new Size(106, 25);
+            Login.Size = new Size(106, 30);
             Login.TabIndex = 0;
             // 
             // Pass
@@ -48,7 +48,7 @@
             Pass.Location = new Point(69, 90);
             Pass.Margin = new Padding(2);
             Pass.Name = "Pass";
-            Pass.Size = new Size(106, 25);
+            Pass.Size = new Size(106, 30);
             Pass.TabIndex = 1;
             // 
             // Enter
@@ -68,7 +68,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(28, 40);
             label1.Name = "label1";
-            label1.Size = new Size(41, 19);
+            label1.Size = new Size(51, 23);
             label1.TabIndex = 3;
             label1.Text = "Email";
             // 
@@ -77,13 +77,13 @@
             label2.AutoSize = true;
             label2.Location = new Point(7, 93);
             label2.Name = "label2";
-            label2.Size = new Size(67, 19);
+            label2.Size = new Size(80, 23);
             label2.TabIndex = 4;
             label2.Text = "Password";
             // 
             // Autorization
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 248, 250);
             ClientSize = new Size(199, 214);
