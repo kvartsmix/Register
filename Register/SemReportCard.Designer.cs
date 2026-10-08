@@ -34,6 +34,7 @@
             menuStrip1 = new MenuStrip();
             ExitToolStrip = new ToolStripMenuItem();
             label2 = new Label();
+            зберегтиToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSemReport).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -45,7 +46,6 @@
             comboBoxGroup.Name = "comboBoxGroup";
             comboBoxGroup.Size = new Size(121, 23);
             comboBoxGroup.TabIndex = 0;
-          
             // 
             // label1
             // 
@@ -70,7 +70,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { ExitToolStrip });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { ExitToolStrip, зберегтиToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(673, 24);
@@ -93,6 +93,12 @@
             label2.Size = new Size(53, 21);
             label2.TabIndex = 5;
             label2.Text = "Групи";
+            // 
+            // зберегтиToolStripMenuItem
+            // 
+            зберегтиToolStripMenuItem.Name = "зберегтиToolStripMenuItem";
+            зберегтиToolStripMenuItem.Size = new Size(69, 20);
+            зберегтиToolStripMenuItem.Text = "Зберегти";
             // 
             // SemReportCard
             // 
@@ -124,5 +130,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem ExitToolStrip;
         private Label label2;
+        private ToolStripMenuItem зберегтиToolStripMenuItem;
     }
 }

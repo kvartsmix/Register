@@ -39,7 +39,6 @@ namespace Register
             // 1. Ініціалізація бази
             DataBase = new RegisterDB(filepath);
             AdapterDB.SetupDataGridView(dataGridView);
-            FormBuilder.StyleDataGridView(dataGridView);
             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
             FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
