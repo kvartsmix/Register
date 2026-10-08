@@ -78,6 +78,18 @@ namespace Register
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SemReportCard form = new SemReportCard();
+            form.ShowDialog();
+        }
+
+        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
