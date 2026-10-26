@@ -11,19 +11,16 @@ namespace Register
     {
         public static void StyleDataGridView(DataGridView dgv)
         {
-            // Загальні налаштування стилю
-            dgv.BackgroundColor = Color.FromArgb(248, 249, 250); // Світлий фон замість сірого
+            dgv.BackgroundColor = Color.FromArgb(248, 249, 250);
             dgv.BorderStyle = BorderStyle.None;
             dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgv.GridColor = Color.FromArgb(230, 235, 240);
 
-            // Шрифт та кольори звичайних клітинок
             dgv.DefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Regular);
             dgv.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
             dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(231, 241, 255);
             dgv.DefaultCellStyle.SelectionForeColor = Color.FromArgb(13, 110, 253);
 
-            // Заголовок (шапка) таблиці
             dgv.EnableHeadersVisualStyles = false;
             dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(238, 242, 246);
@@ -31,11 +28,10 @@ namespace Register
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             dgv.ColumnHeadersHeight = 36;
 
-            // Інші корисні налаштування
-            dgv.RowTemplate.Height = 32; // Збільшені відступи у рядках
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // Заповнення всієї ширини
+            dgv.RowTemplate.Height = 32; 
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; 
             dgv.AllowUserToAddRows = false;
-            dgv.RowHeadersVisible = false; // Сховати крайній лівий порожній стовпчик
+            dgv.RowHeadersVisible = false;
         }
         public static void StyleComboBox(ComboBox cb)
         {
@@ -47,19 +43,16 @@ namespace Register
         }
         public static void StyleButton(Button btn)
         {
-            // 1. Плоский стиль та прибрання стандартної рамки
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
 
-            // 2. Основні кольори та шрифт
-            btn.BackColor = Color.FromArgb(13, 110, 253); // Bootstrap Blue
+            btn.BackColor = Color.FromArgb(13, 110, 253);
             btn.ForeColor = Color.White;
             btn.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            btn.Cursor = Cursors.Hand; // Вказівник-рука при наведенні
+            btn.Cursor = Cursors.Hand;
 
-            // 3. Інтерактивні кольори (Hover / Click)
-            btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 88, 202);  // Трохи темніший при наведенні
-            btn.FlatAppearance.MouseDownBackColor = Color.FromArgb(7, 66, 153);   // Ще темніший при кліку
+            btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 88, 202);
+            btn.FlatAppearance.MouseDownBackColor = Color.FromArgb(7, 66, 153);
         }
         public static void StyleTextBox(TextBox txt)
         {

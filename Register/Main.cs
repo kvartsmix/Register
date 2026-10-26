@@ -36,7 +36,6 @@ namespace Register
 
         private void Main_Load(object sender, EventArgs e)
         {
-            // 1. Ініціалізація бази
             DataBase = new RegisterDB(filepath);
             AdapterDB.SetupDataGridView(dataGridView);
             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
