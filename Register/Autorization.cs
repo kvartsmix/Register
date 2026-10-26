@@ -69,10 +69,11 @@ namespace Register
             {
                 role = "Студент";
             }
-            else if (foundUser == null)
-            {
-                foundUser = data.admins?.FirstOrDefault(u =>
+            foundUser = data.admins?.FirstOrDefault(u =>
                 string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
+            if (foundUser != null)
+            {
+                role = "Адмін";
             }
             else
             {
