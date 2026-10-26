@@ -61,7 +61,6 @@ namespace Register
             User? foundUser = null;
             string role = "";
 
-            // Пошук серед студентів
             foundUser = data.students?.FirstOrDefault(u =>
                 string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
 
@@ -69,15 +68,20 @@ namespace Register
             {
                 role = "Студент";
             }
-            foundUser = data.admins?.FirstOrDefault(u =>
-                string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
-            if (foundUser != null)
+
+            if (foundUser == null)
             {
-                role = "Адмін";
+                foundUser = data.admins?.FirstOrDefault(u =>
+                    string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
+
+                if (foundUser != null)
+                {
+                    role = "Адмін";
+                }
             }
-            else
+
+            if (foundUser == null)
             {
-                // Пошук серед викладачів
                 foundUser = data.teachers?.FirstOrDefault(u =>
                     string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
 
@@ -91,7 +95,6 @@ namespace Register
             {
                 Form form;
 
-                // Якщо студент — передаємо роль та GroupId, якщо викладач — лише роль
                 if (role == "Студент")
                 {
                     int studentGroupId = foundUser.GroupId ?? 0;
