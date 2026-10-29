@@ -6,8 +6,9 @@ using System.ComponentModel;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Collections;
 
-        public class Teacher
+public class Teacher
         {
             [JsonPropertyName("email")]
             public string Email { get; set; } = string.Empty;
@@ -25,6 +26,11 @@ using System.Text.Json.Serialization;
 
             [JsonIgnore]
             public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
+
+            public override string ToString()
+                {
+                    return LastName;
+                }
         }
 
         public class Subject
@@ -40,7 +46,11 @@ using System.Text.Json.Serialization;
 
             [JsonIgnore]
             public BindingList<Grade> Grades { get; set; } = new();
-        }
+            public override string ToString()
+            {
+                return Name;
+            }
+}
 
         public class Group
         {
@@ -61,7 +71,12 @@ using System.Text.Json.Serialization;
 
             [JsonIgnore]
             public BindingList<Grade> Grades { get; set; } = new();
-        }
+
+            public override string ToString()
+            {
+                return $"{Id}";
+            }
+}
 
         public class Student
         {
@@ -141,10 +156,12 @@ using System.Text.Json.Serialization;
 
     [JsonIgnore]
     public string FirstName => Student?.FirstName ?? string.Empty;
+
 }
 
 public class RegisterDB
 {
+    private readonly string[] Lists = { "Teachers", "Students", "Groups", "Subjects", "GroupSubjects" };
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -329,6 +346,12 @@ public class RegisterDB
                 grade.Subject = subject;
                 subject.Grades.Add(grade);
             }
+        }
+    }
+    public IEnumerable<string> GetLists() {
+        foreach(string a in Lists)
+        {
+            yield return a;
         }
     }
 }

@@ -2750,5 +2750,11 @@
       "subject_id": 20,
       "value": 5.0
     }
+  ],
+  "admins": [
+    {
+      "email": "admin",
+      "password": "123"
+    }
   ]
 }

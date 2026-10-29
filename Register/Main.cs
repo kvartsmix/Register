@@ -121,7 +121,7 @@ namespace Register
 
         private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-
+            hasChanged = true;
         }
 
         private void зберегтиToolStripMenuItem_Click(object sender, EventArgs e)

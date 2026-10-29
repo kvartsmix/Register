@@ -67,7 +67,19 @@ namespace Register
             {
                 role = "Студент";
             }
-            else
+
+            if (foundUser == null)
+            {
+                foundUser = data.admins?.FirstOrDefault(u =>
+                    string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
+
+                if (foundUser != null)
+                {
+                    role = "Адмін";
+                }
+            }
+
+            if (foundUser == null)
             {
                 foundUser = data.teachers?.FirstOrDefault(u =>
                     string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
@@ -80,16 +92,20 @@ namespace Register
 
             if (foundUser != null)
             {
-                Main form;
+                Form form;
 
                 if (role == "Студент")
                 {
                     int studentGroupId = foundUser.GroupId ?? 0;
                     form = new Main(role, studentGroupId);
                 }
-                else
+                else if (role == "Викладач")
                 {
                     form = new Main(role, foundUser.Email ?? inputLogin);
+                }
+                else
+                {
+                    form = new AdminForm();
                 }
                 Login.Text = "";
                 Pass.Text = ""; 
@@ -132,5 +148,6 @@ namespace Register
     {
         public List<User> students { get; set; } = new();
         public List<User> teachers { get; set; } = new();
+        public List<User> admins { get; set; } = new();
     }
 }

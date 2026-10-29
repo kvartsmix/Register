@@ -21,6 +21,14 @@ namespace Register
     {
         private static bool isSyncing = false;
 
+
+        public static void AddToComboBox(ComboBox cb, RegisterDB DB)
+        {
+            foreach (string listName in DB.GetLists())
+            {
+                cb.Items.Add(listName);
+            }
+        }
         public static void SyncComboBoxes(ComboBox cbSubject, ComboBox cbGroup, RegisterDB db, string role = "", int studentGroupId = 0, string teacherEmail = "")
         {
             if (role == "Студент" && studentGroupId != 0)
