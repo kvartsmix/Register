@@ -61,7 +61,6 @@ namespace Register
             User? foundUser = null;
             string role = "";
 
-            // Пошук серед студентів
             foundUser = data.students?.FirstOrDefault(u =>
                 string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
 
@@ -69,9 +68,20 @@ namespace Register
             {
                 role = "Студент";
             }
-            else
+
+            if (foundUser == null)
             {
-                // Пошук серед викладачів
+                foundUser = data.admins?.FirstOrDefault(u =>
+                    string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
+
+                if (foundUser != null)
+                {
+                    role = "Адмін";
+                }
+            }
+
+            if (foundUser == null)
+            {
                 foundUser = data.teachers?.FirstOrDefault(u =>
                     string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
 
@@ -83,17 +93,20 @@ namespace Register
 
             if (foundUser != null)
             {
-                Main form;
+                Form form;
 
-                // Якщо студент — передаємо роль та GroupId, якщо викладач — лише роль
                 if (role == "Студент")
                 {
                     int studentGroupId = foundUser.GroupId ?? 0;
                     form = new Main(role, studentGroupId);
                 }
-                else
+                else if (role == "Викладач")
                 {
                     form = new Main(role, foundUser.Email ?? inputLogin);
+                }
+                else
+                {
+                    form = new AdminForm();
                 }
 
                 this.Hide();
@@ -135,5 +148,6 @@ namespace Register
     {
         public List<User> students { get; set; } = new();
         public List<User> teachers { get; set; } = new();
+        public List<User> admins { get; set; } = new();
     }
 }
