@@ -23,7 +23,6 @@ namespace Register
 
         public static void SyncComboBoxes(ComboBox cbSubject, ComboBox cbGroup, RegisterDB db, string role = "", int studentGroupId = 0, string teacherEmail = "")
         {
-            // 1. Студент: бачить виключно свою групу і предмети цієї групи
             if (role == "Студент" && studentGroupId != 0)
             {
                 SetGroupComboBox(cbGroup, new BindingList<Group>(db.Groups.Where(g => g.Id == studentGroupId).ToList()));
@@ -43,7 +42,6 @@ namespace Register
                 return;
             }
 
-            // 2. Викладач: бачить ТІЛЬКИ ті предмети і групи, які він особисто веде
             if (role == "Викладач" && !string.IsNullOrEmpty(teacherEmail))
             {
                 var teacherSubjects = db.GroupSubjects
@@ -64,7 +62,6 @@ namespace Register
                 if (cbGroup.Items.Count > 0) cbGroup.SelectedIndex = 0;
                 if (cbSubject.Items.Count > 0) cbSubject.SelectedIndex = 0;
 
-                // Вибір предмета -> тільки групи цього викладача з цього предмета
                 cbSubject.SelectionChangeCommitted += (s, e) =>
                 {
                     if (isSyncing || cbSubject.SelectedItem is not Subject selectedSubject) return;
@@ -89,8 +86,6 @@ namespace Register
 
                     isSyncing = false;
                 };
-
-                // Вибір групи -> тільки предмети цього викладача в обраній групі
                 cbGroup.SelectionChangeCommitted += (s, e) =>
                 {
                     if (isSyncing || cbGroup.SelectedItem is not Group selectedGroup) return;
@@ -118,8 +113,6 @@ namespace Register
 
                 return;
             }
-
-            // 3. Інші користувачі (повний перелік)
             SetSubjectComboBox(cbSubject, db.Subjects);
             SetGroupComboBox(cbGroup, db.Groups);
 
@@ -246,15 +239,12 @@ namespace Register
                 };
             }).ToList();
 
-            // РОЗРАХУНОК СЕРЕДНЬОГО БАЛУ ПО ОБРАНОМУ ПРЕДМЕТУ:
             var validGrades = rows
                 .Where(r => r.GradeValue.HasValue && r.GradeValue.Value >= 2.0 && r.GradeValue.Value <= 5.0)
                 .Select(r => r.GradeValue!.Value)
                 .ToList();
 
             double? subjectAverage = validGrades.Count > 0 ? Math.Round(validGrades.Average(), 2) : null;
-
-            // Додаємо підсумковий рядок у кінець списку
             rows.Add(new StudentGradeRow
             {
                 LastName = "Середній бал",
@@ -285,8 +275,6 @@ namespace Register
                 if (dgv.Columns["Email"] != null) dgv.Columns["Email"].ReadOnly = true;
                 if (gradeCol != null) gradeCol.ReadOnly = !isTeacherAssigned;
             }
-
-            // Стилізуємо та блокуємо останній підсумковий рядок
             int lastRowIndex = dgv.Rows.Count - 1;
             if (lastRowIndex >= 0)
             {
@@ -304,7 +292,6 @@ namespace Register
             var (isValid, subj, grp) = AreComboBoxesSelected(cbSubject, cbGroup, db);
             if (!isValid || subj == null || grp == null) return;
 
-            // Не чіпаємо останній підсумковий рядок
             if (rowIndex == dgv.Rows.Count - 1) return;
 
             bool canEdit = db.GroupSubjects.Any(gs =>
@@ -322,8 +309,6 @@ namespace Register
             {
                 if (editedRow.LastName == "Середній бал" || string.IsNullOrEmpty(editedRow.Email))
                     return;
-
-                // Валідація діапазону [2; 5]
                 if (editedRow.GradeValue.HasValue && (editedRow.GradeValue.Value < 2.0 || editedRow.GradeValue.Value > 5.0))
                 {
                     MessageBox.Show("Оцінка повинна бути від 2 до 5!", "Помилка введення", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -357,17 +342,11 @@ namespace Register
                 }
                 else if (existingGrade != null)
                 {
-                    // Очищення клітинки видаляє оцінку
                     db.Grades.Remove(existingGrade);
                 }
 
-                // Зберігаємо в файл
-                db.SaveToFile(filePath);
-
-                // ДИНАМІЧНИЙ ПЕРЕРАХУНОК СЕРЕДНЬОГО БАЛУ БЕЗ ПЕРЕЗАВАНТАЖЕННЯ:
                 if (dgv.DataSource is BindingList<StudentGradeRow> list && list.Count > 1)
                 {
-                    // Беремо всі рядки крім останнього (підсумкового)
                     var studentScores = list
                         .Take(list.Count - 1)
                         .Where(r => r.GradeValue.HasValue && r.GradeValue.Value >= 2.0 && r.GradeValue.Value <= 5.0)
@@ -376,11 +355,9 @@ namespace Register
 
                     double? newAverage = studentScores.Count > 0 ? Math.Round(studentScores.Average(), 2) : null;
 
-                    // Оновлюємо значення в останньому рядку
                     var summaryRow = list[list.Count - 1];
                     summaryRow.GradeValue = newAverage;
 
-                    // Оновлюємо відображення цього рядка
                     list.ResetItem(list.Count - 1);
                 }
 
@@ -478,7 +455,10 @@ namespace Register
                 {
                     if (subject == null) continue;
 
-                    var grade = student.Grades.FirstOrDefault(g => g.SubjectId == subject.Id);
+                    var grade = db.Grades.FirstOrDefault(g =>
+    g.GroupId == student.GroupId &&
+    g.SubjectId == subject.Id &&
+    string.Equals(g.StudentEmail, student.Email, StringComparison.OrdinalIgnoreCase));
                     if (grade != null && grade.Value > 0)
                     {
                         row[subject.Name] = grade.Value.ToString(CultureInfo.CurrentCulture);
@@ -544,7 +524,7 @@ namespace Register
             }
         }
 
-   public static void ValidateChanges(bool change, RegisterDB DB)
+        public static void ValidateChanges(bool change, RegisterDB DB)
         {
             if (change)
             {
@@ -560,6 +540,49 @@ namespace Register
                     DB.SaveToFile();
                 }
             }
+        }
+        public static void DataGridView_CellValidating1(object sender, DataGridViewCellValidatingEventArgs e, DataGridView dgv, string role)
+        {
+            if (role == "Студент") return;
+
+            int avgColIndex = dgv.Columns.Count - 1;
+
+            if (e.ColumnIndex > 0 && e.ColumnIndex < avgColIndex && e.RowIndex >= 0)
+            {
+                string input = e.FormattedValue?.ToString()?.Trim() ?? string.Empty;
+
+                if (string.IsNullOrEmpty(input))
+                {
+                    return;
+                }
+
+                if (!int.TryParse(input, out int grade) || grade < 2 || grade > 5)
+                {
+                    e.Cancel = true;
+                    MessageBox.Show("Оцінка повинна бути числом від 2 до 5!", "Помилка введення", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+        public static bool DataGridView_CellValidating(object? sender, DataGridViewCellValidatingEventArgs e, DataGridView dataGridView, string role)
+        {
+            if (e.RowIndex == dataGridView.Rows.Count - 1)
+                return false;
+
+            var gradeCol = dataGridView.Columns["GradeValue"] ?? dataGridView.Columns["Grade"] ?? dataGridView.Columns["Value"];
+            if (gradeCol != null && e.ColumnIndex == gradeCol.Index && role == "Викладач")
+            {
+                string input = e.FormattedValue?.ToString()?.Trim() ?? "";
+
+                if (string.IsNullOrEmpty(input))
+                    return false;
+
+                if (!double.TryParse(input, out double grade) || grade < 2.0 || grade > 5.0)
+                {
+                    MessageBox.Show("Оцінка повинна бути числом від 2 до 5!", "Некоректна оцінка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    e.Cancel = true;
+                }
+            }
+            return true;
         }
     }
 }

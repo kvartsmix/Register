@@ -33,8 +33,8 @@
             dataGridViewSemReport = new DataGridView();
             menuStrip1 = new MenuStrip();
             ExitToolStrip = new ToolStripMenuItem();
-            label2 = new Label();
             зберегтиToolStripMenuItem = new ToolStripMenuItem();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSemReport).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -42,18 +42,19 @@
             // comboBoxGroup
             // 
             comboBoxGroup.FormattingEnabled = true;
-            comboBoxGroup.Location = new Point(95, 65);
+            comboBoxGroup.Location = new Point(109, 87);
+            comboBoxGroup.Margin = new Padding(3, 4, 3, 4);
             comboBoxGroup.Name = "comboBoxGroup";
-            comboBoxGroup.Size = new Size(121, 23);
+            comboBoxGroup.Size = new Size(138, 28);
             comboBoxGroup.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(12, 41);
+            label1.Location = new Point(14, 55);
             label1.Name = "label1";
-            label1.Size = new Size(260, 21);
+            label1.Size = new Size(328, 28);
             label1.TabIndex = 1;
             label1.Text = "Семестрова відомість за V семестр";
             // 
@@ -61,11 +62,13 @@
             // 
             dataGridViewSemReport.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewSemReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewSemReport.Location = new Point(3, 94);
+            dataGridViewSemReport.Location = new Point(3, 125);
+            dataGridViewSemReport.Margin = new Padding(3, 4, 3, 4);
             dataGridViewSemReport.Name = "dataGridViewSemReport";
             dataGridViewSemReport.RowHeadersWidth = 51;
-            dataGridViewSemReport.Size = new Size(670, 300);
+            dataGridViewSemReport.Size = new Size(766, 400);
             dataGridViewSemReport.TabIndex = 2;
+            dataGridViewSemReport.CellValidating += dataGridViewSemReport_CellValidating;
             dataGridViewSemReport.CellValueChanged += dataGridViewSemReport_CellValueChanged;
             // 
             // menuStrip1
@@ -74,48 +77,51 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { ExitToolStrip, зберегтиToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(673, 24);
+            menuStrip1.Padding = new Padding(7, 3, 0, 3);
+            menuStrip1.Size = new Size(769, 30);
             menuStrip1.TabIndex = 4;
             menuStrip1.Text = "menuStrip1";
             // 
             // ExitToolStrip
             // 
             ExitToolStrip.Name = "ExitToolStrip";
-            ExitToolStrip.Size = new Size(47, 20);
+            ExitToolStrip.Size = new Size(60, 24);
             ExitToolStrip.Text = "Вихід";
             ExitToolStrip.Click += ExitToolStrip_Click;
+            // 
+            // зберегтиToolStripMenuItem
+            // 
+            зберегтиToolStripMenuItem.Name = "зберегтиToolStripMenuItem";
+            зберегтиToolStripMenuItem.Size = new Size(86, 24);
+            зберегтиToolStripMenuItem.Text = "Зберегти";
+            зберегтиToolStripMenuItem.Click += зберегтиToolStripMenuItem_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(25, 65);
+            label2.Location = new Point(29, 87);
             label2.Name = "label2";
-            label2.Size = new Size(53, 21);
+            label2.Size = new Size(67, 28);
             label2.TabIndex = 5;
             label2.Text = "Групи";
             // 
-            // зберегтиToolStripMenuItem
-            // 
-            зберегтиToolStripMenuItem.Name = "зберегтиToolStripMenuItem";
-            зберегтиToolStripMenuItem.Size = new Size(69, 20);
-            зберегтиToolStripMenuItem.Text = "Зберегти";
-            // 
             // SemReportCard
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
-            ClientSize = new Size(673, 396);
+            ClientSize = new Size(769, 528);
             Controls.Add(label2);
             Controls.Add(dataGridViewSemReport);
             Controls.Add(label1);
             Controls.Add(comboBoxGroup);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "SemReportCard";
             Text = "SemReportCard";
-            FormClosed += SemReportCard_FormClosed;
+            FormClosing += SemReportCard_FormClosing;
             Load += SemReportCard_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewSemReport).EndInit();
             menuStrip1.ResumeLayout(false);

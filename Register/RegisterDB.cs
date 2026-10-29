@@ -187,6 +187,7 @@ public class RegisterDB
         string path = filePath ?? FilePath ?? throw new InvalidOperationException("Шлях до файлу не вказано.");
         FilePath = path;
         File.WriteAllText(path, Serialize());
+        MessageBox.Show($"Дані успішно збережено", "Збереження даних", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 
     public void LoadFromFile(string filePath)
