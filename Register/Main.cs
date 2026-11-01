@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Windows.Forms;
 
 namespace Register
@@ -6,7 +7,7 @@ namespace Register
     public partial class Main : Form
     {
         public bool hasChanged = false;
-        public static string filepath = "db.json";
+        public static string filepath = Autorization.filePath;
         public static RegisterDB? DataBase;
 
         public string email = string.Empty;

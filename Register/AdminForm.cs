@@ -27,6 +27,7 @@ namespace Register
             FormStyles.StyleDataGridView(dataGridViewReport);
             dataGridViewReport.AllowUserToAddRows = true;
             FormBuilder.AddToComboBox(comboBoxTables, DataBase);
+            comboBoxTables.SelectedIndex = 0;
         }
 
         private void comboBoxTables_SelectedIndexChanged(object sender, EventArgs e)
@@ -39,11 +40,19 @@ namespace Register
                 case "Groups": dataGridViewReport.DataSource = DataBase.Groups; break;
                 case "Subjects": dataGridViewReport.DataSource = DataBase.Subjects; break;
                 case "GroupSubjects": dataGridViewReport.DataSource = DataBase.GroupSubjects; break;
+                case "Admins": dataGridViewReport.DataSource = DataBase.Admins; break;
             }
         }
 
         private void зберегтиToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            for (int i = DataBase.Groups.Count - 1; i >= 0; i--)
+            {
+                if (DataBase.Groups[i].Id == 0)
+                {
+                    DataBase.Groups.RemoveAt(i);
+                }
+            }
             DataBase.SaveToFile(Main.filepath);
             hasChanged = false;
         }
