@@ -25,7 +25,7 @@ namespace Register
 
             FormStyles.StyleComboBox(comboBoxTables);
             FormStyles.StyleDataGridView(dataGridViewReport);
-
+            dataGridViewReport.AllowUserToAddRows = true;
             FormBuilder.AddToComboBox(comboBoxTables, DataBase);
         }
 
