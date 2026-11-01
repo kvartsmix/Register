@@ -67,27 +67,16 @@ namespace Register
 
             if (foundUser != null)
             {
-                role = "Студент";
-            }
-            else
-            {
-                foundUser = data.teachers?.FirstOrDefault(u =>
-                    string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
-
-                if (foundUser != null)
-                {
-                    role = "Викладач";
-                }
-                else
-                {
-                    foundUser = data.admins?.FirstOrDefault(u =>
-                        string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
-
+                Main form = new Main();
                     if (foundUser != null)
                     {
                         role = "Адмін";
                     }
                 }
+                this.Hide();
+                form.ShowDialog();
+                Pass.Clear();
+                this.Show();
             }
             if (foundUser == null || role == null)
             {

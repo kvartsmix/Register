@@ -213,8 +213,8 @@
     },
     {
       "email": "moroz.a@student.edu",
-      "last_name": "Мороз",
-      "first_name": "Анна",
+      "last_name": "Анна",
+      "first_name": "Мороз",
       "group_id": 101,
       "password": "pass102"
     },
@@ -292,70 +292,70 @@
       "email": "khomenko.n@student.edu",
       "last_name": "Хоменко",
       "first_name": "Надія",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass116"
     },
     {
       "email": "panasyuk.r@student.edu",
       "last_name": "Панасюк",
       "first_name": "Роман",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass117"
     },
     {
       "email": "havryliuk.a@student.edu",
       "last_name": "Гаврилюк",
       "first_name": "Аліна",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass118"
     },
     {
       "email": "hrytsenko.o@student.edu",
       "last_name": "Гриценко",
       "first_name": "Олег",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass119"
     },
     {
       "email": "matviychuk.t@student.edu",
       "last_name": "Матвійчук",
       "first_name": "Тетяна",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass120"
     },
     {
       "email": "fedorov.a@student.edu",
       "last_name": "Федоров",
       "first_name": "Артем",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass121"
     },
     {
       "email": "sydorenko.v@student.edu",
       "last_name": "Сидоренко",
       "first_name": "Валерія",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass122"
     },
     {
       "email": "vlasenko.m@student.edu",
       "last_name": "Власенко",
       "first_name": "Михайло",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass123"
     },
     {
       "email": "ostapenko.d@student.edu",
       "last_name": "Остапенко",
       "first_name": "Діана",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass124"
     },
     {
       "email": "lytvyn.s@student.edu",
       "last_name": "Литвин",
       "first_name": "Сергій",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass125"
     },
     {
