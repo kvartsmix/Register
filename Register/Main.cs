@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
 namespace Register
@@ -37,23 +37,16 @@ namespace Register
 
         private void Main_Load(object sender, EventArgs e)
         {
+            FormStyles.StyleForm(this);
+            FormStyles.StyleMenuStrip(menuStrip1);
+            FormStyles.StyleComboBox(comboBoxGroup);
+            FormStyles.StyleComboBox(comboBoxSubject);
+            FormStyles.StyleDataGridView(dataGridView);
 
             DataBase = new RegisterDB(filepath);
             AdapterDB.SetupDataGridView(dataGridView);
             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
             FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
-            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
-            FormBuilder.FormatDataGridView(dataGridView);
-            dataGridView.Width = this.ClientSize.Width;
-            dataGridView.Height = this.ClientSize.Height - comboBoxGroup.Height - 50;
-            FormStyles.StyleDataGridView(dataGridView);
-            FormStyles.StyleComboBox(comboBoxGroup);
-            FormStyles.StyleComboBox(comboBoxSubject);
-
-            FormStyles.StyleDataGridView(dataGridView);
-            FormStyles.StyleComboBox(comboBoxGroup);
-            FormStyles.StyleComboBox(comboBoxSubject);
-
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID, email);
 
             comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
@@ -66,7 +59,6 @@ namespace Register
                 if (DataBase != null && ev.RowIndex >= 0)
                 {
                     FormBuilder.SaveEditedGrade(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email, ev.RowIndex, filepath);
-
                     dataGridView.InvalidateRow(dataGridView.Rows.Count - 1);
                 }
             };
@@ -93,7 +85,6 @@ namespace Register
                 FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email);
             }
         }
-
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -126,13 +117,16 @@ namespace Register
 
         private void зберегтиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DataBase.SaveToFile(filepath);
+            DataBase?.SaveToFile(filepath);
             hasChanged = false;
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormBuilder.ValidateChanges(hasChanged, DataBase);
+            if (DataBase != null)
+            {
+                FormBuilder.ValidateChanges(hasChanged, DataBase);
+            }
             hasChanged = false;
         }
 

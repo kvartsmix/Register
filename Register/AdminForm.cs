@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,23 +17,26 @@ namespace Register
             InitializeComponent();
         }
 
-        RegisterDB DataBase;
+        RegisterDB? DataBase;
         bool hasChanged = false;
+
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            DataBase = new RegisterDB(Main.filepath);
-
+            FormStyles.StyleForm(this);
+            FormStyles.StyleMenuStrip(menuStrip1);
             FormStyles.StyleComboBox(comboBoxTables);
             FormStyles.StyleDataGridView(dataGridViewReport);
 
+            DataBase = new RegisterDB(Main.filepath);
             FormBuilder.AddToComboBox(comboBoxTables, DataBase);
         }
 
         private void comboBoxTables_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (DataBase == null || comboBoxTables.SelectedItem == null) return;
+
             switch (comboBoxTables.SelectedItem.ToString())
             {
-
                 case "Teachers": dataGridViewReport.DataSource = DataBase.Teachers; break;
                 case "Students": dataGridViewReport.DataSource = DataBase.Students; break;
                 case "Groups": dataGridViewReport.DataSource = DataBase.Groups; break;
@@ -44,13 +47,21 @@ namespace Register
 
         private void зберегтиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DataBase.SaveToFile(Main.filepath);
+            DataBase?.SaveToFile(Main.filepath);
             hasChanged = false;
+        }
+
+        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormBuilder.ValidateChanges(hasChanged, DataBase);
+            if (DataBase != null)
+            {
+                FormBuilder.ValidateChanges(hasChanged, DataBase);
+            }
             hasChanged = false;
         }
 

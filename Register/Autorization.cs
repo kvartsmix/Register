@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,7 +20,10 @@ namespace Register
 
         public void Autorization_Load(object sender, EventArgs e)
         {
-            FormStyles.StyleButton(Enter);
+            FormStyles.StyleForm(this);
+            FormStyles.StyleTextBox(Login);
+            FormStyles.StyleTextBox(Pass);
+            FormStyles.StyleButton(Enter, isPrimary: true);
         }
         public void Autor()
         {

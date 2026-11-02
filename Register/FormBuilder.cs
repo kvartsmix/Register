@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -379,44 +379,72 @@ namespace Register
             {
                 if (dgv.Rows[j].IsNewRow) continue;
 
+                bool isLastRow = (j == dgv.Rows.Count - 1);
+
                 for (int i = 0; i < dgv.Columns.Count; i++)
                 {
                     var cell = dgv.Rows[j].Cells[i];
                     var val = cell.Value?.ToString()?.Trim();
 
+                    bool isLastColumn = (i == dgv.Columns.Count - 1);
+
+                    bool isSummaryCell = isLastRow || isLastColumn;
+                    if (isSummaryCell )
+                    {
+                        cell.Style.Font = new Font(dgv.Font, FontStyle.Bold);
+                        cell.Style.BackColor = Color.FromArgb(241, 245, 249);
+                        cell.Style.ForeColor = FormStyles.TextPrimary;
+                    }
+
                     if (string.IsNullOrEmpty(val) || val == "0")
                     {
-                        cell.Style.ForeColor = Color.Black;
-                        cell.Style.BackColor = Color.White;
+                        if (!isSummaryCell)
+                        {
+                            cell.Style.ForeColor = FormStyles.TextPrimary;
+                            cell.Style.BackColor = (j % 2 == 0) ? Color.White : FormStyles.GridRowAlternating;
+                        }
                         continue;
                     }
 
                     if (double.TryParse(val, out double gradeValue))
                     {
                         int num = (int)Math.Round(gradeValue);
+                        cell.Style.Font = new Font(dgv.Font, FontStyle.Bold);
                         switch (num)
                         {
                             case 2:
-                                cell.Style.ForeColor = Color.White;
-                                cell.Style.BackColor = Color.Black;
+                                cell.Style.ForeColor = FormStyles.Grade2Fore;
+                                cell.Style.BackColor = FormStyles.Grade2Back;
+
                                 break;
                             case 3:
-                                cell.Style.ForeColor = Color.Blue;
-                                cell.Style.BackColor = Color.White;
+                                cell.Style.ForeColor = FormStyles.Grade3Fore;
+                                cell.Style.BackColor = FormStyles.Grade3Back;
+                             
                                 break;
                             case 4:
-                                cell.Style.ForeColor = Color.LimeGreen;
-                                cell.Style.BackColor = Color.White;
+
+                                cell.Style.BackColor = FormStyles.Grade4Back;
+                               
                                 break;
                             case 5:
-                                cell.Style.ForeColor = Color.Red;
-                                cell.Style.BackColor = Color.White;
+                                cell.Style.ForeColor = FormStyles.Grade5Fore;
+                                cell.Style.BackColor = FormStyles.Grade5Back;
+                                
                                 break;
                             default:
-                                cell.Style.ForeColor = Color.Black;
-                                cell.Style.BackColor = Color.White;
+                                if (!isSummaryCell)
+                                {
+                                    cell.Style.ForeColor = FormStyles.TextPrimary;
+                                    cell.Style.BackColor = (j % 2 == 0) ? Color.White : FormStyles.GridRowAlternating;
+                                }
                                 break;
                         }
+                    }
+                    else if (!isSummaryCell)
+                    {
+                        cell.Style.ForeColor = FormStyles.TextPrimary;
+                        cell.Style.BackColor = (j % 2 == 0) ? Color.White : FormStyles.GridRowAlternating;
                     }
                 }
             }

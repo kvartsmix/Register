@@ -1,4 +1,4 @@
-﻿namespace Register
+namespace Register
 {
     partial class Main
     {
@@ -28,68 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            comboBoxSubject = new ComboBox();
+            panelHeader = new Panel();
+            labelGroup = new Label();
             comboBoxGroup = new ComboBox();
+            labelSubject = new Label();
+            comboBoxSubject = new ComboBox();
+            panelGridContainer = new Panel();
             dataGridView = new DataGridView();
             menuStrip1 = new MenuStrip();
             додатковоToolStripMenuItem = new ToolStripMenuItem();
             семестроваВідомістьToolStripMenuItem = new ToolStripMenuItem();
-            вихідToolStripMenuItem = new ToolStripMenuItem();
             зберегтиToolStripMenuItem = new ToolStripMenuItem();
+            вихідToolStripMenuItem = new ToolStripMenuItem();
+            panelHeader.SuspendLayout();
+            panelGridContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // comboBoxSubject
-            // 
-            comboBoxSubject.FormattingEnabled = true;
-            comboBoxSubject.Location = new Point(193, 33);
-            comboBoxSubject.Margin = new Padding(3, 4, 3, 4);
-            comboBoxSubject.Name = "comboBoxSubject";
-            comboBoxSubject.Size = new Size(277, 28);
-            comboBoxSubject.TabIndex = 0;
-            comboBoxSubject.Text = "Предмет";
-            // 
-            // comboBoxGroup
-            // 
-            comboBoxGroup.FormattingEnabled = true;
-            comboBoxGroup.Location = new Point(27, 33);
-            comboBoxGroup.Margin = new Padding(3, 4, 3, 4);
-            comboBoxGroup.Name = "comboBoxGroup";
-            comboBoxGroup.Size = new Size(138, 28);
-            comboBoxGroup.TabIndex = 5;
-            comboBoxGroup.Text = "Група";
-            comboBoxGroup.SelectedIndexChanged += comboBoxGroup_SelectedIndexChanged;
-            // 
-            // dataGridView
-            // 
-            dataGridView.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            dataGridView.BackgroundColor = SystemColors.Control;
-            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(0, 72);
-            dataGridView.Margin = new Padding(3, 4, 3, 4);
-            dataGridView.Name = "dataGridView";
-            dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(914, 528);
-            dataGridView.TabIndex = 4;
-            dataGridView.CellValueChanged += dataGridView_CellValueChanged;
-            // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { додатковоToolStripMenuItem, зберегтиToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { додатковоToolStripMenuItem, зберегтиToolStripMenuItem, вихідToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new Padding(10, 5, 0, 5);
-            menuStrip1.Size = new Size(914, 34);
-            menuStrip1.TabIndex = 7;
+            menuStrip1.Padding = new Padding(12, 6, 12, 6);
+            menuStrip1.Size = new Size(984, 33);
+            menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // додатковоToolStripMenuItem
             // 
-            додатковоToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { семестроваВідомістьToolStripMenuItem, вихідToolStripMenuItem });
+            додатковоToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { семестроваВідомістьToolStripMenuItem });
             додатковоToolStripMenuItem.Name = "додатковоToolStripMenuItem";
-            додатковоToolStripMenuItem.Size = new Size(97, 24);
+            додатковоToolStripMenuItem.Size = new Size(97, 21);
             додатковоToolStripMenuItem.Text = "Додатково";
             // 
             // семестроваВідомістьToolStripMenuItem
@@ -99,35 +71,116 @@
             семестроваВідомістьToolStripMenuItem.Text = "Семестрова відомість";
             семестроваВідомістьToolStripMenuItem.Click += семестроваВідомістьToolStripMenuItem_Click;
             // 
-            // вихідToolStripMenuItem
-            // 
-            вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
-            вихідToolStripMenuItem.Size = new Size(244, 26);
-            вихідToolStripMenuItem.Text = "Вихід";
-            вихідToolStripMenuItem.Click += вихідToolStripMenuItem_Click;
-            // 
             // зберегтиToolStripMenuItem
             // 
             зберегтиToolStripMenuItem.Name = "зберегтиToolStripMenuItem";
-            зберегтиToolStripMenuItem.Size = new Size(86, 24);
+            зберегтиToolStripMenuItem.Size = new Size(86, 21);
             зберегтиToolStripMenuItem.Text = "Зберегти";
             зберегтиToolStripMenuItem.Click += зберегтиToolStripMenuItem_Click;
             // 
+            // вихідToolStripMenuItem
+            // 
+            вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
+            вихідToolStripMenuItem.Size = new Size(60, 21);
+            вихідToolStripMenuItem.Text = "Вихід";
+            вихідToolStripMenuItem.Click += вихідToolStripMenuItem_Click;
+            // 
+            // panelHeader
+            // 
+            panelHeader.BackColor = Color.White;
+            panelHeader.Controls.Add(labelGroup);
+            panelHeader.Controls.Add(comboBoxGroup);
+            panelHeader.Controls.Add(labelSubject);
+            panelHeader.Controls.Add(comboBoxSubject);
+            panelHeader.Dock = DockStyle.Top;
+            panelHeader.Location = new Point(0, 33);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Padding = new Padding(16, 12, 16, 12);
+            panelHeader.Size = new Size(984, 60);
+            panelHeader.TabIndex = 1;
+            // 
+            // labelGroup
+            // 
+            labelGroup.AutoSize = true;
+            labelGroup.Font = new Font("Segoe UI Semibold", 9.5F, FontStyle.Bold);
+            labelGroup.ForeColor = Color.FromArgb(71, 85, 105);
+            labelGroup.Location = new Point(16, 20);
+            labelGroup.Name = "labelGroup";
+            labelGroup.Size = new Size(49, 17);
+            labelGroup.TabIndex = 0;
+            labelGroup.Text = "Група:";
+            // 
+            // comboBoxGroup
+            // 
+            comboBoxGroup.FormattingEnabled = true;
+            comboBoxGroup.Location = new Point(72, 16);
+            comboBoxGroup.Name = "comboBoxGroup";
+            comboBoxGroup.Size = new Size(160, 25);
+            comboBoxGroup.TabIndex = 1;
+            comboBoxGroup.SelectedIndexChanged += comboBoxGroup_SelectedIndexChanged;
+            // 
+            // labelSubject
+            // 
+            labelSubject.AutoSize = true;
+            labelSubject.Font = new Font("Segoe UI Semibold", 9.5F, FontStyle.Bold);
+            labelSubject.ForeColor = Color.FromArgb(71, 85, 105);
+            labelSubject.Location = new Point(256, 20);
+            labelSubject.Name = "labelSubject";
+            labelSubject.Size = new Size(67, 17);
+            labelSubject.TabIndex = 2;
+            labelSubject.Text = "Предмет:";
+            // 
+            // comboBoxSubject
+            // 
+            comboBoxSubject.FormattingEnabled = true;
+            comboBoxSubject.Location = new Point(330, 16);
+            comboBoxSubject.Name = "comboBoxSubject";
+            comboBoxSubject.Size = new Size(320, 25);
+            comboBoxSubject.TabIndex = 3;
+            // 
+            // panelGridContainer
+            // 
+            panelGridContainer.BackColor = Color.FromArgb(248, 250, 252);
+            panelGridContainer.Controls.Add(dataGridView);
+            panelGridContainer.Dock = DockStyle.Fill;
+            panelGridContainer.Location = new Point(0, 93);
+            panelGridContainer.Name = "panelGridContainer";
+            panelGridContainer.Padding = new Padding(16);
+            panelGridContainer.Size = new Size(984, 527);
+            panelGridContainer.TabIndex = 2;
+            // 
+            // dataGridView
+            // 
+            dataGridView.BackgroundColor = Color.White;
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Dock = DockStyle.Fill;
+            dataGridView.Location = new Point(16, 16);
+            dataGridView.Name = "dataGridView";
+            dataGridView.RowHeadersWidth = 51;
+            dataGridView.Size = new Size(952, 495);
+            dataGridView.TabIndex = 0;
+            dataGridView.CellValueChanged += dataGridView_CellValueChanged;
+            // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
-            Controls.Add(comboBoxSubject);
-            Controls.Add(comboBoxGroup);
-            Controls.Add(dataGridView);
+            BackColor = Color.FromArgb(248, 250, 252);
+            ClientSize = new Size(984, 620);
+            Controls.Add(panelGridContainer);
+            Controls.Add(panelHeader);
             Controls.Add(menuStrip1);
+            Font = new Font("Segoe UI", 9.5F);
             MainMenuStrip = menuStrip1;
-            Margin = new Padding(3, 4, 3, 4);
+            MinimumSize = new Size(800, 500);
             Name = "Main";
-            Text = "Main";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Електронний журнал | Оцінки";
             FormClosed += Main_FormClosed;
             Load += Main_Load;
+            panelHeader.ResumeLayout(false);
+            panelHeader.PerformLayout();
+            panelGridContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -137,8 +190,12 @@
 
         #endregion
 
+        private Panel panelHeader;
+        private Label labelGroup;
+        private Label labelSubject;
         private ComboBox comboBoxSubject;
         private ComboBox comboBoxGroup;
+        private Panel panelGridContainer;
         private DataGridView dataGridView;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem додатковоToolStripMenuItem;

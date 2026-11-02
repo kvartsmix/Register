@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -31,6 +31,8 @@ namespace Register
 
         private void SemReportCard_Load(object sender, EventArgs e)
         {
+            FormStyles.StyleForm(this);
+            FormStyles.StyleMenuStrip(menuStrip1);
             FormStyles.StyleComboBox(comboBoxGroup);
             FormStyles.StyleDataGridView(dataGridViewSemReport);
 
