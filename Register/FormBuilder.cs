@@ -375,6 +375,9 @@ namespace Register
 
         public static void FormatDataGridView(DataGridView dgv)
         {
+            bool isSemesterReport = dgv.Columns.Contains("Середній бал") ||
+                                    (dgv.Columns.Count > 0 && dgv.Columns[0].HeaderText.Contains("Прізвище, ім'я студента"));
+
             for (int j = 0; j < dgv.Rows.Count; j++)
             {
                 if (dgv.Rows[j].IsNewRow) continue;
@@ -388,60 +391,62 @@ namespace Register
 
                     bool isLastColumn = (i == dgv.Columns.Count - 1);
 
-                    bool isSummaryCell = isLastRow || isLastColumn;
-                    if (isSummaryCell )
+                    
+                    bool isSummaryCell = isSemesterReport ? (isLastRow || isLastColumn) : isLastRow;
+
+                    if (isSummaryCell)
                     {
+                        if (!string.IsNullOrEmpty(val) && (double.TryParse(val, NumberStyles.Any, CultureInfo.CurrentCulture, out double averageValue) ||
+                                                           double.TryParse(val, NumberStyles.Any, CultureInfo.InvariantCulture, out averageValue)))
+                        {
+                            double roundedAvg = Math.Round(averageValue, 1);
+                            cell.Value = roundedAvg > 0 ? roundedAvg.ToString("F1") : string.Empty;
+                        }
+
                         cell.Style.Font = new Font(dgv.Font, FontStyle.Bold);
                         cell.Style.BackColor = Color.FromArgb(241, 245, 249);
                         cell.Style.ForeColor = FormStyles.TextPrimary;
+                        continue;
                     }
 
                     if (string.IsNullOrEmpty(val) || val == "0")
                     {
-                        if (!isSummaryCell)
-                        {
-                            cell.Style.ForeColor = FormStyles.TextPrimary;
-                            cell.Style.BackColor = (j % 2 == 0) ? Color.White : FormStyles.GridRowAlternating;
-                        }
+                        cell.Style.ForeColor = FormStyles.TextPrimary;
+                        cell.Style.BackColor = (j % 2 == 0) ? Color.White : FormStyles.GridRowAlternating;
                         continue;
                     }
 
-                    if (double.TryParse(val, out double gradeValue))
+                    if (double.TryParse(val, NumberStyles.Any, CultureInfo.CurrentCulture, out double gradeNum) ||
+                        double.TryParse(val, NumberStyles.Any, CultureInfo.InvariantCulture, out gradeNum))
                     {
-                        int num = (int)Math.Round(gradeValue);
+                        int gradeValue = (int)Math.Round(gradeNum);
                         cell.Style.Font = new Font(dgv.Font, FontStyle.Bold);
-                        switch (num)
+
+                        switch (gradeValue)
                         {
                             case 2:
                                 cell.Style.ForeColor = FormStyles.Grade2Fore;
                                 cell.Style.BackColor = FormStyles.Grade2Back;
-
                                 break;
                             case 3:
                                 cell.Style.ForeColor = FormStyles.Grade3Fore;
                                 cell.Style.BackColor = FormStyles.Grade3Back;
-                             
                                 break;
                             case 4:
-
+                                cell.Style.ForeColor = FormStyles.Grade4Fore;
                                 cell.Style.BackColor = FormStyles.Grade4Back;
-                               
                                 break;
                             case 5:
                                 cell.Style.ForeColor = FormStyles.Grade5Fore;
                                 cell.Style.BackColor = FormStyles.Grade5Back;
-                                
                                 break;
                             default:
-                                if (!isSummaryCell)
-                                {
-                                    cell.Style.ForeColor = FormStyles.TextPrimary;
-                                    cell.Style.BackColor = (j % 2 == 0) ? Color.White : FormStyles.GridRowAlternating;
-                                }
+                                cell.Style.ForeColor = FormStyles.TextPrimary;
+                                cell.Style.BackColor = (j % 2 == 0) ? Color.White : FormStyles.GridRowAlternating;
                                 break;
                         }
                     }
-                    else if (!isSummaryCell)
+                    else
                     {
                         cell.Style.ForeColor = FormStyles.TextPrimary;
                         cell.Style.BackColor = (j % 2 == 0) ? Color.White : FormStyles.GridRowAlternating;

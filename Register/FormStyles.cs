@@ -6,31 +6,7 @@ namespace Register
 {
     public static class FormStyles
     {
-        public static readonly Color PrimaryColor = Color.FromArgb(37, 99, 235);   
-        public static readonly Color PrimaryHover = Color.FromArgb(29, 78, 216);
-        public static readonly Color PrimaryActive = Color.FromArgb(30, 64, 175);
-
-        public static readonly Color BackgroundColor = Color.FromArgb(248, 250, 252);  
-        public static readonly Color CardBackgroundColor = Color.White;
-        public static readonly Color BorderColor = Color.FromArgb(226, 232, 240);    
-        
-        public static readonly Color TextPrimary = Color.FromArgb(30, 41, 59);         
-        public static readonly Color TextSecondary = Color.FromArgb(100, 116, 139);     
-
-        public static readonly Color GridHeaderBack = Color.FromArgb(241, 245, 249); 
-        public static readonly Color GridHeaderFore = Color.FromArgb(71, 85, 105);
-        public static readonly Color GridRowAlternating = Color.FromArgb(250, 252, 255);
-        public static readonly Color GridSelectionBack = Color.FromArgb(224, 236, 255);
-        public static readonly Color GridSelectionFore = Color.FromArgb(29, 78, 216);
-
-        public static readonly Color Grade2Back = Color.FromArgb(254, 226, 226);
-        public static readonly Color Grade2Fore = Color.FromArgb(185, 28, 28);
-        public static readonly Color Grade3Back = Color.FromArgb(254, 249, 195);
-        public static readonly Color Grade3Fore = Color.FromArgb(161, 98, 7);
-        public static readonly Color Grade4Back = Color.FromArgb(239, 246, 255);
-        public static readonly Color Grade4Fore = Color.FromArgb(29, 78, 216);
-        public static readonly Color Grade5Back = Color.FromArgb(220, 252, 231);
-        public static readonly Color Grade5Fore = Color.FromArgb(21, 128, 61);
+       
 
         public static void StyleForm(Form form)
         {
@@ -114,5 +90,33 @@ namespace Register
             ms.Font = new Font("Segoe UI", 9.5F, FontStyle.Regular);    
             ms.Padding = new Padding(6, 4, 6, 4);
         }
+        public static readonly Color PrimaryColor = Color.FromArgb(37, 99, 235);
+        public static readonly Color PrimaryHover = Color.FromArgb(29, 78, 216);
+        public static readonly Color PrimaryActive = Color.FromArgb(30, 64, 175);
+
+        public static readonly Color BackgroundColor = Color.FromArgb(248, 250, 252);
+        public static readonly Color CardBackgroundColor = Color.White;
+        public static readonly Color BorderColor = Color.FromArgb(226, 232, 240);
+
+        public static readonly Color TextPrimary = Color.FromArgb(30, 41, 59);
+        public static readonly Color TextSecondary = Color.FromArgb(100, 116, 139);
+
+        public static readonly Color GridHeaderBack = Color.FromArgb(241, 245, 249);
+        public static readonly Color GridHeaderFore = Color.FromArgb(71, 85, 105);
+        public static readonly Color GridRowAlternating = Color.FromArgb(250, 252, 255);
+        public static readonly Color GridSelectionBack = Color.FromArgb(224, 236, 255);
+        public static readonly Color GridSelectionFore = Color.FromArgb(29, 78, 216);
+
+        public static readonly Color Grade2Back = Color.Black;
+        public static readonly Color Grade2Fore = Color.White;
+
+        public static readonly Color Grade3Back = Color.White;
+        public static readonly Color Grade3Fore = Color.FromArgb(37, 99, 235);
+
+        public static readonly Color Grade4Back = Color.White;
+        public static readonly Color Grade4Fore = Color.FromArgb(22, 163, 74);
+
+        public static readonly Color Grade5Back = Color.White;
+        public static readonly Color Grade5Fore = Color.FromArgb(220, 38, 38);
     }
 }
