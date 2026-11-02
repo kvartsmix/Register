@@ -11,8 +11,8 @@ namespace Register
 {
     public partial class Autorization : Form
     {
-        private const string FilePath = "db.json";
-
+        public static string filePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\db.json"));
+        private DiaryData? data;
         public Autorization()
         {
             InitializeComponent();
@@ -21,28 +21,9 @@ namespace Register
         public void Autorization_Load(object sender, EventArgs e)
         {
             FormStyles.StyleButton(Enter);
-        }
-        public void Autor()
-        {
-            string inputLogin = Login.Text.Trim();
-            string inputPass = Pass.Text;
-
-            if (string.IsNullOrWhiteSpace(inputLogin) || string.IsNullOrWhiteSpace(inputPass))
-            {
-                MessageBox.Show("Будь ласка, введіть логін та пароль.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!File.Exists(FilePath))
-            {
-                MessageBox.Show("Файл бази даних не знайдено!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            DiaryData? data;
             try
             {
-                string jsonString = File.ReadAllText(FilePath);
+                string jsonString = File.ReadAllText(filePath);
                 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 data = JsonSerializer.Deserialize<DiaryData>(jsonString, options);
             }
@@ -51,6 +32,25 @@ namespace Register
                 MessageBox.Show($"Помилка читання JSON: {ex.Message}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+        }
+        public void Autor()
+        {
+            string inputLogin = Login.Text.Trim();
+            string inputPass = Pass.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(inputLogin) || string.IsNullOrWhiteSpace(inputPass))
+            {
+                MessageBox.Show("Будь ласка, введіть логін та пароль.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!File.Exists(filePath))
+            {
+                MessageBox.Show("Файл бази даних не знайдено!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            
 
             if (data == null)
             {
@@ -67,19 +67,7 @@ namespace Register
             {
                 role = "Студент";
             }
-
-            if (foundUser == null)
-            {
-                foundUser = data.admins?.FirstOrDefault(u =>
-                    string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
-
-                if (foundUser != null)
-                {
-                    role = "Адмін";
-                }
-            }
-
-            if (foundUser == null)
+            else
             {
                 foundUser = data.teachers?.FirstOrDefault(u =>
                     string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
@@ -88,36 +76,51 @@ namespace Register
                 {
                     role = "Викладач";
                 }
-            }
-
-            if (foundUser != null)
-            {
-                Form form;
-
-                if (role == "Студент")
-                {
-                    int studentGroupId = foundUser.GroupId ?? 0;
-                    form = new Main(role, studentGroupId);
-                }
-                else if (role == "Викладач")
-                {
-                    form = new Main(role, foundUser.Email ?? inputLogin);
-                }
                 else
                 {
-                    form = new AdminForm();
+                    foundUser = data.admins?.FirstOrDefault(u =>
+                        string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
+
+                    if (foundUser != null)
+                    {
+                        role = "Адмін";
+                    }
                 }
-                Login.Text = "";
-                Pass.Text = ""; 
-                this.Hide();
-                form.ShowDialog();
-                Pass.Clear();
-                this.Show();
             }
-            else
+            if (foundUser == null || role == null)
             {
                 MessageBox.Show("Невірний логін або пароль.", "Помилка авторизації", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+
+
+            Form form;
+
+            switch (role)
+            {
+                case "Студент":
+                    int groupId = foundUser.GroupId ?? 0;
+                    form = new Main(role, groupId);
+                    break;
+
+                case "Викладач":
+                    form = new Main(role, foundUser.Email ?? string.Empty);
+                    break;
+
+                case "Адмін":
+                    form = new AdminForm();
+                    break;
+
+                default:
+                    return;
+            }
+
+            Login.Text = "";
+            Pass.Text = "";
+            this.Hide();
+            form.ShowDialog();
+            Pass.Clear();
+            this.Show();
         }
 
         private void Enter_Click(object sender, EventArgs e)
