@@ -9,159 +9,179 @@ using System.Text.Json.Serialization;
 using System.Collections;
 
 public class Teacher
-        {
-            [JsonPropertyName("email")]
-            public string Email { get; set; } = string.Empty;
-            [JsonPropertyName("first_name")]
-            public string FirstName { get; set; } = string.Empty;
+{
+    [JsonPropertyName("email")]
+    public string Email { get; set; } = string.Empty;
 
-            [JsonPropertyName("last_name")]
-            public string LastName { get; set; } = string.Empty;
+    [JsonPropertyName("first_name")]
+    public string FirstName { get; set; } = string.Empty;
 
-            [JsonPropertyName("password")]
-            public string Password { get; set; } = string.Empty;
+    [JsonPropertyName("last_name")]
+    public string LastName { get; set; } = string.Empty;
 
-            [JsonIgnore]
-            public BindingList<Group> CuratedGroups { get; set; } = new();
+    [JsonPropertyName("password")]
+    public string Password { get; set; } = string.Empty;
 
-            [JsonIgnore]
-            public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<Group> CuratedGroups { get; set; } = new();
 
-            public override string ToString()
-                {
-                    return LastName;
-                }
-        }
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
 
-        public class Subject
-        {
-            [JsonPropertyName("id")]
-            public int Id { get; set; }
-
-            [JsonPropertyName("name")]
-            public string Name { get; set; } = string.Empty;
-
-            [JsonIgnore]
-            public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
-
-            [JsonIgnore]
-            public BindingList<Grade> Grades { get; set; } = new();
-            public override string ToString()
-            {
-                return Name;
-            }
+    public override string ToString() => LastName;
 }
 
-        public class Group
-        {
-            [JsonPropertyName("id")]
-            public int Id { get; set; }
+public class Subject
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
 
-            [JsonPropertyName("curator_email")]
-            public string CuratorEmail { get; set; } = string.Empty;
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
 
-            [JsonIgnore]
-            public Teacher? Curator { get; set; }
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
 
-            [JsonIgnore]
-            public BindingList<Student> Students { get; set; } = new();
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<Grade> Grades { get; set; } = new();
 
-            [JsonIgnore]
-            public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
-
-            [JsonIgnore]
-            public BindingList<Grade> Grades { get; set; } = new();
-
-            public override string ToString()
-            {
-                return $"{Id}";
-            }
+    public override string ToString() => Name;
 }
 
-        public class Student
-        {
-            [JsonPropertyName("email")]
-            public string Email { get; set; } = string.Empty;
+public class Group
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
 
-            [JsonPropertyName("last_name")]
-            public string LastName { get; set; } = string.Empty;
+    [JsonPropertyName("curator_email")]
+    public string CuratorEmail { get; set; } = string.Empty;
 
-            [JsonPropertyName("first_name")]
-            public string FirstName { get; set; } = string.Empty;
+    [Browsable(false)]
+    [JsonIgnore]
+    public Teacher? Curator { get; set; }
 
-            [JsonPropertyName("group_id")]
-            public int GroupId { get; set; }
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<Student> Students { get; set; } = new();
 
-            [JsonPropertyName("password")]
-            public string Password { get; set; } = string.Empty;
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
 
-            [JsonIgnore]
-            public Group? Group { get; set; }
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<Grade> Grades { get; set; } = new();
 
-            [JsonIgnore]
-            public BindingList<Grade> Grades { get; set; } = new();
-        }
+    public override string ToString() => $"{Id}";
+}
 
-        public class GroupSubject
-        {
-            [JsonPropertyName("id")]
-            public int Id { get; set; }
+public class Student
+{
+    [JsonPropertyName("email")]
+    public string Email { get; set; } = string.Empty;
 
-            [JsonPropertyName("group_id")]
-            public int GroupId { get; set; }
+    [JsonPropertyName("last_name")]
+    public string LastName { get; set; } = string.Empty;
 
-            [JsonPropertyName("subject_id")]
-            public int SubjectId { get; set; }
+    [JsonPropertyName("first_name")]
+    public string FirstName { get; set; } = string.Empty;
 
-            [JsonPropertyName("teacher_email")]
-            public string TeacherEmail { get; set; } = string.Empty;
+    [JsonPropertyName("group_id")]
+    public int GroupId { get; set; }
 
-            [JsonIgnore]
-            public Group? Group { get; set; }
+    [JsonPropertyName("password")]
+    public string Password { get; set; } = string.Empty;
 
-            [JsonIgnore]
-            public Subject? Subject { get; set; }
+    [Browsable(false)]
+    [JsonIgnore]
+    public Group? Group { get; set; }
 
-            [JsonIgnore]
-            public Teacher? Teacher { get; set; }
-        }
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<Grade> Grades { get; set; } = new();
+}
 
-        public class Grade
-        {
-            [JsonPropertyName("id")]
-            public int Id { get; set; }
+public class GroupSubject
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
 
-            [JsonPropertyName("group_id")]
-            public int GroupId { get; set; }
+    [JsonPropertyName("group_id")]
+    public int GroupId { get; set; }
 
-            [JsonPropertyName("student_email")]
-            public string StudentEmail { get; set; } = string.Empty;
+    [JsonPropertyName("subject_id")]
+    public int SubjectId { get; set; }
 
-            [JsonPropertyName("subject_id")]
-            public int SubjectId { get; set; }
+    [JsonPropertyName("teacher_email")]
+    public string TeacherEmail { get; set; } = string.Empty;
 
-            [JsonPropertyName("value")]
-            public double Value { get; set; }
+    // Приховуємо об'єкти від DataGridView
+    [Browsable(false)]
+    [JsonIgnore]
+    public Group? Group { get; set; }
 
-            [JsonIgnore]
-            public Group? Group { get; set; }
+    [Browsable(false)]
+    [JsonIgnore]
+    public Subject? Subject { get; set; }
 
-            [JsonIgnore]
-            public Student? Student { get; set; }
+    [Browsable(false)]
+    [JsonIgnore]
+    public Teacher? Teacher { get; set; }
+}
 
-            [JsonIgnore]
-            public Subject? Subject { get; set; }
+public class Grade
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("group_id")]
+    public int GroupId { get; set; }
+
+    [JsonPropertyName("student_email")]
+    public string StudentEmail { get; set; } = string.Empty;
+
+    [JsonPropertyName("subject_id")]
+    public int SubjectId { get; set; }
+
+    [JsonPropertyName("value")]
+    public double Value { get; set; }
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public Group? Group { get; set; }
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public Student? Student { get; set; }
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public Subject? Subject { get; set; }
+
+    [Browsable(false)]
     [JsonIgnore]
     public string LastName => Student?.LastName ?? string.Empty;
 
+    [Browsable(false)]
     [JsonIgnore]
     public string FirstName => Student?.FirstName ?? string.Empty;
+}
+public class Admin
+{
+    [JsonPropertyName("email")]
+    public string Email { get; set; } = string.Empty;
 
+    [JsonPropertyName("password")]
+    public string Password { get; set; } = string.Empty;
 }
 
 public class RegisterDB
 {
-    private readonly string[] Lists = { "Teachers", "Students", "Groups", "Subjects", "GroupSubjects" };
+    private readonly string[] Lists = { "Teachers", "Students", "Groups", "Subjects", "GroupSubjects", "Admins" };
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -188,6 +208,8 @@ public class RegisterDB
 
     [JsonPropertyName("grades")]
     public BindingList<Grade> Grades { get; set; } = new();
+    [JsonPropertyName("admins")]
+    public BindingList<Admin> Admins { get; set; } = new();
 
     public RegisterDB()
     {
@@ -225,6 +247,7 @@ public class RegisterDB
             Students = loaded.Students;
             GroupSubjects = loaded.GroupSubjects;
             Grades = loaded.Grades;
+            Admins = loaded.Admins;
         }
 
         BuildRelationships();

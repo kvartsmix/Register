@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -174,18 +177,7 @@ namespace Register
 
         public static void SetGroupComboBox(ComboBox cb, BindingList<Group> groups)
         {
-            cb.DataSource = null;
-            cb.DisplayMember = "Id";
-            cb.ValueMember = "Id";
-            cb.DataSource = groups;
-        }
 
-        public static void SetSubjectComboBox(ComboBox cb, BindingList<Subject> subjects)
-        {
-            cb.DataSource = null;
-            cb.DisplayMember = "Name";
-            cb.ValueMember = "Id";
-            cb.DataSource = subjects;
         }
 
         public static (bool IsValid, Subject? Subject, Group? Group) AreComboBoxesSelected(ComboBox cbSubject, ComboBox cbGroup, RegisterDB db)
@@ -372,8 +364,7 @@ namespace Register
                 FormatDataGridView(dgv);
             }
         }
-
-        public static void FormatDataGridView(DataGridView dgv)
+        void FormatDataGridView(DataGridView dgv)
         {
             bool isSemesterReport = dgv.Columns.Contains("Середній бал") ||
                                     (dgv.Columns.Count > 0 && dgv.Columns[0].HeaderText.Contains("Прізвище, ім'я студента"));

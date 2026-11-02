@@ -31,9 +31,55 @@ namespace Register
             panelHeader = new Panel();
             labelGroup = new Label();
             comboBoxGroup = new ComboBox();
+
             labelSubject = new Label();
             comboBoxSubject = new ComboBox();
             panelGridContainer = new Panel();
+
+            dataGridViewMain = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewMain).BeginInit();
+            SuspendLayout();
+            // 
+            // comboBoxSubject
+            // 
+            comboBoxSubject.FormattingEnabled = true;
+            comboBoxSubject.Location = new Point(169, 25);
+            comboBoxSubject.Name = "comboBoxSubject";
+            comboBoxSubject.Size = new Size(121, 23);
+            comboBoxSubject.TabIndex = 6;
+            comboBoxSubject.Text = "Предмет";
+            // 
+            // comboBoxGroup
+            // 
+            comboBoxGroup.FormattingEnabled = true;
+            comboBoxGroup.Location = new Point(24, 25);
+            comboBoxGroup.Name = "comboBoxGroup";
+            comboBoxGroup.Size = new Size(121, 23);
+            comboBoxGroup.TabIndex = 5;
+            comboBoxGroup.Text = "Група";
+            // 
+            // dataGridViewMain
+            // 
+            dataGridViewMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewMain.Location = new Point(24, 70);
+            dataGridViewMain.Name = "dataGridViewMain";
+            dataGridViewMain.Size = new Size(566, 301);
+            dataGridViewMain.TabIndex = 4;
+            // 
+            // Main
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(comboBoxSubject);
+            Controls.Add(comboBoxGroup);
+            Controls.Add(dataGridViewMain);
+            Name = "Main";
+            Text = "Main";
+            ((System.ComponentModel.ISupportInitialize)dataGridViewMain).EndInit();
+            comboBoxSubject = new ComboBox();
+            comboBoxGroup = new ComboBox();
+
             dataGridView = new DataGridView();
             menuStrip1 = new MenuStrip();
             додатковоToolStripMenuItem = new ToolStripMenuItem();
@@ -196,6 +242,9 @@ namespace Register
         private ComboBox comboBoxSubject;
         private ComboBox comboBoxGroup;
         private Panel panelGridContainer;
+        private DataGridView dataGridViewMain;
+        private ComboBox comboBoxSubject;
+        private ComboBox comboBoxGroup;
         private DataGridView dataGridView;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem додатковоToolStripMenuItem;

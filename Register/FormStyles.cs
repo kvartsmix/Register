@@ -40,7 +40,12 @@ namespace Register
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgv.AllowUserToAddRows = false;
             dgv.RowHeadersVisible = false;
+
             dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
+
+            dgv.AllowUserToResizeColumns = false;
+            dgv.AllowUserToResizeRows = false;
+
         }
 
         public static void StyleComboBox(ComboBox cb)
