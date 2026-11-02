@@ -1,4 +1,7 @@
+
 using System;
+using System.Net;
+
 using System.Windows.Forms;
 
 namespace Register
@@ -6,7 +9,7 @@ namespace Register
     public partial class Main : Form
     {
         public bool hasChanged = false;
-        public static string filepath = "db.json";
+        public static string filepath = Autorization.filePath;
         public static RegisterDB? DataBase;
 
         public string email = string.Empty;
@@ -32,10 +35,9 @@ namespace Register
         public Main(string role, string email) : this()
         {
             this.role = role;
-            this.email = email;
         }
 
-        private void Main_Load(object sender, EventArgs e)
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             FormStyles.StyleForm(this);
             FormStyles.StyleMenuStrip(menuStrip1);
@@ -88,6 +90,8 @@ namespace Register
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+             DataBase = new RegisterDB(filepath);
+             dataGridView.DataSource = DataBase.Students;
         }
 
         private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)

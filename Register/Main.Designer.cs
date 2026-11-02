@@ -31,9 +31,11 @@ namespace Register
             panelHeader = new Panel();
             labelGroup = new Label();
             comboBoxGroup = new ComboBox();
+
             labelSubject = new Label();
             comboBoxSubject = new ComboBox();
             panelGridContainer = new Panel();
+
             dataGridView = new DataGridView();
             menuStrip1 = new MenuStrip();
             додатковоToolStripMenuItem = new ToolStripMenuItem();
@@ -195,7 +197,10 @@ namespace Register
         private Label labelSubject;
         private ComboBox comboBoxSubject;
         private ComboBox comboBoxGroup;
+
         private Panel panelGridContainer;
+
+
         private DataGridView dataGridView;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem додатковоToolStripMenuItem;
