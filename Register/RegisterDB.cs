@@ -1,0 +1,380 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.ComponentModel;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Collections;
+
+public class Teacher
+{
+    [JsonPropertyName("email")]
+    public string Email { get; set; } = string.Empty;
+
+    [JsonPropertyName("first_name")]
+    public string FirstName { get; set; } = string.Empty;
+
+    [JsonPropertyName("last_name")]
+    public string LastName { get; set; } = string.Empty;
+
+    [JsonPropertyName("password")]
+    public string Password { get; set; } = string.Empty;
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<Group> CuratedGroups { get; set; } = new();
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
+
+    public override string ToString() => LastName;
+}
+
+public class Subject
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<Grade> Grades { get; set; } = new();
+
+    public override string ToString() => Name;
+}
+
+public class Group
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("curator_email")]
+    public string CuratorEmail { get; set; } = string.Empty;
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public Teacher? Curator { get; set; }
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<Student> Students { get; set; } = new();
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<Grade> Grades { get; set; } = new();
+
+    public override string ToString() => $"{Id}";
+}
+
+public class Student
+{
+    [JsonPropertyName("email")]
+    public string Email { get; set; } = string.Empty;
+
+    [JsonPropertyName("last_name")]
+    public string LastName { get; set; } = string.Empty;
+
+    [JsonPropertyName("first_name")]
+    public string FirstName { get; set; } = string.Empty;
+
+    [JsonPropertyName("group_id")]
+    public int GroupId { get; set; }
+
+    [JsonPropertyName("password")]
+    public string Password { get; set; } = string.Empty;
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public Group? Group { get; set; }
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public BindingList<Grade> Grades { get; set; } = new();
+}
+
+public class GroupSubject
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("group_id")]
+    public int GroupId { get; set; }
+
+    [JsonPropertyName("subject_id")]
+    public int SubjectId { get; set; }
+
+    [JsonPropertyName("teacher_email")]
+    public string TeacherEmail { get; set; } = string.Empty;
+
+    // Приховуємо об'єкти від DataGridView
+    [Browsable(false)]
+    [JsonIgnore]
+    public Group? Group { get; set; }
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public Subject? Subject { get; set; }
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public Teacher? Teacher { get; set; }
+}
+
+public class Grade
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("group_id")]
+    public int GroupId { get; set; }
+
+    [JsonPropertyName("student_email")]
+    public string StudentEmail { get; set; } = string.Empty;
+
+    [JsonPropertyName("subject_id")]
+    public int SubjectId { get; set; }
+
+    [JsonPropertyName("value")]
+    public double Value { get; set; }
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public Group? Group { get; set; }
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public Student? Student { get; set; }
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public Subject? Subject { get; set; }
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public string LastName => Student?.LastName ?? string.Empty;
+
+    [Browsable(false)]
+    [JsonIgnore]
+    public string FirstName => Student?.FirstName ?? string.Empty;
+}
+public class Admin
+{
+    [JsonPropertyName("email")]
+    public string Email { get; set; } = string.Empty;
+
+    [JsonPropertyName("password")]
+    public string Password { get; set; } = string.Empty;
+}
+
+public class RegisterDB
+{
+    private readonly string[] Lists = { "Teachers", "Students", "Groups", "Subjects", "GroupSubjects", "Admins" };
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+    };
+
+    [JsonIgnore]
+    public string? FilePath { get; set; }
+
+    [JsonPropertyName("teachers")]
+    public BindingList<Teacher> Teachers { get; set; } = new();
+
+    [JsonPropertyName("subjects")]
+    public BindingList<Subject> Subjects { get; set; } = new();
+
+    [JsonPropertyName("groups")]
+    public BindingList<Group> Groups { get; set; } = new();
+
+    [JsonPropertyName("students")]
+    public BindingList<Student> Students { get; set; } = new();
+
+    [JsonPropertyName("group_subjects")]
+    public BindingList<GroupSubject> GroupSubjects { get; set; } = new();
+
+    [JsonPropertyName("grades")]
+    public BindingList<Grade> Grades { get; set; } = new();
+    [JsonPropertyName("admins")]
+    public BindingList<Admin> Admins { get; set; } = new();
+
+    public RegisterDB()
+    {
+    }
+
+    public RegisterDB(string filePath)
+    {
+        FilePath = filePath;
+        LoadFromFile(filePath);
+    }
+
+    public void SaveToFile(string? filePath = null)
+    {
+        string path = filePath ?? FilePath ?? throw new InvalidOperationException("Шлях до файлу не вказано.");
+        FilePath = path;
+        File.WriteAllText(path, Serialize());
+        MessageBox.Show($"Дані успішно збережено", "Збереження даних", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+    public void LoadFromFile(string filePath)
+    {
+        FilePath = filePath;
+
+        if (!File.Exists(filePath))
+            return;
+
+        string json = File.ReadAllText(filePath);
+        var loaded = JsonSerializer.Deserialize<RegisterDB>(json, JsonOptions);
+
+        if (loaded != null)
+        {
+            Teachers = loaded.Teachers;
+            Subjects = loaded.Subjects;
+            Groups = loaded.Groups;
+            Students = loaded.Students;
+            GroupSubjects = loaded.GroupSubjects;
+            Grades = loaded.Grades;
+            Admins = loaded.Admins;
+        }
+
+        BuildRelationships();
+    }
+
+    public string Serialize()
+    {
+        return JsonSerializer.Serialize(this, JsonOptions);
+    }
+
+    public static RegisterDB FromJson(string json)
+    {
+        var db = JsonSerializer.Deserialize<RegisterDB>(json, JsonOptions) ?? new RegisterDB();
+        db.BuildRelationships();
+        return db;
+    }
+
+    public void BuildRelationships()
+    {
+        foreach (var t in Teachers)
+        {
+            t.CuratedGroups.Clear();
+            t.GroupSubjects.Clear();
+        }
+
+        foreach (var s in Subjects)
+        {
+            s.GroupSubjects.Clear();
+            s.Grades.Clear();
+        }
+
+        foreach (var g in Groups)
+        {
+            g.Curator = null;
+            g.Students.Clear();
+            g.GroupSubjects.Clear();
+            g.Grades.Clear();
+        }
+
+        foreach (var st in Students)
+        {
+            st.Group = null;
+            st.Grades.Clear();
+        }
+
+        var teacherMap = Teachers
+            .Where(t => !string.IsNullOrEmpty(t.Email))
+            .DistinctBy(t => t.Email, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(t => t.Email, StringComparer.OrdinalIgnoreCase);
+
+        var subjectMap = Subjects
+            .DistinctBy(s => s.Id)
+            .ToDictionary(s => s.Id);
+
+        var groupMap = Groups
+            .DistinctBy(g => g.Id)
+            .ToDictionary(g => g.Id);
+
+        var studentMap = Students
+            .Where(s => !string.IsNullOrEmpty(s.Email))
+            .DistinctBy(s => s.Email, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(s => s.Email, StringComparer.OrdinalIgnoreCase);
+
+        foreach (var group in Groups)
+        {
+            if (teacherMap.TryGetValue(group.CuratorEmail, out var teacher))
+            {
+                group.Curator = teacher;
+                teacher.CuratedGroups.Add(group);
+            }
+        }
+
+        foreach (var student in Students)
+        {
+            if (groupMap.TryGetValue(student.GroupId, out var group))
+            {
+                student.Group = group;
+                group.Students.Add(student);
+            }
+        }
+
+        foreach (var gs in GroupSubjects)
+        {
+            if (groupMap.TryGetValue(gs.GroupId, out var group))
+            {
+                gs.Group = group;
+                group.GroupSubjects.Add(gs);
+            }
+
+            if (subjectMap.TryGetValue(gs.SubjectId, out var subject))
+            {
+                gs.Subject = subject;
+                subject.GroupSubjects.Add(gs);
+            }
+
+            if (teacherMap.TryGetValue(gs.TeacherEmail, out var teacher))
+            {
+                gs.Teacher = teacher;
+                teacher.GroupSubjects.Add(gs);
+            }
+        }
+
+        foreach (var grade in Grades)
+        {
+            if (groupMap.TryGetValue(grade.GroupId, out var group))
+            {
+                grade.Group = group;
+                group.Grades.Add(grade);
+            }
+
+            if (studentMap.TryGetValue(grade.StudentEmail, out var student))
+            {
+                grade.Student = student;
+                student.Grades.Add(grade);
+            }
+
+            if (subjectMap.TryGetValue(grade.SubjectId, out var subject))
+            {
+                grade.Subject = subject;
+                subject.Grades.Add(grade);
+            }
+        }
+    }
+    public IEnumerable<string> GetLists() {
+        foreach(string a in Lists)
+        {
+            yield return a;
+        }
+    }
+}

@@ -1,0 +1,145 @@
+﻿using System;
+using System.Net;
+using System.Windows.Forms;
+
+namespace Register
+{
+    public partial class Main : Form
+    {
+        public bool hasChanged = false;
+        public static string filepath = Autorization.filePath;
+        public static RegisterDB? DataBase;
+
+        public string email = string.Empty;
+        public int groupID;
+        public string role = string.Empty;
+
+        public Main()
+        {
+            InitializeComponent();
+        }
+
+        public Main(string role, int groupID) : this()
+        {
+            this.role = role;
+            this.groupID = groupID;
+        }
+
+        public Main(string role) : this()
+        {
+            this.role = role;
+        }
+
+        public Main(string role, string email) : this()
+        {
+            this.role = role;
+            this.email = email;
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+            DataBase = new RegisterDB(filepath);
+            AdapterDB.SetupDataGridView(dataGridView);
+            FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
+            FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
+            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
+            FormBuilder.FormatDataGridView(dataGridView);
+            dataGridView.Width = this.ClientSize.Width;
+            dataGridView.Height = this.ClientSize.Height - comboBoxGroup.Height - 50;
+            FormStyles.StyleDataGridView(dataGridView);
+            FormStyles.StyleComboBox(comboBoxGroup);
+            FormStyles.StyleComboBox(comboBoxSubject);
+
+            FormStyles.StyleDataGridView(dataGridView);
+            FormStyles.StyleComboBox(comboBoxGroup);
+            FormStyles.StyleComboBox(comboBoxSubject);
+
+            FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID, email);
+
+            comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
+            comboBoxGroup.SelectionChangeCommitted += (s, ev) => RefreshGrid();
+
+            dataGridView.CellValidating += (s, ev) => FormBuilder.DataGridView_CellValidating(s, ev, dataGridView, role);
+
+            dataGridView.CellEndEdit += (s, ev) =>
+            {
+                if (DataBase != null && ev.RowIndex >= 0)
+                {
+                    FormBuilder.SaveEditedGrade(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email, ev.RowIndex, filepath);
+
+                    dataGridView.InvalidateRow(dataGridView.Rows.Count - 1);
+                }
+            };
+
+            RefreshGrid();
+
+            if (role == "Студент")
+            {
+                dataGridView.ReadOnly = true;
+                dataGridView.AllowUserToAddRows = false;
+                dataGridView.AllowUserToDeleteRows = false;
+            }
+            else if (role == "Викладач")
+            {
+                dataGridView.AllowUserToAddRows = false;
+                dataGridView.AllowUserToDeleteRows = false;
+            }
+        }
+
+        private void RefreshGrid()
+        {
+            if (DataBase != null)
+            {
+                FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email);
+            }
+        }
+
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataGridView.EndEdit();
+            SemReportCard form = new SemReportCard(DataBase, role, comboBoxGroup.SelectedItem as Group);
+            this.Hide();
+            form.ShowDialog();
+            this.Show();
+            RefreshGrid();
+            FormBuilder.FormatDataGridView(dataGridView);
+        }
+
+        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            hasChanged = true;
+        }
+
+        private void зберегтиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DataBase.SaveToFile(filepath);
+            hasChanged = false;
+        }
+
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormBuilder.ValidateChanges(hasChanged, DataBase);
+            hasChanged = false;
+        }
+
+        private void dataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            FormBuilder.DataGridView_CellValidating(sender, e, dataGridView, role);
+        }
+    }
+}
