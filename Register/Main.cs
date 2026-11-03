@@ -45,22 +45,23 @@ namespace Register
             FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
             FormBuilder.FormatDataGridView(dataGridView);
+
             dataGridView.Width = this.ClientSize.Width;
             dataGridView.Height = this.ClientSize.Height - comboBoxGroup.Height - 50;
-            FormStyles.StyleDataGridView(dataGridView);
-            FormStyles.StyleComboBox(comboBoxGroup);
-            FormStyles.StyleComboBox(comboBoxSubject);
 
             FormStyles.StyleDataGridView(dataGridView);
             FormStyles.StyleComboBox(comboBoxGroup);
             FormStyles.StyleComboBox(comboBoxSubject);
+
+            FormStyles.StyleMenuStripItem(зберегтиToolStripMenuItem, "\uE74E Зберегти");
+            FormStyles.StyleMenuStripItem(вихідToolStripMenuItem, "\uE7E8 Вийти");
+            FormStyles.StyleMenuStripItem(семестроваВідомістьToolStripMenuItem, "\uE8EF  Семестрова відомість");
+
 
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID, email);
 
             comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
             comboBoxGroup.SelectionChangeCommitted += (s, ev) => RefreshGrid();
-
-            dataGridView.CellValidating += (s, ev) => FormBuilder.DataGridView_CellValidating(s, ev, dataGridView, role);
 
             dataGridView.CellEndEdit += (s, ev) =>
             {
@@ -93,11 +94,6 @@ namespace Register
             {
                 FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email);
             }
-        }
-
-
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
         }
 
         private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)
