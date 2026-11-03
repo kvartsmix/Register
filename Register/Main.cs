@@ -60,8 +60,6 @@ namespace Register
             comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
             comboBoxGroup.SelectionChangeCommitted += (s, ev) => RefreshGrid();
 
-            dataGridView.CellValidating += (s, ev) => FormBuilder.DataGridView_CellValidating(s, ev, dataGridView, role);
-
             dataGridView.CellEndEdit += (s, ev) =>
             {
                 if (DataBase != null && ev.RowIndex >= 0)
@@ -93,11 +91,6 @@ namespace Register
             {
                 FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email);
             }
-        }
-
-
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
         }
 
         private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)

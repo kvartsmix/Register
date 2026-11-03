@@ -1,6 +1,13 @@
 {
   "teachers": [
     {
+      "email": "student",
+      "first_name": "student",
+      "last_name": "test",
+      "password": "1"
+    },
+    {
+
       "email": "shevchenko.o@college.edu",
       "first_name": "Олександр",
       "last_name": "Шевченко",

@@ -72,6 +72,7 @@
             dataGridView.RowHeadersWidth = 51;
             dataGridView.Size = new Size(914, 528);
             dataGridView.TabIndex = 4;
+            dataGridView.CellValidating += dataGridView_CellValidating;
             dataGridView.CellValueChanged += dataGridView_CellValueChanged;
             // 
             // menuStrip1
