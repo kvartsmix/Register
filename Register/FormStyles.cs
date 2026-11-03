@@ -34,6 +34,8 @@ namespace Register
             dgv.RowHeadersVisible = false;
             dgv.AllowUserToResizeColumns = false;
             dgv.AllowUserToResizeRows = false;
+
+            dgv.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         }
         public static void StyleComboBox(ComboBox cb)
         {
@@ -62,6 +64,14 @@ namespace Register
             txt.Font = new Font("Segoe UI", 10.5F, FontStyle.Regular);
             txt.BackColor = Color.White;
             txt.ForeColor = Color.FromArgb(33, 37, 41);
+        }
+        public static void StyleMenuStripItem(ToolStripMenuItem menuItem, string text)
+        {
+            menuItem.Font = new Font("Segoe UI", 9.5F, FontStyle.Regular);
+            menuItem.ForeColor = Color.FromArgb(33, 37, 41);
+            menuItem.BackColor = Color.FromArgb(248, 249, 250);
+            menuItem.Font = new Font("Segoe Fluent Icons", 9.5F);
+            menuItem.Text = text;
         }
     }
 }
