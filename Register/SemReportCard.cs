@@ -211,6 +211,7 @@ namespace Register
                 ApplyCellColor(dataGridViewSemReport.Rows[e.RowIndex].Cells[e.ColumnIndex]);
                 RecalculateRowAverage(e.RowIndex);
             }
+            FormBuilder.FormatDataGridView(dataGridViewSemReport);
         }
 
         private void RecalculateRowAverage(int rowIndex)
