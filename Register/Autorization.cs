@@ -53,6 +53,8 @@ namespace Register
                 return;
             }
 
+            
+
             if (data == null)
             {
                 MessageBox.Show("База даних порожня або не завантажена.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -67,6 +69,22 @@ namespace Register
 
             if (foundUser != null)
             {
+                role = "Студент";
+            }
+            else
+            {
+                foundUser = data.teachers?.FirstOrDefault(u =>
+                    string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
+
+                if (foundUser != null)
+                {
+                    role = "Викладач";
+                }
+                else
+                {
+                    foundUser = data.admins?.FirstOrDefault(u =>
+                        string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
+
                 Main form = new Main();
                     if (foundUser != null)
                     {
