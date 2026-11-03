@@ -61,7 +61,7 @@
             // 
             // dataGridView
             // 
-            dataGridView.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView.BackgroundColor = SystemColors.Control;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Location = new Point(0, 54);

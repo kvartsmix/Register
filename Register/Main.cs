@@ -45,18 +45,18 @@ namespace Register
             FormBuilder.SetSubjectComboBox(comboBoxSubject, DataBase.Subjects);
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID);
             FormBuilder.FormatDataGridView(dataGridView);
+
             dataGridView.Width = this.ClientSize.Width;
             dataGridView.Height = this.ClientSize.Height - comboBoxGroup.Height - 50;
-            FormStyles.StyleDataGridView(dataGridView);
-            FormStyles.StyleComboBox(comboBoxGroup);
-            FormStyles.StyleComboBox(comboBoxSubject);
-            FormStyles.StyleMenuStripItem(зберегтиToolStripMenuItem, "\uE74E Зберегти");
-            FormStyles.StyleMenuStripItem(вихідToolStripMenuItem, "\uE7E8 Вийти");
-            FormStyles.StyleMenuStripItem(семестроваВідомістьToolStripMenuItem, "\uE8EF  Семестрова відомість");
 
             FormStyles.StyleDataGridView(dataGridView);
             FormStyles.StyleComboBox(comboBoxGroup);
             FormStyles.StyleComboBox(comboBoxSubject);
+
+            FormStyles.StyleMenuStripItem(зберегтиToolStripMenuItem, "\uE74E Зберегти");
+            FormStyles.StyleMenuStripItem(вихідToolStripMenuItem, "\uE7E8 Вийти");
+            FormStyles.StyleMenuStripItem(семестроваВідомістьToolStripMenuItem, "\uE8EF  Семестрова відомість");
+
 
             FormBuilder.SyncComboBoxes(comboBoxSubject, comboBoxGroup, DataBase, role, groupID, email);
 
