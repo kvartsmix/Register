@@ -171,6 +171,10 @@
     {
       "id": 20,
       "name": "Управління IT-проектами"
+    },
+    {
+      "id": 21,
+      "name": "UkrMova"
     }
   ],
   "groups": [
@@ -193,6 +197,10 @@
     {
       "id": 301,
       "curator_email": "pavlenko.a@college.edu"
+    },
+    {
+      "id": 103,
+      "curator_email": ""
     }
   ],
   "students": [
@@ -205,8 +213,8 @@
     },
     {
       "email": "moroz.a@student.edu",
-      "last_name": "Мороз",
-      "first_name": "Анна",
+      "last_name": "Анна",
+      "first_name": "Мороз",
       "group_id": 101,
       "password": "pass102"
     },
@@ -280,75 +288,74 @@
       "group_id": 101,
       "password": "pass112"
     },
-
     {
       "email": "khomenko.n@student.edu",
       "last_name": "Хоменко",
       "first_name": "Надія",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass116"
     },
     {
       "email": "panasyuk.r@student.edu",
       "last_name": "Панасюк",
       "first_name": "Роман",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass117"
     },
     {
       "email": "havryliuk.a@student.edu",
       "last_name": "Гаврилюк",
       "first_name": "Аліна",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass118"
     },
     {
       "email": "hrytsenko.o@student.edu",
       "last_name": "Гриценко",
       "first_name": "Олег",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass119"
     },
     {
       "email": "matviychuk.t@student.edu",
       "last_name": "Матвійчук",
       "first_name": "Тетяна",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass120"
     },
     {
       "email": "fedorov.a@student.edu",
       "last_name": "Федоров",
       "first_name": "Артем",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass121"
     },
     {
       "email": "sydorenko.v@student.edu",
       "last_name": "Сидоренко",
       "first_name": "Валерія",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass122"
     },
     {
       "email": "vlasenko.m@student.edu",
       "last_name": "Власенко",
       "first_name": "Михайло",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass123"
     },
     {
       "email": "ostapenko.d@student.edu",
       "last_name": "Остапенко",
       "first_name": "Діана",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass124"
     },
     {
       "email": "lytvyn.s@student.edu",
       "last_name": "Литвин",
       "first_name": "Сергій",
-      "group_id": 102,
+      "group_id": 101,
       "password": "pass125"
     },
     {
@@ -365,7 +372,6 @@
       "group_id": 102,
       "password": "pass127"
     },
-
     {
       "email": "marchenko.i@student.edu",
       "last_name": "Марченко",
@@ -450,7 +456,6 @@
       "group_id": 201,
       "password": "pass212"
     },
-
     {
       "email": "yurchenko.k@student.edu",
       "last_name": "Юрченко",
@@ -535,7 +540,6 @@
       "group_id": 202,
       "password": "pass224"
     },
-
     {
       "email": "doroshenko.r@student.edu",
       "last_name": "Дорошенко",
@@ -619,6 +623,20 @@
       "first_name": "Кароліна",
       "group_id": 301,
       "password": "pass312"
+    },
+    {
+      "email": "123@123",
+      "last_name": "1",
+      "first_name": "1",
+      "group_id": 103,
+      "password": "123"
+    },
+    {
+      "email": "",
+      "last_name": "",
+      "first_name": "",
+      "group_id": 0,
+      "password": ""
     }
   ],
   "group_subjects": [
@@ -658,7 +676,6 @@
       "subject_id": 19,
       "teacher_email": "fedorenko.s@college.edu"
     },
-
     {
       "id": 7,
       "group_id": 102,
@@ -695,7 +712,6 @@
       "subject_id": 19,
       "teacher_email": "fedorenko.s@college.edu"
     },
-
     {
       "id": 13,
       "group_id": 201,
@@ -732,7 +748,6 @@
       "subject_id": 16,
       "teacher_email": "kravchuk.p@college.edu"
     },
-
     {
       "id": 19,
       "group_id": 202,
@@ -769,7 +784,6 @@
       "subject_id": 17,
       "teacher_email": "morozov.k@college.edu"
     },
-
     {
       "id": 25,
       "group_id": 301,
@@ -805,6 +819,18 @@
       "group_id": 301,
       "subject_id": 20,
       "teacher_email": "bilokon.t@college.edu"
+    },
+    {
+      "id": 31,
+      "group_id": 103,
+      "subject_id": 21,
+      "teacher_email": "doroshenko.v@college.edu"
+    },
+    {
+      "id": 0,
+      "group_id": 0,
+      "subject_id": 0,
+      "teacher_email": ""
     }
   ],
   "grades": [
@@ -813,1947 +839,1892 @@
       "group_id": 101,
       "student_email": "tkachuk.d@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 2,
       "group_id": 101,
       "student_email": "tkachuk.d@student.edu",
       "subject_id": 2,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 3,
       "group_id": 101,
       "student_email": "tkachuk.d@student.edu",
       "subject_id": 3,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 4,
       "group_id": 101,
       "student_email": "tkachuk.d@student.edu",
       "subject_id": 6,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 5,
       "group_id": 101,
       "student_email": "tkachuk.d@student.edu",
       "subject_id": 19,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 6,
       "group_id": 101,
       "student_email": "moroz.a@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 7,
       "group_id": 101,
       "student_email": "moroz.a@student.edu",
       "subject_id": 2,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 8,
       "group_id": 101,
       "student_email": "moroz.a@student.edu",
       "subject_id": 4,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 9,
       "group_id": 101,
       "student_email": "moroz.a@student.edu",
       "subject_id": 6,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 10,
       "group_id": 101,
       "student_email": "lysenko.m@student.edu",
       "subject_id": 1,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 11,
       "group_id": 101,
       "student_email": "lysenko.m@student.edu",
       "subject_id": 3,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 12,
       "group_id": 101,
       "student_email": "lysenko.m@student.edu",
       "subject_id": 4,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 13,
       "group_id": 101,
       "student_email": "lysenko.m@student.edu",
       "subject_id": 6,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 14,
       "group_id": 101,
       "student_email": "lysenko.m@student.edu",
       "subject_id": 19,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 15,
       "group_id": 101,
       "student_email": "kravets.o@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 16,
       "group_id": 101,
       "student_email": "kravets.o@student.edu",
       "subject_id": 2,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 17,
       "group_id": 101,
       "student_email": "kravets.o@student.edu",
       "subject_id": 3,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 18,
       "group_id": 101,
       "student_email": "kravets.o@student.edu",
       "subject_id": 4,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 19,
       "group_id": 101,
       "student_email": "kravets.o@student.edu",
       "subject_id": 19,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 20,
       "group_id": 101,
       "student_email": "polishchuk.y@student.edu",
       "subject_id": 1,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 21,
       "group_id": 101,
       "student_email": "polishchuk.y@student.edu",
       "subject_id": 2,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 22,
       "group_id": 101,
       "student_email": "polishchuk.y@student.edu",
       "subject_id": 3,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 23,
       "group_id": 101,
       "student_email": "polishchuk.y@student.edu",
       "subject_id": 6,
-      "value": 2.0
+      "value": 2
     },
-
     {
       "id": 24,
       "group_id": 101,
       "student_email": "rudyk.v@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 25,
       "group_id": 101,
       "student_email": "rudyk.v@student.edu",
       "subject_id": 2,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 26,
       "group_id": 101,
       "student_email": "rudyk.v@student.edu",
       "subject_id": 3,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 27,
       "group_id": 101,
       "student_email": "rudyk.v@student.edu",
       "subject_id": 4,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 28,
       "group_id": 101,
       "student_email": "rudyk.v@student.edu",
       "subject_id": 19,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 29,
       "group_id": 101,
       "student_email": "savchenko.b@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 30,
       "group_id": 101,
       "student_email": "savchenko.b@student.edu",
       "subject_id": 2,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 31,
       "group_id": 101,
       "student_email": "savchenko.b@student.edu",
       "subject_id": 4,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 32,
       "group_id": 101,
       "student_email": "savchenko.b@student.edu",
       "subject_id": 6,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 33,
       "group_id": 101,
       "student_email": "savchenko.b@student.edu",
       "subject_id": 19,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 34,
       "group_id": 101,
       "student_email": "zinchenko.k@student.edu",
       "subject_id": 1,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 35,
       "group_id": 101,
       "student_email": "zinchenko.k@student.edu",
       "subject_id": 3,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 36,
       "group_id": 101,
       "student_email": "zinchenko.k@student.edu",
       "subject_id": 4,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 37,
       "group_id": 101,
       "student_email": "zinchenko.k@student.edu",
       "subject_id": 6,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 38,
       "group_id": 101,
       "student_email": "bilous.a@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 39,
       "group_id": 101,
       "student_email": "bilous.a@student.edu",
       "subject_id": 2,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 40,
       "group_id": 101,
       "student_email": "bilous.a@student.edu",
       "subject_id": 3,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 41,
       "group_id": 101,
       "student_email": "bilous.a@student.edu",
       "subject_id": 6,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 42,
       "group_id": 101,
       "student_email": "bilous.a@student.edu",
       "subject_id": 19,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 43,
       "group_id": 101,
       "student_email": "dovhan.y@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 44,
       "group_id": 101,
       "student_email": "dovhan.y@student.edu",
       "subject_id": 2,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 45,
       "group_id": 101,
       "student_email": "dovhan.y@student.edu",
       "subject_id": 3,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 46,
       "group_id": 101,
       "student_email": "dovhan.y@student.edu",
       "subject_id": 4,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 47,
       "group_id": 101,
       "student_email": "dovhan.y@student.edu",
       "subject_id": 19,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 48,
       "group_id": 101,
       "student_email": "kozak.v@student.edu",
       "subject_id": 1,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 49,
       "group_id": 101,
       "student_email": "kozak.v@student.edu",
       "subject_id": 2,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 50,
       "group_id": 101,
       "student_email": "kozak.v@student.edu",
       "subject_id": 6,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 51,
       "group_id": 101,
       "student_email": "kozak.v@student.edu",
       "subject_id": 19,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 52,
       "group_id": 101,
       "student_email": "melnychenko.a@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 53,
       "group_id": 101,
       "student_email": "melnychenko.a@student.edu",
       "subject_id": 2,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 54,
       "group_id": 101,
       "student_email": "melnychenko.a@student.edu",
       "subject_id": 3,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 55,
       "group_id": 101,
       "student_email": "melnychenko.a@student.edu",
       "subject_id": 4,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 56,
       "group_id": 101,
       "student_email": "melnychenko.a@student.edu",
       "subject_id": 6,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 57,
       "group_id": 102,
       "student_email": "khomenko.n@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 58,
       "group_id": 102,
       "student_email": "khomenko.n@student.edu",
       "subject_id": 2,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 59,
       "group_id": 102,
       "student_email": "khomenko.n@student.edu",
       "subject_id": 5,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 60,
       "group_id": 102,
       "student_email": "khomenko.n@student.edu",
       "subject_id": 7,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 61,
       "group_id": 102,
       "student_email": "khomenko.n@student.edu",
       "subject_id": 19,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 62,
       "group_id": 102,
       "student_email": "panasyuk.r@student.edu",
       "subject_id": 1,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 63,
       "group_id": 102,
       "student_email": "panasyuk.r@student.edu",
       "subject_id": 2,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 64,
       "group_id": 102,
       "student_email": "panasyuk.r@student.edu",
       "subject_id": 5,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 65,
       "group_id": 102,
       "student_email": "panasyuk.r@student.edu",
       "subject_id": 9,
-      "value": 2.0
+      "value": 2
     },
-
     {
       "id": 66,
       "group_id": 102,
       "student_email": "havryliuk.a@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 67,
       "group_id": 102,
       "student_email": "havryliuk.a@student.edu",
       "subject_id": 5,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 68,
       "group_id": 102,
       "student_email": "havryliuk.a@student.edu",
       "subject_id": 7,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 69,
       "group_id": 102,
       "student_email": "havryliuk.a@student.edu",
       "subject_id": 9,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 70,
       "group_id": 102,
       "student_email": "havryliuk.a@student.edu",
       "subject_id": 19,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 71,
       "group_id": 102,
       "student_email": "hrytsenko.o@student.edu",
       "subject_id": 1,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 72,
       "group_id": 102,
       "student_email": "hrytsenko.o@student.edu",
       "subject_id": 2,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 73,
       "group_id": 102,
       "student_email": "hrytsenko.o@student.edu",
       "subject_id": 5,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 74,
       "group_id": 102,
       "student_email": "hrytsenko.o@student.edu",
       "subject_id": 9,
-      "value": 2.0
+      "value": 2
     },
-
     {
       "id": 75,
       "group_id": 102,
       "student_email": "matviychuk.t@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 76,
       "group_id": 102,
       "student_email": "matviychuk.t@student.edu",
       "subject_id": 2,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 77,
       "group_id": 102,
       "student_email": "matviychuk.t@student.edu",
       "subject_id": 7,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 78,
       "group_id": 102,
       "student_email": "matviychuk.t@student.edu",
       "subject_id": 9,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 79,
       "group_id": 102,
       "student_email": "matviychuk.t@student.edu",
       "subject_id": 19,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 80,
       "group_id": 102,
       "student_email": "fedorov.a@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 81,
       "group_id": 102,
       "student_email": "fedorov.a@student.edu",
       "subject_id": 5,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 82,
       "group_id": 102,
       "student_email": "fedorov.a@student.edu",
       "subject_id": 7,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 83,
       "group_id": 102,
       "student_email": "fedorov.a@student.edu",
       "subject_id": 19,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 84,
       "group_id": 102,
       "student_email": "sydorenko.v@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 85,
       "group_id": 102,
       "student_email": "sydorenko.v@student.edu",
       "subject_id": 2,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 86,
       "group_id": 102,
       "student_email": "sydorenko.v@student.edu",
       "subject_id": 5,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 87,
       "group_id": 102,
       "student_email": "sydorenko.v@student.edu",
       "subject_id": 7,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 88,
       "group_id": 102,
       "student_email": "sydorenko.v@student.edu",
       "subject_id": 9,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 89,
       "group_id": 102,
       "student_email": "vlasenko.m@student.edu",
       "subject_id": 1,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 90,
       "group_id": 102,
       "student_email": "vlasenko.m@student.edu",
       "subject_id": 2,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 91,
       "group_id": 102,
       "student_email": "vlasenko.m@student.edu",
       "subject_id": 5,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 92,
       "group_id": 102,
       "student_email": "vlasenko.m@student.edu",
       "subject_id": 9,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 93,
       "group_id": 102,
       "student_email": "vlasenko.m@student.edu",
       "subject_id": 19,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 94,
       "group_id": 102,
       "student_email": "ostapenko.d@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 95,
       "group_id": 102,
       "student_email": "ostapenko.d@student.edu",
       "subject_id": 2,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 96,
       "group_id": 102,
       "student_email": "ostapenko.d@student.edu",
       "subject_id": 7,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 97,
       "group_id": 102,
       "student_email": "ostapenko.d@student.edu",
       "subject_id": 19,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 98,
       "group_id": 102,
       "student_email": "lytvyn.s@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 99,
       "group_id": 102,
       "student_email": "lytvyn.s@student.edu",
       "subject_id": 5,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 100,
       "group_id": 102,
       "student_email": "lytvyn.s@student.edu",
       "subject_id": 7,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 101,
       "group_id": 102,
       "student_email": "lytvyn.s@student.edu",
       "subject_id": 9,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 102,
       "group_id": 102,
       "student_email": "borovyk.i@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 103,
       "group_id": 102,
       "student_email": "borovyk.i@student.edu",
       "subject_id": 2,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 104,
       "group_id": 102,
       "student_email": "borovyk.i@student.edu",
       "subject_id": 5,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 105,
       "group_id": 102,
       "student_email": "borovyk.i@student.edu",
       "subject_id": 19,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 106,
       "group_id": 102,
       "student_email": "chernysh.o@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 107,
       "group_id": 102,
       "student_email": "chernysh.o@student.edu",
       "subject_id": 2,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 108,
       "group_id": 102,
       "student_email": "chernysh.o@student.edu",
       "subject_id": 7,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 109,
       "group_id": 102,
       "student_email": "chernysh.o@student.edu",
       "subject_id": 9,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 110,
       "group_id": 102,
       "student_email": "chernysh.o@student.edu",
       "subject_id": 19,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 111,
       "group_id": 201,
       "student_email": "marchenko.i@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 112,
       "group_id": 201,
       "student_email": "marchenko.i@student.edu",
       "subject_id": 6,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 113,
       "group_id": 201,
       "student_email": "marchenko.i@student.edu",
       "subject_id": 11,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 114,
       "group_id": 201,
       "student_email": "marchenko.i@student.edu",
       "subject_id": 12,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 115,
       "group_id": 201,
       "student_email": "marchenko.i@student.edu",
       "subject_id": 14,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 116,
       "group_id": 201,
       "student_email": "shvets.d@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 117,
       "group_id": 201,
       "student_email": "shvets.d@student.edu",
       "subject_id": 11,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 118,
       "group_id": 201,
       "student_email": "shvets.d@student.edu",
       "subject_id": 12,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 119,
       "group_id": 201,
       "student_email": "shvets.d@student.edu",
       "subject_id": 16,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 120,
       "group_id": 201,
       "student_email": "kuzmenko.v@student.edu",
       "subject_id": 1,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 121,
       "group_id": 201,
       "student_email": "kuzmenko.v@student.edu",
       "subject_id": 6,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 122,
       "group_id": 201,
       "student_email": "kuzmenko.v@student.edu",
       "subject_id": 11,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 123,
       "group_id": 201,
       "student_email": "kuzmenko.v@student.edu",
       "subject_id": 12,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 124,
       "group_id": 201,
       "student_email": "kuzmenko.v@student.edu",
       "subject_id": 16,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 125,
       "group_id": 201,
       "student_email": "ponomarenko.s@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 126,
       "group_id": 201,
       "student_email": "ponomarenko.s@student.edu",
       "subject_id": 6,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 127,
       "group_id": 201,
       "student_email": "ponomarenko.s@student.edu",
       "subject_id": 12,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 128,
       "group_id": 201,
       "student_email": "ponomarenko.s@student.edu",
       "subject_id": 14,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 129,
       "group_id": 201,
       "student_email": "ponomarenko.s@student.edu",
       "subject_id": 16,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 130,
       "group_id": 201,
       "student_email": "boyko.t@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 131,
       "group_id": 201,
       "student_email": "boyko.t@student.edu",
       "subject_id": 6,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 132,
       "group_id": 201,
       "student_email": "boyko.t@student.edu",
       "subject_id": 11,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 133,
       "group_id": 201,
       "student_email": "boyko.t@student.edu",
       "subject_id": 14,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 134,
       "group_id": 201,
       "student_email": "ivanov.m@student.edu",
       "subject_id": 1,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 135,
       "group_id": 201,
       "student_email": "ivanov.m@student.edu",
       "subject_id": 6,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 136,
       "group_id": 201,
       "student_email": "ivanov.m@student.edu",
       "subject_id": 11,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 137,
       "group_id": 201,
       "student_email": "ivanov.m@student.edu",
       "subject_id": 12,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 138,
       "group_id": 201,
       "student_email": "ivanov.m@student.edu",
       "subject_id": 16,
-      "value": 2.0
+      "value": 2
     },
-
     {
       "id": 139,
       "group_id": 201,
       "student_email": "semenyuk.a@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 140,
       "group_id": 201,
       "student_email": "semenyuk.a@student.edu",
       "subject_id": 6,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 141,
       "group_id": 201,
       "student_email": "semenyuk.a@student.edu",
       "subject_id": 12,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 142,
       "group_id": 201,
       "student_email": "semenyuk.a@student.edu",
       "subject_id": 14,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 143,
       "group_id": 201,
       "student_email": "kostenko.v@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 144,
       "group_id": 201,
       "student_email": "kostenko.v@student.edu",
       "subject_id": 11,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 145,
       "group_id": 201,
       "student_email": "kostenko.v@student.edu",
       "subject_id": 12,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 146,
       "group_id": 201,
       "student_email": "kostenko.v@student.edu",
       "subject_id": 14,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 147,
       "group_id": 201,
       "student_email": "kostenko.v@student.edu",
       "subject_id": 16,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 148,
       "group_id": 201,
       "student_email": "tymoshenko.o@student.edu",
       "subject_id": 1,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 149,
       "group_id": 201,
       "student_email": "tymoshenko.o@student.edu",
       "subject_id": 6,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 150,
       "group_id": 201,
       "student_email": "tymoshenko.o@student.edu",
       "subject_id": 11,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 151,
       "group_id": 201,
       "student_email": "tymoshenko.o@student.edu",
       "subject_id": 16,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 152,
       "group_id": 201,
       "student_email": "prokopenko.k@student.edu",
       "subject_id": 1,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 153,
       "group_id": 201,
       "student_email": "prokopenko.k@student.edu",
       "subject_id": 12,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 154,
       "group_id": 201,
       "student_email": "prokopenko.k@student.edu",
       "subject_id": 14,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 155,
       "group_id": 201,
       "student_email": "prokopenko.k@student.edu",
       "subject_id": 16,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 156,
       "group_id": 201,
       "student_email": "holub.d@student.edu",
       "subject_id": 1,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 157,
       "group_id": 201,
       "student_email": "holub.d@student.edu",
       "subject_id": 6,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 158,
       "group_id": 201,
       "student_email": "holub.d@student.edu",
       "subject_id": 11,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 159,
       "group_id": 201,
       "student_email": "holub.d@student.edu",
       "subject_id": 14,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 160,
       "group_id": 201,
       "student_email": "stetsenko.p@student.edu",
       "subject_id": 1,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 161,
       "group_id": 201,
       "student_email": "stetsenko.p@student.edu",
       "subject_id": 6,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 162,
       "group_id": 201,
       "student_email": "stetsenko.p@student.edu",
       "subject_id": 11,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 163,
       "group_id": 201,
       "student_email": "stetsenko.p@student.edu",
       "subject_id": 12,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 164,
       "group_id": 201,
       "student_email": "stetsenko.p@student.edu",
       "subject_id": 16,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 165,
       "group_id": 202,
       "student_email": "yurchenko.k@student.edu",
       "subject_id": 4,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 166,
       "group_id": 202,
       "student_email": "yurchenko.k@student.edu",
       "subject_id": 5,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 167,
       "group_id": 202,
       "student_email": "yurchenko.k@student.edu",
       "subject_id": 7,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 168,
       "group_id": 202,
       "student_email": "yurchenko.k@student.edu",
       "subject_id": 15,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 169,
       "group_id": 202,
       "student_email": "yurchenko.k@student.edu",
       "subject_id": 17,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 170,
       "group_id": 202,
       "student_email": "denysenko.p@student.edu",
       "subject_id": 4,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 171,
       "group_id": 202,
       "student_email": "denysenko.p@student.edu",
       "subject_id": 5,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 172,
       "group_id": 202,
       "student_email": "denysenko.p@student.edu",
       "subject_id": 10,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 173,
       "group_id": 202,
       "student_email": "denysenko.p@student.edu",
       "subject_id": 15,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 174,
       "group_id": 202,
       "student_email": "korol.m@student.edu",
       "subject_id": 4,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 175,
       "group_id": 202,
       "student_email": "korol.m@student.edu",
       "subject_id": 7,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 176,
       "group_id": 202,
       "student_email": "korol.m@student.edu",
       "subject_id": 10,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 177,
       "group_id": 202,
       "student_email": "korol.m@student.edu",
       "subject_id": 15,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 178,
       "group_id": 202,
       "student_email": "korol.m@student.edu",
       "subject_id": 17,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 179,
       "group_id": 202,
       "student_email": "chumak.n@student.edu",
       "subject_id": 4,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 180,
       "group_id": 202,
       "student_email": "chumak.n@student.edu",
       "subject_id": 5,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 181,
       "group_id": 202,
       "student_email": "chumak.n@student.edu",
       "subject_id": 7,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 182,
       "group_id": 202,
       "student_email": "chumak.n@student.edu",
       "subject_id": 17,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 183,
       "group_id": 202,
       "student_email": "solovey.y@student.edu",
       "subject_id": 4,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 184,
       "group_id": 202,
       "student_email": "solovey.y@student.edu",
       "subject_id": 7,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 185,
       "group_id": 202,
       "student_email": "solovey.y@student.edu",
       "subject_id": 10,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 186,
       "group_id": 202,
       "student_email": "solovey.y@student.edu",
       "subject_id": 15,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 187,
       "group_id": 202,
       "student_email": "solovey.y@student.edu",
       "subject_id": 17,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 188,
       "group_id": 202,
       "student_email": "melnychenko.v@student.edu",
       "subject_id": 4,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 189,
       "group_id": 202,
       "student_email": "melnychenko.v@student.edu",
       "subject_id": 5,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 190,
       "group_id": 202,
       "student_email": "melnychenko.v@student.edu",
       "subject_id": 10,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 191,
       "group_id": 202,
       "student_email": "melnychenko.v@student.edu",
       "subject_id": 15,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 192,
       "group_id": 202,
       "student_email": "onyshchenko.i@student.edu",
       "subject_id": 5,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 193,
       "group_id": 202,
       "student_email": "onyshchenko.i@student.edu",
       "subject_id": 7,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 194,
       "group_id": 202,
       "student_email": "onyshchenko.i@student.edu",
       "subject_id": 10,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 195,
       "group_id": 202,
       "student_email": "onyshchenko.i@student.edu",
       "subject_id": 15,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 196,
       "group_id": 202,
       "student_email": "onyshchenko.i@student.edu",
       "subject_id": 17,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 197,
       "group_id": 202,
       "student_email": "danyliuk.t@student.edu",
       "subject_id": 4,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 198,
       "group_id": 202,
       "student_email": "danyliuk.t@student.edu",
       "subject_id": 7,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 199,
       "group_id": 202,
       "student_email": "danyliuk.t@student.edu",
       "subject_id": 10,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 200,
       "group_id": 202,
       "student_email": "danyliuk.t@student.edu",
       "subject_id": 17,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 201,
       "group_id": 202,
       "student_email": "zhuk.o@student.edu",
       "subject_id": 4,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 202,
       "group_id": 202,
       "student_email": "zhuk.o@student.edu",
       "subject_id": 5,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 203,
       "group_id": 202,
       "student_email": "zhuk.o@student.edu",
       "subject_id": 7,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 204,
       "group_id": 202,
       "student_email": "zhuk.o@student.edu",
       "subject_id": 15,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 205,
       "group_id": 202,
       "student_email": "zhuk.o@student.edu",
       "subject_id": 17,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 206,
       "group_id": 202,
       "student_email": "klymenko.y@student.edu",
       "subject_id": 4,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 207,
       "group_id": 202,
       "student_email": "klymenko.y@student.edu",
       "subject_id": 5,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 208,
       "group_id": 202,
       "student_email": "klymenko.y@student.edu",
       "subject_id": 10,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 209,
       "group_id": 202,
       "student_email": "klymenko.y@student.edu",
       "subject_id": 15,
-      "value": 2.0
+      "value": 2
     },
-
     {
       "id": 210,
       "group_id": 202,
       "student_email": "voitenko.b@student.edu",
       "subject_id": 4,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 211,
       "group_id": 202,
       "student_email": "voitenko.b@student.edu",
       "subject_id": 5,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 212,
       "group_id": 202,
       "student_email": "voitenko.b@student.edu",
       "subject_id": 7,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 213,
       "group_id": 202,
       "student_email": "voitenko.b@student.edu",
       "subject_id": 10,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 214,
       "group_id": 202,
       "student_email": "samoylov.e@student.edu",
       "subject_id": 4,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 215,
       "group_id": 202,
       "student_email": "samoylov.e@student.edu",
       "subject_id": 5,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 216,
       "group_id": 202,
       "student_email": "samoylov.e@student.edu",
       "subject_id": 15,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 217,
       "group_id": 202,
       "student_email": "samoylov.e@student.edu",
       "subject_id": 17,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 218,
       "group_id": 301,
       "student_email": "doroshenko.r@student.edu",
       "subject_id": 12,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 219,
       "group_id": 301,
       "student_email": "doroshenko.r@student.edu",
       "subject_id": 13,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 220,
       "group_id": 301,
       "student_email": "doroshenko.r@student.edu",
       "subject_id": 14,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 221,
       "group_id": 301,
       "student_email": "doroshenko.r@student.edu",
       "subject_id": 18,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 222,
       "group_id": 301,
       "student_email": "doroshenko.r@student.edu",
       "subject_id": 20,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 223,
       "group_id": 301,
       "student_email": "nesterenko.v@student.edu",
       "subject_id": 12,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 224,
       "group_id": 301,
       "student_email": "nesterenko.v@student.edu",
       "subject_id": 13,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 225,
       "group_id": 301,
       "student_email": "nesterenko.v@student.edu",
       "subject_id": 15,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 226,
       "group_id": 301,
       "student_email": "nesterenko.v@student.edu",
       "subject_id": 20,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 227,
       "group_id": 301,
       "student_email": "vasylenko.i@student.edu",
       "subject_id": 12,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 228,
       "group_id": 301,
       "student_email": "vasylenko.i@student.edu",
       "subject_id": 14,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 229,
       "group_id": 301,
       "student_email": "vasylenko.i@student.edu",
       "subject_id": 18,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 230,
       "group_id": 301,
       "student_email": "vasylenko.i@student.edu",
       "subject_id": 20,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 231,
       "group_id": 301,
       "student_email": "horbunov.m@student.edu",
       "subject_id": 13,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 232,
       "group_id": 301,
       "student_email": "horbunov.m@student.edu",
       "subject_id": 14,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 233,
       "group_id": 301,
       "student_email": "horbunov.m@student.edu",
       "subject_id": 15,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 234,
       "group_id": 301,
       "student_email": "horbunov.m@student.edu",
       "subject_id": 18,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 235,
       "group_id": 301,
       "student_email": "horbunov.m@student.edu",
       "subject_id": 20,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 236,
       "group_id": 301,
       "student_email": "lyashenko.y@student.edu",
       "subject_id": 12,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 237,
       "group_id": 301,
       "student_email": "lyashenko.y@student.edu",
       "subject_id": 13,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 238,
       "group_id": 301,
       "student_email": "lyashenko.y@student.edu",
       "subject_id": 14,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 239,
       "group_id": 301,
       "student_email": "lyashenko.y@student.edu",
       "subject_id": 20,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 240,
       "group_id": 301,
       "student_email": "serhienko.a@student.edu",
       "subject_id": 12,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 241,
       "group_id": 301,
       "student_email": "serhienko.a@student.edu",
       "subject_id": 13,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 242,
       "group_id": 301,
       "student_email": "serhienko.a@student.edu",
       "subject_id": 15,
-      "value": 2.0
+      "value": 2
     },
     {
       "id": 243,
       "group_id": 301,
       "student_email": "serhienko.a@student.edu",
       "subject_id": 18,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 244,
       "group_id": 301,
       "student_email": "fomenko.d@student.edu",
       "subject_id": 12,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 245,
       "group_id": 301,
       "student_email": "fomenko.d@student.edu",
       "subject_id": 13,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 246,
       "group_id": 301,
       "student_email": "fomenko.d@student.edu",
       "subject_id": 14,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 247,
       "group_id": 301,
       "student_email": "fomenko.d@student.edu",
       "subject_id": 15,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 248,
       "group_id": 301,
       "student_email": "fomenko.d@student.edu",
       "subject_id": 20,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 249,
       "group_id": 301,
       "student_email": "yatsenko.t@student.edu",
       "subject_id": 12,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 250,
       "group_id": 301,
       "student_email": "yatsenko.t@student.edu",
       "subject_id": 14,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 251,
       "group_id": 301,
       "student_email": "yatsenko.t@student.edu",
       "subject_id": 15,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 252,
       "group_id": 301,
       "student_email": "yatsenko.t@student.edu",
       "subject_id": 18,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 253,
       "group_id": 301,
       "student_email": "karpov.o@student.edu",
       "subject_id": 12,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 254,
       "group_id": 301,
       "student_email": "karpov.o@student.edu",
       "subject_id": 13,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 255,
       "group_id": 301,
       "student_email": "karpov.o@student.edu",
       "subject_id": 15,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 256,
       "group_id": 301,
       "student_email": "karpov.o@student.edu",
       "subject_id": 20,
-      "value": 4.0
+      "value": 4
     },
-
     {
       "id": 257,
       "group_id": 301,
       "student_email": "soroka.n@student.edu",
       "subject_id": 12,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 258,
       "group_id": 301,
       "student_email": "soroka.n@student.edu",
       "subject_id": 13,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 259,
       "group_id": 301,
       "student_email": "soroka.n@student.edu",
       "subject_id": 14,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 260,
       "group_id": 301,
       "student_email": "soroka.n@student.edu",
       "subject_id": 18,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 261,
       "group_id": 301,
       "student_email": "soroka.n@student.edu",
       "subject_id": 20,
-      "value": 5.0
+      "value": 5
     },
-
     {
       "id": 262,
       "group_id": 301,
       "student_email": "prykhodko.v@student.edu",
       "subject_id": 12,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 263,
       "group_id": 301,
       "student_email": "prykhodko.v@student.edu",
       "subject_id": 14,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 264,
       "group_id": 301,
       "student_email": "prykhodko.v@student.edu",
       "subject_id": 15,
-      "value": 3.0
+      "value": 3
     },
     {
       "id": 265,
       "group_id": 301,
       "student_email": "prykhodko.v@student.edu",
       "subject_id": 18,
-      "value": 3.0
+      "value": 3
     },
-
     {
       "id": 266,
       "group_id": 301,
       "student_email": "babych.k@student.edu",
       "subject_id": 12,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 267,
       "group_id": 301,
       "student_email": "babych.k@student.edu",
       "subject_id": 13,
-      "value": 4.0
+      "value": 4
     },
     {
       "id": 268,
       "group_id": 301,
       "student_email": "babych.k@student.edu",
       "subject_id": 14,
-      "value": 5.0
+      "value": 5
     },
     {
       "id": 269,
       "group_id": 301,
       "student_email": "babych.k@student.edu",
       "subject_id": 20,
-      "value": 5.0
+      "value": 5
     }
   ],
   "admins": [
     {
       "email": "admin",
+      "password": "123"
+    },
+    {
+      "email": "admin1",
       "password": "123"
     }
   ]

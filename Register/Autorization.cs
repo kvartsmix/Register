@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Register
 {
@@ -13,6 +15,7 @@ namespace Register
     {
         public static string filePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\db.json"));
         private DiaryData? data;
+
         public Autorization()
         {
             InitializeComponent();
@@ -54,12 +57,13 @@ namespace Register
 
             if (data == null)
             {
-                MessageBox.Show("База даних порожня.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("База даних порожня або не завантажена.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             User? foundUser = null;
-            string role = "";
+            string? role = null;
+
             foundUser = data.students?.FirstOrDefault(u =>
                 string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
 
@@ -81,18 +85,22 @@ namespace Register
                     foundUser = data.admins?.FirstOrDefault(u =>
                         string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
 
+                Main form = new Main();
                     if (foundUser != null)
                     {
                         role = "Адмін";
                     }
                 }
+                this.Hide();
+                form.ShowDialog();
+                Pass.Clear();
+                this.Show();
             }
             if (foundUser == null || role == null)
             {
                 MessageBox.Show("Невірний логін або пароль.", "Помилка авторизації", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
 
             Form form;
 
