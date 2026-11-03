@@ -34,6 +34,8 @@ namespace Register
             dgv.RowHeadersVisible = false;
             dgv.AllowUserToResizeColumns = false;
             dgv.AllowUserToResizeRows = false;
+
+            dgv.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         }
         public static void StyleComboBox(ComboBox cb)
         {
