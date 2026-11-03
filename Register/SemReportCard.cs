@@ -33,6 +33,8 @@ namespace Register
         {
             FormStyles.StyleComboBox(comboBoxGroup);
             FormStyles.StyleDataGridView(dataGridViewSemReport);
+            FormStyles.StyleMenuStripItem(зберегтиToolStripMenuItem, "\uE74E Зберегти");
+            FormStyles.StyleMenuStripItem(ExitToolStrip, "\uE7E8 Вийти");
 
             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
 
@@ -192,6 +194,7 @@ namespace Register
 
         private void ExitToolStrip_Click(object sender, EventArgs e)
         {
+
             this.Close();
         }
 

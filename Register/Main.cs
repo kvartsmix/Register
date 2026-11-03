@@ -49,6 +49,9 @@ namespace Register
             FormStyles.StyleDataGridView(dataGridView);
             FormStyles.StyleComboBox(comboBoxGroup);
             FormStyles.StyleComboBox(comboBoxSubject);
+            FormStyles.StyleMenuStripItem(зберегтиToolStripMenuItem, "\uE74E Зберегти");
+            FormStyles.StyleMenuStripItem(вихідToolStripMenuItem, "\uE7E8 Вийти");
+            FormStyles.StyleMenuStripItem(семестроваВідомістьToolStripMenuItem, "\uE8EF  Семестрова відомість");
 
             FormStyles.StyleDataGridView(dataGridView);
             FormStyles.StyleComboBox(comboBoxGroup);
