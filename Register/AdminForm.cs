@@ -25,11 +25,6 @@ namespace Register
 
             FormStyles.StyleComboBox(comboBoxTables);
             FormStyles.StyleDataGridView(dataGridViewReport);
-
-            FormStyles.StyleMenuStripItem(зберегтиToolStripMenuItem, "\uE74E Зберегти");
-            FormStyles.StyleMenuStripItem(вихідToolStripMenuItem, "\uE7E8 Вийти");
-
-
             dataGridViewReport.AllowUserToAddRows = true;
             FormBuilder.AddToComboBox(comboBoxTables, DataBase);
             comboBoxTables.SelectedIndex = 0;
@@ -71,11 +66,6 @@ namespace Register
         private void dataGridViewReport_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             hasChanged = true;
-        }
-
-        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

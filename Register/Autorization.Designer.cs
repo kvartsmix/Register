@@ -37,25 +37,24 @@
             // 
             // Login
             // 
-            Login.Location = new Point(47, 55);
+            Login.Location = new Point(91, 34);
             Login.Margin = new Padding(2);
             Login.Name = "Login";
-            Login.Size = new Size(141, 25);
+            Login.Size = new Size(106, 25);
             Login.TabIndex = 0;
             // 
             // Pass
             // 
-            Pass.Location = new Point(47, 112);
+            Pass.Location = new Point(91, 87);
             Pass.Margin = new Padding(2);
             Pass.Name = "Pass";
-            Pass.Size = new Size(141, 25);
+            Pass.Size = new Size(106, 25);
             Pass.TabIndex = 1;
-            Pass.UseSystemPasswordChar = true;
             // 
             // Enter
             // 
             Enter.BackColor = SystemColors.Control;
-            Enter.Location = new Point(76, 162);
+            Enter.Location = new Point(57, 137);
             Enter.Margin = new Padding(2);
             Enter.Name = "Enter";
             Enter.Size = new Size(78, 27);
@@ -67,7 +66,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(47, 34);
+            label1.Location = new Point(28, 40);
             label1.Name = "label1";
             label1.Size = new Size(41, 19);
             label1.TabIndex = 3;
@@ -76,7 +75,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(47, 91);
+            label2.Location = new Point(2, 93);
             label2.Name = "label2";
             label2.Size = new Size(67, 19);
             label2.TabIndex = 4;
@@ -87,7 +86,7 @@
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 248, 250);
-            ClientSize = new Size(239, 232);
+            ClientSize = new Size(208, 214);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(Enter);
@@ -99,12 +98,10 @@
             MaximizeBox = false;
             Name = "Autorization";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Вхід у систему";
+            Text = "Autorization";
             Load += Autorization_Load;
             ResumeLayout(false);
             PerformLayout();
-            Enter.MouseEnter += (s, e) => Enter.BackColor = Color.FromArgb(29, 78, 216);
-            Enter.MouseLeave += (s, e) => Enter.BackColor = Color.FromArgb(37, 99, 235);
         }
 
         #endregion

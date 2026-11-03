@@ -381,15 +381,11 @@ namespace Register
                         cell.Style.BackColor = Color.White;
                         continue;
                     }
-                    if (dgv.Columns[i].HeaderText.Trim() == "Середній бал" || dgv.Rows[j].Cells[0].Value.ToString().Trim().StartsWith("Середній"))
+
+                    if (double.TryParse(val, out double gradeValue))
                     {
-                        cell.Style.ForeColor = Color.Black;
-                        cell.Style.BackColor = Color.FromArgb(240, 243, 246);
-                        continue;
-                    }
-                    if (int.TryParse(val, out int grade))
-                    {
-                        switch (grade)
+                        int num = (int)Math.Round(gradeValue);
+                        switch (num)
                         {
                             case 2:
                                 cell.Style.ForeColor = Color.White;
@@ -413,7 +409,6 @@ namespace Register
                                 break;
                         }
                     }
-                    
                 }
             }
         }

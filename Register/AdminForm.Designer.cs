@@ -42,19 +42,21 @@
             // 
             dataGridViewReport.BackgroundColor = SystemColors.Control;
             dataGridViewReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewReport.Location = new Point(-1, 75);
+            dataGridViewReport.Location = new Point(-1, 100);
+            dataGridViewReport.Margin = new Padding(3, 4, 3, 4);
             dataGridViewReport.Name = "dataGridViewReport";
             dataGridViewReport.RowHeadersWidth = 51;
-            dataGridViewReport.Size = new Size(802, 376);
+            dataGridViewReport.Size = new Size(917, 501);
             dataGridViewReport.TabIndex = 0;
             dataGridViewReport.CellValueChanged += dataGridViewReport_CellValueChanged;
             // 
             // comboBoxTables
             // 
             comboBoxTables.FormattingEnabled = true;
-            comboBoxTables.Location = new Point(12, 36);
+            comboBoxTables.Location = new Point(14, 48);
+            comboBoxTables.Margin = new Padding(3, 4, 3, 4);
             comboBoxTables.Name = "comboBoxTables";
-            comboBoxTables.Size = new Size(121, 23);
+            comboBoxTables.Size = new Size(138, 28);
             comboBoxTables.TabIndex = 1;
             comboBoxTables.SelectedIndexChanged += comboBoxTables_SelectedIndexChanged;
             // 
@@ -64,7 +66,8 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.Padding = new Padding(7, 3, 0, 3);
+            menuStrip1.Size = new Size(914, 30);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -72,34 +75,34 @@
             // 
             файлToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { зберегтиToolStripMenuItem, вихідToolStripMenuItem });
             файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            файлToolStripMenuItem.Size = new Size(48, 20);
+            файлToolStripMenuItem.Size = new Size(59, 24);
             файлToolStripMenuItem.Text = "Файл";
             // 
             // зберегтиToolStripMenuItem
             // 
             зберегтиToolStripMenuItem.Name = "зберегтиToolStripMenuItem";
-            зберегтиToolStripMenuItem.Size = new Size(180, 22);
+            зберегтиToolStripMenuItem.Size = new Size(155, 26);
             зберегтиToolStripMenuItem.Text = "Зберегти";
             зберегтиToolStripMenuItem.Click += зберегтиToolStripMenuItem_Click;
             // 
             // вихідToolStripMenuItem
             // 
             вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
-            вихідToolStripMenuItem.Size = new Size(180, 22);
+            вихідToolStripMenuItem.Size = new Size(155, 26);
             вихідToolStripMenuItem.Text = "Вихід";
-            вихідToolStripMenuItem.Click += вихідToolStripMenuItem_Click;
             // 
             // AdminForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 600);
             Controls.Add(comboBoxTables);
             Controls.Add(dataGridViewReport);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "AdminForm";
-            Text = "Форма адмінів";
+            Text = "AdminForm";
             FormClosed += AdminForm_FormClosed;
             Load += AdminForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewReport).EndInit();
