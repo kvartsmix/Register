@@ -53,8 +53,6 @@ namespace Register
                 return;
             }
 
-            
-
             if (data == null)
             {
                 MessageBox.Show("База даних порожня або не завантажена.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -85,16 +83,11 @@ namespace Register
                     foundUser = data.admins?.FirstOrDefault(u =>
                         string.Equals(u.Email, inputLogin, StringComparison.OrdinalIgnoreCase) && u.Password == inputPass);
 
-                Main form = new Main();
                     if (foundUser != null)
                     {
                         role = "Адмін";
                     }
                 }
-                this.Hide();
-                form.ShowDialog();
-                Pass.Clear();
-                this.Show();
             }
             if (foundUser == null || role == null)
             {
@@ -135,30 +128,5 @@ namespace Register
         {
             Autor();
         }
-    }
-
-    public class User
-    {
-        [JsonPropertyName("first_name")]
-        public string? FirstName { get; set; }
-
-        [JsonPropertyName("last_name")]
-        public string? LastName { get; set; }
-
-        [JsonPropertyName("email")]
-        public string? Email { get; set; }
-
-        [JsonPropertyName("password")]
-        public string? Password { get; set; }
-
-        [JsonPropertyName("group_id")]
-        public int? GroupId { get; set; }
-    }
-
-    public class DiaryData
-    {
-        public List<User> students { get; set; } = new();
-        public List<User> teachers { get; set; } = new();
-        public List<User> admins { get; set; } = new();
     }
 }

@@ -179,8 +179,6 @@
         private ComboBox comboBoxSubject;
         private ComboBox comboBoxGroup;
         private DataGridView dataGridViewMain;
-        private ComboBox comboBoxSubject;
-        private ComboBox comboBoxGroup;
         private DataGridView dataGridView;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem додатковоToolStripMenuItem;

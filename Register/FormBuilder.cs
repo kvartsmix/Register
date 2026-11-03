@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -177,7 +174,18 @@ namespace Register
 
         public static void SetGroupComboBox(ComboBox cb, BindingList<Group> groups)
         {
+            cb.DataSource = null;
+            cb.DisplayMember = "Id";
+            cb.ValueMember = "Id";
+            cb.DataSource = groups;
+        }
 
+        public static void SetSubjectComboBox(ComboBox cb, BindingList<Subject> subjects)
+        {
+            cb.DataSource = null;
+            cb.DisplayMember = "Name";
+            cb.ValueMember = "Id";
+            cb.DataSource = subjects;
         }
 
         public static (bool IsValid, Subject? Subject, Group? Group) AreComboBoxesSelected(ComboBox cbSubject, ComboBox cbGroup, RegisterDB db)
@@ -364,7 +372,8 @@ namespace Register
                 FormatDataGridView(dgv);
             }
         }
-        void FormatDataGridView(DataGridView dgv)
+
+        public static void FormatDataGridView(DataGridView dgv)
         {
             for (int j = 0; j < dgv.Rows.Count; j++)
             {
@@ -381,15 +390,11 @@ namespace Register
                         cell.Style.BackColor = Color.White;
                         continue;
                     }
-                    if (dgv.Columns[i].HeaderText.Trim() == "Середній бал" || dgv.Rows[j].Cells[0].Value.ToString().Trim().StartsWith("Середній"))
+
+                    if (double.TryParse(val, out double gradeValue))
                     {
-                        cell.Style.ForeColor = Color.Black;
-                        cell.Style.BackColor = Color.FromArgb(240, 243, 246);
-                        continue;
-                    }
-                    if (int.TryParse(val, out int grade))
-                    {
-                        switch (grade)
+                        int num = (int)Math.Round(gradeValue);
+                        switch (num)
                         {
                             case 2:
                                 cell.Style.ForeColor = Color.White;
@@ -413,7 +418,6 @@ namespace Register
                                 break;
                         }
                     }
-                    
                 }
             }
         }
@@ -422,7 +426,10 @@ namespace Register
         {
             var dt = new DataTable();
 
-            dt.Columns.Add("Прізвище, ім'я студента", typeof(string));
+            // 1. Допоміжна колонка: 0 - студенти, 1 - підсумок
+            dt.Columns.Add("RowType", typeof(int));
+
+            dt.Columns.Add("ПIБ студента", typeof(string));
 
             var subjects = (groupId.HasValue
                 ? db.GroupSubjects.Where(gs => gs.GroupId == groupId.Value).Select(gs => gs.Subject).Where(s => s != null)
@@ -451,7 +458,8 @@ namespace Register
             foreach (var student in students)
             {
                 var row = dt.NewRow();
-                row["Прізвище, ім'я студента"] = $"{student.LastName} {student.FirstName}".Trim();
+                row["RowType"] = 0; // Звичайний студент
+                row["ПIБ студента"] = $"{student.LastName} {student.FirstName}".Trim();
 
                 var studentValues = new List<double>();
 
@@ -459,10 +467,7 @@ namespace Register
                 {
                     if (subject == null) continue;
 
-                    var grade = db.Grades.FirstOrDefault(g =>
-    g.GroupId == student.GroupId &&
-    g.SubjectId == subject.Id &&
-    string.Equals(g.StudentEmail, student.Email, StringComparison.OrdinalIgnoreCase));
+                    var grade = db.Grades.FirstOrDefault(g => g.GroupId == student.GroupId && g.SubjectId == subject.Id && string.Equals(g.StudentEmail, student.Email, StringComparison.OrdinalIgnoreCase));
                     if (grade != null && grade.Value > 0)
                     {
                         row[subject.Name] = grade.Value.ToString(CultureInfo.CurrentCulture);
@@ -482,7 +487,8 @@ namespace Register
             }
 
             var bottomSummaryRow = dt.NewRow();
-            bottomSummaryRow["Прізвище, ім'я студента"] = "Середній бал";
+            bottomSummaryRow["RowType"] = 1; // Завжди внизу
+            bottomSummaryRow["ПIБ студента"] = "Середній бал";
             dt.Rows.Add(bottomSummaryRow);
 
             RecalculateBottomAverages(dt, subjects);
@@ -491,8 +497,12 @@ namespace Register
             dataGrid.AutoGenerateColumns = true;
             dataGrid.DataSource = dt;
 
-            if (dataGrid.Columns["Прізвище, ім'я студента"] != null)
-                dataGrid.Columns["Прізвище, ім'я студента"].ReadOnly = true;
+            // Ховаємо технічну колонку
+            if (dataGrid.Columns["RowType"] != null)
+                dataGrid.Columns["RowType"].Visible = false;
+
+            if (dataGrid.Columns["ПIБ студента"] != null)
+                dataGrid.Columns["ПIБ студента"].ReadOnly = true;
 
             if (dataGrid.Columns["Середній бал"] != null)
                 dataGrid.Columns["Середній бал"].ReadOnly = true;
@@ -501,7 +511,6 @@ namespace Register
             if (lastRowIdx >= 0)
                 dataGrid.Rows[lastRowIdx].ReadOnly = true;
         }
-
         private static void RecalculateBottomAverages(DataTable dt, List<Subject?> subjects)
         {
             if (dt.Rows.Count <= 1) return;
@@ -545,48 +554,39 @@ namespace Register
                 }
             }
         }
-        public static void DataGridView_CellValidating1(object sender, DataGridViewCellValidatingEventArgs e, DataGridView dgv, string role)
+        public static void DataGridView_CellValidating(object? sender, DataGridViewCellValidatingEventArgs e, DataGridView dgv, string role)
         {
-            if (role == "Студент") return;
+            // Студентам валідація не потрібна
+            if (role == "Студент" || e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
-            int avgColIndex = dgv.Columns.Count - 1;
+            // Ігноруємо останній рядок (підсумковий рядок "Середній бал")
+            if (e.RowIndex == dgv.Rows.Count - 1) return;
 
-            if (e.ColumnIndex > 0 && e.ColumnIndex < avgColIndex && e.RowIndex >= 0)
+            var targetColumn = dgv.Columns[e.ColumnIndex];
+            string colName = targetColumn.DataPropertyName ?? targetColumn.Name;
+
+            // Пропускаємо технічні колонки, ПІБ та середній бал
+            if (colName == "RowType" || colName == "ПIБ студента" || colName == "Середній бал") return;
+
+            // Перевіряємо, чи ця колонка взагалі призначена для оцінок:
+            // 1) Спеціальні колонки за іменем (для звичайних списків)
+            bool isNamedGradeCol = colName == "GradeValue" || colName == "Grade" || colName == "Value";
+            // 2) Або діапазон між першою колонкою (ПІБ) та останньою (Середній бал) у семестровій відомості
+            bool isReportGradeCol = e.ColumnIndex > 0 && e.ColumnIndex < dgv.Columns.Count - 1;
+
+            if (!isNamedGradeCol && !isReportGradeCol) return;
+
+            string input = e.FormattedValue?.ToString()?.Trim() ?? string.Empty;
+
+            // Порожнє значення дозволено (видалення оцінки)
+            if (string.IsNullOrEmpty(input)) return;
+
+            // Перевірка діапазону від 2 до 5
+            if (!double.TryParse(input, out double grade) || grade < 2.0 || grade > 5.0)
             {
-                string input = e.FormattedValue?.ToString()?.Trim() ?? string.Empty;
-
-                if (string.IsNullOrEmpty(input))
-                {
-                    return;
-                }
-
-                if (!int.TryParse(input, out int grade) || grade < 2 || grade > 5)
-                {
-                    e.Cancel = true;
-                    MessageBox.Show("Оцінка повинна бути числом від 2 до 5!", "Помилка введення", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                MessageBox.Show("Оцінка повинна бути числом від 2 до 5!", "Помилка введення", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dgv.CancelEdit();
             }
-        }
-        public static bool DataGridView_CellValidating(object? sender, DataGridViewCellValidatingEventArgs e, DataGridView dataGridView, string role)
-        {
-            if (e.RowIndex == dataGridView.Rows.Count - 1)
-                return false;
-
-            var gradeCol = dataGridView.Columns["GradeValue"] ?? dataGridView.Columns["Grade"] ?? dataGridView.Columns["Value"];
-            if (gradeCol != null && e.ColumnIndex == gradeCol.Index && role == "Викладач")
-            {
-                string input = e.FormattedValue?.ToString()?.Trim() ?? "";
-
-                if (string.IsNullOrEmpty(input))
-                    return false;
-
-                if (!double.TryParse(input, out double grade) || grade < 2.0 || grade > 5.0)
-                {
-                    MessageBox.Show("Оцінка повинна бути числом від 2 до 5!", "Некоректна оцінка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    e.Cancel = true;
-                }
-            }
-            return true;
         }
     }
 }

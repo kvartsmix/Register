@@ -33,9 +33,10 @@ namespace Register
         public Main(string role, string email) : this()
         {
             this.role = role;
+            this.email = email;
         }
 
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void Main_Load(object sender, EventArgs e)
         {
 
             DataBase = new RegisterDB(filepath);
@@ -49,9 +50,6 @@ namespace Register
             FormStyles.StyleDataGridView(dataGridView);
             FormStyles.StyleComboBox(comboBoxGroup);
             FormStyles.StyleComboBox(comboBoxSubject);
-            FormStyles.StyleMenuStripItem(зберегтиToolStripMenuItem, "\uE74E Зберегти");
-            FormStyles.StyleMenuStripItem(вихідToolStripMenuItem, "\uE7E8 Вийти");
-            FormStyles.StyleMenuStripItem(семестроваВідомістьToolStripMenuItem, "\uE8EF  Семестрова відомість");
 
             FormStyles.StyleDataGridView(dataGridView);
             FormStyles.StyleComboBox(comboBoxGroup);
@@ -61,8 +59,6 @@ namespace Register
 
             comboBoxSubject.SelectionChangeCommitted += (s, ev) => RefreshGrid();
             comboBoxGroup.SelectionChangeCommitted += (s, ev) => RefreshGrid();
-
-            dataGridView.CellValidating += (s, ev) => FormBuilder.DataGridView_CellValidating(s, ev, dataGridView, role);
 
             dataGridView.CellEndEdit += (s, ev) =>
             {
@@ -95,13 +91,6 @@ namespace Register
             {
                 FormBuilder.PopulateGrid(dataGridView, DataBase, comboBoxSubject, comboBoxGroup, role, email);
             }
-        }
-
-
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-             DataBase = new RegisterDB(filepath);
-             dataGridView.DataSource = DataBase.Students;
         }
 
         private void семестроваВідомістьToolStripMenuItem_Click(object sender, EventArgs e)

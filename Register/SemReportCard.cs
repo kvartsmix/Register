@@ -14,6 +14,10 @@ namespace Register
         private string role;
         public RegisterDB DataBase;
 
+        // Поля для запам'ятовування стану сортування
+        private ListSortDirection lastSortDirection = ListSortDirection.Ascending;
+        private string lastSortedColumn = "";
+
         public SemReportCard()
         {
             InitializeComponent();
@@ -33,8 +37,6 @@ namespace Register
         {
             FormStyles.StyleComboBox(comboBoxGroup);
             FormStyles.StyleDataGridView(dataGridViewSemReport);
-            FormStyles.StyleMenuStripItem(зберегтиToolStripMenuItem, "\uE74E Зберегти");
-            FormStyles.StyleMenuStripItem(ExitToolStrip, "\uE7E8 Вийти");
 
             FormBuilder.SetGroupComboBox(comboBoxGroup, DataBase.Groups);
 
@@ -56,6 +58,9 @@ namespace Register
             UpdateReportGrid();
 
             comboBoxGroup.SelectionChangeCommitted += ComboBoxGroup_SelectionChangeCommitted;
+
+            // Відключаємо автосортування DataGridView, щоб воно не ламало закріплення останнього рядка
+            dataGridViewSemReport.ColumnHeaderMouseClick += DataGridViewSemReport_ColumnHeaderMouseClick;
         }
 
         private void ComboBoxGroup_SelectionChangeCommitted(object? sender, EventArgs e)
@@ -86,6 +91,12 @@ namespace Register
             FormBuilder.SetReportDB(dataGridViewSemReport, DataBase, groupID > 0 ? groupID : null);
             FormBuilder.FormatDataGridView(dataGridViewSemReport);
 
+            // Вимикаємо стандартний режим сортування колонок, оскільки обробляємо його вручну
+            foreach (DataGridViewColumn col in dataGridViewSemReport.Columns)
+            {
+                col.SortMode = DataGridViewColumnSortMode.Programmatic;
+            }
+
             if (role == "Студент")
             {
                 dataGridViewSemReport.ReadOnly = true;
@@ -93,9 +104,64 @@ namespace Register
             hasChanged = false;
         }
 
+        private void DataGridViewSemReport_ColumnHeaderMouseClick(object? sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex < 0) return;
+
+            var column = dataGridViewSemReport.Columns[e.ColumnIndex];
+            string colPropName = column.DataPropertyName;
+
+            // Не сортуємо за технічною колонкою
+            if (string.IsNullOrEmpty(colPropName) || colPropName == "RowType") return;
+
+            if (dataGridViewSemReport.DataSource is DataTable dt)
+            {
+                // Перемикаємо напрямок ASC/DESC
+                if (lastSortedColumn == colPropName)
+                {
+                    lastSortDirection = (lastSortDirection == ListSortDirection.Ascending)
+                        ? ListSortDirection.Descending
+                        : ListSortDirection.Ascending;
+                }
+                else
+                {
+                    lastSortDirection = ListSortDirection.Ascending;
+                    lastSortedColumn = colPropName;
+                }
+
+                string direction = lastSortDirection == ListSortDirection.Ascending ? "ASC" : "DESC";
+
+                // Сортуємо так, щоб RowType = 1 ("Середній бал") завжди лишався знизу
+                if (dt.Columns.Contains("RowType"))
+                {
+                    dt.DefaultView.Sort = $"[RowType] ASC, [{colPropName}] {direction}";
+                }
+                else
+                {
+                    dt.DefaultView.Sort = $"[{colPropName}] {direction}";
+                }
+
+                // Візуальна стрілочка сортування
+                foreach (DataGridViewColumn col in dataGridViewSemReport.Columns)
+                    col.HeaderCell.SortGlyphDirection = SortOrder.None;
+
+                column.HeaderCell.SortGlyphDirection = lastSortDirection == ListSortDirection.Ascending
+                    ? SortOrder.Ascending
+                    : SortOrder.Descending;
+
+                // Перефарбовуємо таблицю після сортування
+                FormBuilder.FormatDataGridView(dataGridViewSemReport);
+            }
+        }
+
         private void dataGridViewSemReport_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            // Перевіряємо, чи це не рядок "Середній бал"
+            var row = dataGridViewSemReport.Rows[e.RowIndex];
+            string studentFullName = row.Cells["ПIБ студента"]?.Value?.ToString() ?? row.Cells[0].Value?.ToString() ?? "";
+            if (studentFullName == "Середній бал") return;
 
             int avgColIndex = dataGridViewSemReport.Columns.Count - 1;
 
@@ -103,8 +169,6 @@ namespace Register
             {
                 hasChanged = true;
 
-                var row = dataGridViewSemReport.Rows[e.RowIndex];
-                string studentFullName = row.Cells[0].Value?.ToString() ?? "";
                 string subjectName = dataGridViewSemReport.Columns[e.ColumnIndex].HeaderText;
                 string cellVal = row.Cells[e.ColumnIndex].Value?.ToString()?.Trim() ?? "";
                 var student = DataBase.Students.FirstOrDefault(s => $"{s.LastName} {s.FirstName}".Trim() == studentFullName && s.GroupId == groupID);
@@ -194,7 +258,6 @@ namespace Register
 
         private void ExitToolStrip_Click(object sender, EventArgs e)
         {
-
             this.Close();
         }
 
@@ -204,6 +267,7 @@ namespace Register
             DataBase.SaveToFile(Main.filepath);
             hasChanged = false;
         }
+
         private void ApplyCellColor(DataGridViewCell cell)
         {
             if (cell.Value != null && int.TryParse(cell.Value.ToString(), out int val))
@@ -211,7 +275,7 @@ namespace Register
                 switch (val)
                 {
                     case 5:
-                        cell.Style.ForeColor = Color.Red; 
+                        cell.Style.ForeColor = Color.Red;
                         break;
                     case 4:
                         cell.Style.ForeColor = Color.ForestGreen;
@@ -235,9 +299,26 @@ namespace Register
                 cell.Style.BackColor = Color.White;
             }
         }
+
         private void dataGridViewSemReport_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            FormBuilder.DataGridView_CellValidating1(sender, e, dataGridViewSemReport, role);
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            var grid = dataGridViewSemReport;
+            string colName = grid.Columns[e.ColumnIndex].DataPropertyName;
+
+            // 1. Пропускаємо службову колонку RowType
+            if (colName == "RowType") return;
+
+            // 2. Пропускаємо стовпчики ПІБ та Середній бал (їх не валідуємо як оцінки)
+            if (colName == "ПIБ студента" || colName == "Середній бал") return;
+
+            // 3. Пропускаємо рядок підсумків "Середній бал" (не спамить помилкою на нижній рядок)
+            var row = grid.Rows[e.RowIndex];
+            string studentName = row.Cells["ПIБ студента"]?.Value?.ToString() ?? "";
+            if (studentName == "Середній бал") return;
+
+            FormBuilder.DataGridView_CellValidating(sender, e, dataGridViewSemReport, role);
         }
     }
 }
