@@ -7,7 +7,6 @@
       "password": "1"
     },
     {
-
       "email": "shevchenko.o@college.edu",
       "first_name": "Олександр",
       "last_name": "Шевченко",
@@ -2723,6 +2722,20 @@
       "student_email": "babych.k@student.edu",
       "subject_id": 20,
       "value": 5
+    },
+    {
+      "id": 270,
+      "group_id": 101,
+      "student_email": "vlasenko.m@student.edu",
+      "subject_id": 1,
+      "value": 2
+    },
+    {
+      "id": 271,
+      "group_id": 101,
+      "student_email": "vlasenko.m@student.edu",
+      "subject_id": 6,
+      "value": 3
     }
   ],
   "admins": [

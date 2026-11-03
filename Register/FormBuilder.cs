@@ -588,7 +588,7 @@ namespace Register
 
             // Перевірка діапазону від 2 до 5
             if (!double.TryParse(input, out double grade) || grade < 2.0 || grade > 5.0)
-            {
+            {   
                 MessageBox.Show("Оцінка повинна бути числом від 2 до 5!", "Помилка введення", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 dgv.CancelEdit();
             }
