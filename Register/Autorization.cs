@@ -53,6 +53,8 @@ namespace Register
                 return;
             }
 
+            
+
             if (data == null)
             {
                 MessageBox.Show("База даних порожня або не завантажена.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
