@@ -1,10 +1,10 @@
 {
   "teachers": [
     {
-      "email": "student",
+      "email": "teacher",
       "first_name": "student",
       "last_name": "test",
-      "password": "1"
+      "password": "123"
     },
     {
       "email": "shevchenko.o@college.edu",
@@ -210,6 +210,13 @@
     }
   ],
   "students": [
+    {
+      "email": "student",
+      "last_name": "stu",
+      "first_name": "dent",
+      "group_id": 101,
+      "password": "123"
+    },
     {
       "email": "student@student.edu",
       "last_name": "Ткачук",
@@ -929,7 +936,7 @@
       "group_id": 101,
       "student_email": "lysenko.m@student.edu",
       "subject_id": 6,
-      "value": 3
+      "value": 2
     },
     {
       "id": 14,
@@ -1097,7 +1104,7 @@
       "group_id": 101,
       "student_email": "zinchenko.k@student.edu",
       "subject_id": 6,
-      "value": 3
+      "value": 2
     },
     {
       "id": 38,
@@ -1188,7 +1195,7 @@
       "group_id": 101,
       "student_email": "kozak.v@student.edu",
       "subject_id": 6,
-      "value": 4
+      "value": 2
     },
     {
       "id": 51,
@@ -1230,7 +1237,7 @@
       "group_id": 101,
       "student_email": "melnychenko.a@student.edu",
       "subject_id": 6,
-      "value": 5
+      "value": 2
     },
     {
       "id": 57,
@@ -2736,6 +2743,55 @@
       "student_email": "vlasenko.m@student.edu",
       "subject_id": 6,
       "value": 3
+    },
+    {
+      "id": 272,
+      "group_id": 101,
+      "student_email": "hrytsenko.o@student.edu",
+      "subject_id": 6,
+      "value": 2
+    },
+    {
+      "id": 273,
+      "group_id": 101,
+      "student_email": "havryliuk.a@student.edu",
+      "subject_id": 6,
+      "value": 2
+    },
+    {
+      "id": 274,
+      "group_id": 101,
+      "student_email": "dovhan.y@student.edu",
+      "subject_id": 6,
+      "value": 2
+    },
+    {
+      "id": 275,
+      "group_id": 101,
+      "student_email": "kravets.o@student.edu",
+      "subject_id": 6,
+      "value": 2
+    },
+    {
+      "id": 276,
+      "group_id": 101,
+      "student_email": "lytvyn.s@student.edu",
+      "subject_id": 6,
+      "value": 2
+    },
+    {
+      "id": 277,
+      "group_id": 101,
+      "student_email": "matviychuk.t@student.edu",
+      "subject_id": 6,
+      "value": 2
+    },
+    {
+      "id": 278,
+      "group_id": 101,
+      "student_email": "ostapenko.d@student.edu",
+      "subject_id": 6,
+      "value": 2
     }
   ],
   "admins": [

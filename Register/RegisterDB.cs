@@ -229,14 +229,14 @@ public class RegisterDB
         MessageBox.Show($"Дані успішно збережено", "Збереження даних", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 
-    public void LoadFromFile(string filePath)
+    public void LoadFromFile(string FP)
     {
-        FilePath = filePath;
+        FilePath = FP;
 
-        if (!File.Exists(filePath))
+        if (!File.Exists(FP))
             return;
 
-        string json = File.ReadAllText(filePath);
+        string json = File.ReadAllText(FP);
         var loaded = JsonSerializer.Deserialize<RegisterDB>(json, JsonOptions);
 
         if (loaded != null)
