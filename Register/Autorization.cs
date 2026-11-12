@@ -35,6 +35,7 @@ namespace Register
                 MessageBox.Show($"Помилка читання JSON: {ex.Message}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            Enter.BackColor = Color.Red;
         }
         public void Autor()
         {
