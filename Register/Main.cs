@@ -35,7 +35,7 @@ namespace Register
             this.role = role;
             this.email = email;
         }
-
+        ///dsadasdds
         private void Main_Load(object sender, EventArgs e)
         {
 
